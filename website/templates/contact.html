@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block title %}Contact{% endblock %}
+
+{% block content %}
+
+<div class='content'>
+<h1>Contact Me</h1>
+
+<p> Hi friend! You can reach me via the ways listed below. Whether you want to contact me for a specific purpose or simply to send a message, you are more than welcome to do so. I try to respond as soon as possible, and I will appreciate hearing from you.</p>
+
+<p> Fill in the required fields and send me an email: </p>
+
+	<form method='Post'>
+		<div class = "form-group">
+			<label for="email" class='contact'>Email</label>
+		</div>
+		<div class = "form-group">
+				<input 
+					type="email"
+					class="contact"
+					id ="email"
+					name = "email"
+					placeholder = "Email" required
+				/>
+		</div>
+
+		<div class = "form-group">
+			<label for="subject" class='contact'>Subject</label>
+		</div>
+		<div class = "form-group">
+				<input 
+					type="subject"
+					class="contact"
+					id ="subject"
+					name = "subject"
+					placeholder="Subject of the email" required
+				/>
+		</div>
+
+		<div class = "form-group">
+			<label for="email_body" class='contact'></label>
+		</div>
+		<div class = "form-group">
+				<textarea 
+					type="email_body"
+					class="contact"
+					id ="email_body"
+					name = "email_body" 
+				></textarea>
+		</div>
+		<div class = "form-group">
+		<button type="submit" class="contact_button">Submit</button>
+		</div>
+	</form>
+
+<div>
+<p> Alternatively, contact me through LinkedIn: </p>
+
+<p>
+<a href = "https://www.linkedin.com/in/antony-evmorfopoulos/" target="_blank" class='contact_url'>linkedin.com/antony-evmorfopoulos</a>
+
+
+<a href = "https://www.linkedin.com/in/antony-evmorfopoulos/" target="_blank" class='contact_url'>
+	<img src='/static/link_pics/linkedin.png' class='contact_url'>
+</a></p>
+</div>
+</div>
+
+{% endblock %}

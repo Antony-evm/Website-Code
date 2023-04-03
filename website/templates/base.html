@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	
+ 	<head>
+ 		<meta charset="utf-8"/>
+	  	<link href="/static/notebook.css" rel="stylesheet">
+	    <link href="/static/colorfull.css" rel="stylesheet">
+ 		<link rel = 'stylesheet' href ='/static/styles.css'>
+ 		<meta name = "viewport" content="width=device-width,initial-scale=0.85"/>
+	   <title>{% block title %}Home{% endblock %}</title>
+
+
+ 	</head>
+
+ 	<body id="body">
+ 		<div class="navbar" id="mynavbar">
+	 		<div class="navbar_list_button" id = 'navbar_list_button' onclick="change_navbar()">
+ 				<div class="bar1" id = 'bar1'></div>
+  				<div class="bar2" id = 'bar2'></div>
+  				<div class="bar3" id = 'bar3'></div>
+			</div>
+		 	 <ul id='navbar_list'>
+				<li>
+					<a href="/" id='about' class = 'navbar_element'>About Me</a>
+				</li>
+				<li>
+					<a href='/topics' id='topics' class = 'navbar_element'>Topics</a>
+				</li>
+				<li>
+					<a href='/contact' id='contact' class = 'navbar_element'>Contact</a>
+				</li>
+			</ul>
+  		</div>
+  	
+
+        
+  		<div class = 'wrapper' id = 'wrapper' onclick='goToHome()'>
+  			<img src='/static/logo_pics/logo.png' class='wrapper_img'/>
+  		</div>
+ 		{% with messages = get_flashed_messages(with_categories=true) %} 
+  			{% if messages %} 
+	   			{% for category, message in messages %}
+					{% if category == 'success' %}
+						<div class="success" id='alert'>
+	  						{{ message }}
+	  						<button type="button" class="close" onClick='close_alert(this)'>
+							<span aria-hidden="true">&times;</span>
+	  						</button>
+						</div>
+					{% elif category == 'error' %}
+						<div class="error" id='alert'>
+	  						{{ message }}
+	  						<button type="button" class="close" onClick='close_alert(this)'>
+							<span aria-hidden="true">&times;</span>
+	  						</button>
+						</div>
+					{% else %}
+						<div class="warning" id='alert'>
+	  						{{ message }}
+	  						<button type="button" class="close" onClick='close_alert(this)'>
+							<span aria-hidden="true">&times;</span>
+	  						</button>
+						</div>
+					
+					{% endif %}
+				{% endfor %} 
+			{% endif %} 
+		{% endwith %}
+
+
+
+
+ 		{% block content%}
+
+ 		{% endblock %}
+
+
+
+
+
+<!-- scripts for redirecting  -->
+		<script src="https://code.jquery.com/jquery-3.5.1.js"
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+          crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	  	<script
+	      type="text/javascript"
+	      src="{{ url_for('static', filename='index.js') }}"
+	    ></script>
+
+		<div>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+		</div>
+ 	</body>
+</html>

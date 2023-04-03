@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block title %}Topics{% endblock %}
+
+{% block content %}
+<div class = 'content'>
+	<h1>Topics</h1>
+	<form method = 'Post' class='sort_search_form' id = 'topics_sort_search'>
+		
+		<input type='hidden' value = '-1' name = 'state_change_topics' id='state_change_topics'>
+		<input type='hidden' value = '{{state}}' name = 'state_topics' id='state_topics'>
+		
+		<input type = 'text' 
+		class = 'search_filter' 
+		value = '{{search}}'
+		id = 'search_filter_topics' 
+		name = 'search_filter'
+		placeholder = 'Search' autocomplete="off"
+		/>
+
+		
+		<button type='button' class='sort_button' id = 'sort_topics'>Sort</button>
+
+	</form>
+
+	
+	<div class ='container' id ='container'>
+		{%for topic in topics %}
+		<div class='column'>
+			
+			<div class='topic'>
+			<a href='#' class='topic' id = "cat_link" onClick='goTo("{{topic.slug}}")'>{{topic.topic}}</a>
+			</div>
+			<p class = 'description'>{{topic.description}}</p>
+			<div class='picture'>
+				<img class = 'picture' src='static/categories_pics/{{topic.img_src}}' 
+				onClick='goTo("{{topic.slug}}")'>
+			</div>
+
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

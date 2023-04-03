@@ -1,0 +1,102 @@
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;C://Users//anton//Desktop//Documents//website//website&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">helper_funcs.utils</span> <span class="kn">import</span> <span class="n">show_boxed_tensor_latex</span> <span class="k">as</span> <span class="n">show</span><span class="p">,</span><span class="n">print_matrix</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">print_matrix</span><span class="p">(</span><span class="s1">&#39;x&gt;y&#39;</span><span class="p">,</span><span class="n">x</span><span class="o">&gt;</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">print_matrix</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="n">y</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="c1"># changing the array to array of indices</span>
+<span class="n">print_matrix</span><span class="p">(</span><span class="s1">&#39;indices&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>c:\users\anton\appdata\local\programs\python\python39\lib\site-packages\sympy\matrices\repmatrix.py:98: SymPyDeprecationWarning: 
+
+non-Expr objects in a Matrix has been deprecated since SymPy 1.9. Use
+list of lists, TableForm or some other data structure instead. See
+https://github.com/sympy/sympy/issues/21497 for more info.
+
+  SymPyDeprecationWarning(
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_latex output_subarea ">
+$x&gt;y = \left[\begin{matrix}\text{False} &amp; \text{True} &amp; \text{True}\end{matrix}\right]$
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_latex output_subarea ">
+$z = \left[\begin{matrix}0 &amp; 1 &amp; 1\end{matrix}\right]$
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_latex output_subarea ">
+$indices = \left[\begin{matrix}1 &amp; 2\end{matrix}\right]$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
