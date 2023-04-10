@@ -1,0 +1,90 @@
+{% extends "base.html" %} 
+{% block title %}{{article.title}}{% endblock %}
+
+{% block content %}
+
+<div class = 'content'>
+	<h1>{{article.title}}</h1>
+
+	<h2> What is Recursion? </h2>
+
+	<p> Recursion is a programming technique that involves a function calling itself one or more times to solve a problem. Recursion is useful in solving problems that can be broken down into smaller sub-problems that are similar in nature to the original problem. The key is that each sub-problem must be a smaller version of the original problem, and it should be possible to use the same algorithm to solve each sub-problem. </p>
+
+	<p> At the heart of recursion is the idea of a "base case" and a "recursive case". The base case is the simplest possible version of the problem that the function can solve without calling itself. The recursive case is where the function calls itself to solve a smaller sub-problem. When the function encounters a recursive case, it calls itself with a smaller version of the original problem. The function then waits for the smaller version of the problem to be solved before continuing with the larger problem. This process continues until the function reaches the base case, at which point it can solve the problem without making any further recursive calls. </p>
+
+	<p> Let's break down the important components of recursion: </p>
+
+	<ul>
+		<li> Base case: A base case is the simplest form of a problem that a recursive function can solve. The base case is what stops the recursion from going on forever. A recursive function should always have a base case. </li>
+
+		<li> Recursive step: The recursive step is the part of the function that calls itself with a simpler version of the problem. The recursive step should make the problem smaller and closer to the base case. </li>
+
+		<li> Stack: When a function calls itself, the computer adds the new function call to a stack of function calls. Each function call has its own set of variables and parameters. When a function returns, the computer removes it from the stack and returns to the previous function call. This stack is called the "call stack". If the recursion goes too deep (too many function calls on the call stack), it can cause a "stack overflow" error. </li>
+
+		<li> Tail recursion: Tail recursion is a special kind of recursion where the recursive call is the last statement in the function. In tail recursion, the computer can optimize the function call by reusing the same stack frame instead of creating a new one. This can make tail-recursive functions more efficient than regular recursive functions. </li>
+
+	</ul>
+
+	<h2> Problems that use recursion </h2>
+
+	<p> Here are some examples of problems that can be solved using recursion:</p>
+	<ul>
+		<li> Computing factorials: The factorial of a number can be computed recursively by breaking down the problem into smaller sub-problems. </li>
+		<li> Traversing trees and graphs: Recursion is often used to traverse tree and graph structures, where each node in the tree or graph has child nodes that can be visited recursively. </li>
+		<li> Divide-and-conquer algorithms: Many divide-and-conquer algorithms, such as quicksort and merge sort, use recursion to break down the problem into smaller sub-problems and then combine the results to solve the original problem. </li>
+		<li> Recursive backtracking: Recursive backtracking is a technique used to solve problems where you need to explore all possible paths to find a solution. This can be done by recursively exploring each possible path until a solution is found. </li>
+		<li>Generating permutations and combinations: Recursion can be used to generate all possible permutations and combinations of a set of elements. </li>
+	</ul>
+
+	<p> These are just a few examples of problems that can be solved using recursion. In general, recursion is useful in any situation where you need to break down a problem into smaller sub-problems that can be solved using the same algorithm. </p>
+
+	<h2> Drawbacks of recursion </h2>
+
+	<p> While recursion can be a powerful tool for solving certain types of problems, it also has some drawbacks that you should be aware of:</p>
+	<ul> 
+		<li>Stack overflow: Each time a function calls itself recursively, a new stack frame is added to the call stack. If the recursion goes too deep, the call stack can become full, leading to a stack overflow error. This can be mitigated by optimizing the code and limiting the recursion depth, but it is still a risk that must be considered. </li>
+
+		<li> Performance overhead: Recursive functions generally have more overhead than non-recursive functions, due to the added cost of creating and managing multiple stack frames. This can lead to slower performance, particularly for large or complex problems.
+		</li>
+
+		<li> Debugging complexity: Debugging recursive code can be more complex than debugging non-recursive code, due to the potentially large number of nested function calls and the possibility of infinite recursion. Careful testing and debugging are necessary to ensure correct behavior. </li>
+
+		<li> Limited applicability: Recursion is not always the best solution for a given problem. Some problems may be better solved using iterative or other techniques. In addition, some programming languages may not support recursion or may have limited support, which can make it difficult or impossible to use in certain situations.
+		</li>
+
+		<li> Code complexity: Recursive code can be more difficult to understand and maintain than non-recursive code. This can make it harder to modify or extend the code in the future.
+		</li>
+
+	</ul>
+
+	<p> These drawbacks should not discourage you from using recursion when it is appropriate, but they should be taken into account when designing and implementing recursive algorithms. </p>
+
+	<h2> Python and Recursion - Theory </h2>
+
+	<p> When using recursion in Python, there are a few language specific features to consider. Here's how recursion works in Python: </p>
+
+	<ul>
+		<li> A recursive function is defined: To create a recursive function in Python, you simply define a function that calls itself.</li>
+		<li>The function is called: Once the recursive function is defined, it can be called just like any other function.</li>
+		<li>The call stack is used to manage function calls: When a function calls itself recursively, Python uses a call stack to manage the sequence of function calls. When a function calls itself recursively, a new frame is added to the top of the call stack for each recursive call. These frames are stacked on top of each other in a last-in, first-out (LIFO) order. In other words, when a recursive function reaches its base case and begins to return, the frames are popped off the call stack in reverse order, with the most recent frame (i.e., the one added last) being removed first. Each time a frame is removed from the call stack, the program returns to the state it was in before the function call was made. Each frame corresponds to a separate instance of the function, with its own set of parameters and local variables. </li>
+		<li> It's worth noting that the call stack in Python has a finite size, meaning that there is a limit to the number of function calls that can be made before the stack overflows. This can happen if a recursive function calls itself too many times, causing the call stack to run out of memory. To avoid stack overflow errors, it's important to ensure that recursive functions have a base case that terminates the recursion, and to avoid unnecessary recursion whenever possible. Python has a default recursion limit of 1000, meaning that recursive functions will fail with a RecursionError if the limit is exceeded. To increase the recursion limit, you can use the sys.setrecursionlimit() function. </li>
+
+		<li> Tail recursion optimization: Python does not support tail call optimization, which is a technique for optimizing tail-recursive functions to avoid adding new stack frames to the call stack. However, tail recursion can be manually optimized in some cases by using a loop instead of recursion. </li>
+	</ul>
+	</p> 
+
+
+
+	<h2> Python and Recursion in practice </h2>
+
+	<p> Let's solve some problems using recursion! </p>
+
+	<p>{% include "topics_templates/guides_templates/recursion_part_1/outputs/Recursion - Part 1.html" %}</p>
+
+	<p> Hopefully by now you have got a better understanding on recursion and can start thinking of how to use to solve problems on your own. In the next part, we will focus on more advanced recursion problems, such as traversing trees, backtracking & generating combinations/permutations. </p>
+
+
+</div>
+
+{% endblock %}
+
