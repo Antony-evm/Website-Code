@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block title %}{{article.title}}{% endblock %}
+
+{% block content %}
+
+<div class = 'content'>
+	<h1>{{article.title}}</h1>
+<div class = 'content'>
+
+
+	<p> In this part, we will try to solve a few recursion problems and try to explain the logic behind them. In each one, we will outline the process followed to solve the problem and hopefully this will aid you in approaching your recursion problems. </p>
+
+	
+
+	<p>{% include "topics_templates/guides_templates/recursion_part_2/outputs/Recursion - Part 2.html" %}</p>
+
+
+
+<h2> Problem Solving Advice</h2>
+
+	<p> Here is some advice for solving algorithmic problems and designing algorithms.
+		<ul>
+			<li>Make sure you really understand the problem. What is the input? The output? What’s the precise relationship between the two? Try to represent the problem instances as familiar structures, such as sequences or graphs. A direct, brute-force solution can sometimes help clarify exactly what the problem is. </li>
+			<li> Look for a reduction. Can you transform the input so it works as input for another problem that you can solve? Can you transform the resulting output so that you can use it? Can you reduce an instance if size n to an instance of size k < n and extend the recursive solution back to n? </li>
+		</ul>
+	</p>
+
+	<p> Currently, you should be capable of implementing the initial two recommendations while developing your algorithms. Although it might seem apparent, comprehending and expressing the problem's essence can significantly aid in identifying a resolution. It may be beneficial to analyze specific instances or reductions of the problem to stimulate creativity. Employing wishful thinking can also be helpful by reducing certain aspects of the problem, allowing you to concentrate on a single or a few elements at a time. </p>
+
+	<p> The second point, which is about searching for a reduction, has been extensively covered in this chapter, mainly concentrating on breaking down the problem into subproblems. This is a fundamental step when creating your own solutions. However, in most cases, you may come across an algorithm that almost matches your requirements. Try to identify patterns or characteristics of the problem that you're familiar with and rummage through your mental library for algorithms that might apply. Instead of constructing a novel algorithm to resolve the issue, consider developing one that can modify the instances to fit into an existing algorithm. </p>
+
+	<p> In conclusion, understanding how to construct algorithms is a valuable skill in today's technological era. By following the advice provided, such as gaining a deep comprehension of the problem's structure, searching for patterns and reductions, and breaking down the problem into subproblems, you can develop efficient and effective algorithms that solve complex problems. Remember to be persistent, creative, and patient while constructing your algorithms. With continued practice and dedication, you will become proficient in creating algorithms that can improve your problem-solving abilities and ultimately, enhance your technological expertise. </p>
+
+
+</div>
+
+{% endblock %}
+
