@@ -1,4 +1,4 @@
-#Intro
+# Intro
 Welcome to my portfolio website built with Flask! This website is designed to help people improve their Python skills. Using Flask, I've created a platform where users can access tutorials, code examples, and resources to enhance their Python & data science skills.
 The website is still in its infancy and I've spent a lot of time developing it from scratch as this is not my primary domain knowledge, but I wanted to learn how to do it.
 
