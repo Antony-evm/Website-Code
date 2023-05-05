@@ -1,0 +1,2467 @@
+
+<h3>Factorials</h3>
+<p>Computing the factorial of a number can be seen as a recursive problem. Basically, the factorial is the product of all of the numbers from 1 up to <em>n</em>.</p>
+
+
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">n</span>
+    <span class="k">elif</span> <span class="n">n</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">n</span><span class="o">*</span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">factorial</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+    <div class="prompt"></div>
+<div class="output_png output_subarea ">
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>120
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<h3>The Handshake Problem</h3>
+<p>The handshake puzzle is a classic mathematical problem that involves finding the total number of handshakes between finite numbers of people. Basically, if you have a room full of people, how many handshakes are needed for each person to have shaken everybody else's hand exactly once?</p>
+
+<ul>
+<li>Note: You can't shake hands with yourself &amp; if me and you shake hands then the pair of you &amp; me should not be counted again </li>
+</ul>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">handshake</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+ 
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">handshake</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+     </div>
+</div>
+</div>
+</div>
+
+
+<p>The mathematical formula for this problem is attributed to Gauss, whose insight was that a pair of sums can be calculated from the outside.
+The formula is the following:</p>
+<p><img src = '/static/categories_pics/guides/recursion_part_1/gauss.png' width='20%'/></p>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">handshake</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="k">assert</span> <span class="n">handshake</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">15</span><span class="o">*</span><span class="mi">14</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="k">assert</span> <span class="n">handshake</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">200</span><span class="o">*</span><span class="mi">199</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<h3>Binary Search</h3>
+<p>Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing in half the portion of the list that could contain the item, until you've narrowed down the possible locations to just one. The binary search algorithm works on the idea of neglecting half of the list on every iteration. It keeps on splitting the list until it finds the value it is looking for in a given list. A binary search algorithm is a quick upgrade to a simple linear search algorithm.</p>
+<ul>
+<li>Note: Binary search works in pre-sorted lists</li>
+</ul>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">generate_problem</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">,</span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">),</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">l</span> <span class="o">=</span> <span class="n">generate_problem</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">l</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+    <div class="prompt"></div>
+<div class="output_png output_subarea ">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[-64639,
+ -63262,
+ -61132,
+ -56974,
+ -56478,
+ -56447,
+ -49305,
+ -48669,
+ -46035,
+ -45820]</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">binary_search</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">high</span><span class="p">,</span><span class="n">target</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">low</span><span class="o">&lt;=</span><span class="n">high</span><span class="p">:</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">high</span><span class="o">+</span><span class="n">low</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
+        <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span><span class="o">&gt;</span><span class="n">target</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">binary_search</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span><span class="o">&lt;</span><span class="n">target</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">binary_search</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">high</span><span class="p">,</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mid</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="n">binary_search</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">56974</span><span class="p">),</span> <span class="n">binary_search</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">),</span><span class="o">-</span><span class="mi">66000</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+    <div class="prompt"></div>
+<div class="output_png output_subarea ">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>(3, -1)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<h3>Merge Sort</h3><p>The divide-and-conquer algorithm breaks down a big problem into smaller, more manageable pieces that look similar to the initial problem. It then solves these subproblems recursively and puts their solutions together to solve the original problem. Merge sort continuously cuts down a list into multiple sublists until each has only one item, then merges those sublists into a sorted list.</p>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">generate_problem</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">,</span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">),</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">m</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n1</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n2</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n1</span><span class="p">):</span>
+        <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span>
+ 
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n2</span><span class="p">):</span>
+        <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+ 
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">l</span>
+ 
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n1</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n1</span><span class="p">:</span>
+        <span class="n">arr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
+        <span class="n">arr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+<span class="k">def</span> <span class="nf">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">l</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
+        <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+        <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+        <span class="n">merge</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="n">generate_problem</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+    <div class="prompt"></div>
+<div class="output_png output_subarea ">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[-40983,
+ -36011,
+ -35181,
+ -32815,
+ 54392,
+ -4825,
+ -38031,
+ 6201,
+ 46137,
+ 15670,
+ 49383,
+ 40079,
+ -51886,
+ 13924,
+ -20112,
+ 50343,
+ 64857,
+ 64289,
+ -20506,
+ 46981,
+ -31319,
+ -64543,
+ -44687,
+ 21197,
+ 26270,
+ -45301,
+ -10652,
+ 22444,
+ 42004,
+ -64363,
+ -48237,
+ -20927,
+ -60167,
+ 60227,
+ 57197,
+ -53743,
+ 48999,
+ -52462,
+ 46328,
+ -41855,
+ -21726,
+ 42353,
+ 50985,
+ -65466,
+ -14709,
+ -63072,
+ -42278,
+ -9996,
+ -10673,
+ -48386,
+ -35714,
+ -37619,
+ 65169,
+ 11210,
+ -58325,
+ -54709,
+ 26027,
+ 23420,
+ -11842,
+ -56782,
+ -2695,
+ 23955,
+ -64241,
+ 56930,
+ -6916,
+ -44244,
+ -11090,
+ -12729,
+ -49653,
+ 63936,
+ -21680,
+ 61477,
+ 20647,
+ 53073,
+ -35254,
+ -893,
+ -23921,
+ 56456,
+ -6877,
+ 44984,
+ 37722,
+ 33218,
+ 34979,
+ 47965,
+ 9804,
+ 42704,
+ -40301,
+ 63864,
+ -31413,
+ -36854,
+ -64946,
+ 53018,
+ -17560,
+ 49184,
+ 42683,
+ 54897,
+ 15546,
+ 60288,
+ 952,
+ 32845,
+ 37850,
+ 35693,
+ -30600,
+ 7780,
+ 5236,
+ -35751,
+ -23368,
+ 57200,
+ 6380,
+ 16812,
+ -48874,
+ -61707,
+ 21338,
+ 52742,
+ -45852,
+ -44674,
+ -18234,
+ 12166,
+ -56915,
+ 41937,
+ 26610,
+ 33107,
+ -1861,
+ -49008,
+ -18750,
+ -45474,
+ 25855,
+ 40938,
+ -18935,
+ -50580,
+ -22971,
+ 22781,
+ 32016,
+ 12389,
+ 32574,
+ -14542,
+ -28753,
+ -5201,
+ 5203,
+ -47276,
+ -231,
+ 33329,
+ 8732,
+ -24342,
+ -20226,
+ 17682,
+ -23997,
+ 58332,
+ 59220,
+ -25418,
+ 23396,
+ 4943,
+ 24863,
+ 63895,
+ 4894,
+ 56879,
+ 53093,
+ 21264,
+ -17697,
+ 34652,
+ -12671,
+ 65091,
+ 31313,
+ -50026,
+ -22824,
+ -49322,
+ -44659,
+ 6324,
+ -54546,
+ -7304,
+ 56984,
+ -20722,
+ -48588,
+ 64153,
+ 19324,
+ 62664,
+ -52729,
+ -56768,
+ 3533,
+ -42988,
+ 7611,
+ 45904,
+ 49000,
+ -22559,
+ 3128,
+ 45510,
+ -52850,
+ -23659,
+ -32903,
+ 34860,
+ 4941,
+ 17394,
+ 16847,
+ -53216,
+ -60783,
+ -63621,
+ 34809,
+ 64431,
+ 57144,
+ -62824,
+ 25233,
+ 20904,
+ 59876,
+ -6533,
+ -47041,
+ 46559,
+ -46573,
+ -44933,
+ 7887,
+ -43580,
+ 12832,
+ 2596,
+ -60240,
+ -27726,
+ -57924,
+ -61187,
+ -38650,
+ -50149,
+ -35447,
+ 60713,
+ 59429,
+ 50119,
+ -16521,
+ -32195,
+ 21237,
+ -64515,
+ -58546,
+ 42019,
+ 61798,
+ 9006,
+ -28840,
+ 44797,
+ -57085,
+ 39558,
+ -25956,
+ 25765,
+ 30087,
+ 43024,
+ 47428,
+ 14849,
+ -28710,
+ 52794,
+ -22219,
+ 60184,
+ 5568,
+ 4282,
+ 15750,
+ 11293,
+ -52503,
+ -18982,
+ -28151,
+ -2148,
+ -13113,
+ 51083,
+ 36053,
+ 877,
+ 52029,
+ 57166,
+ -31433,
+ 41659,
+ -41605,
+ 25942,
+ 16193,
+ 15304,
+ -19387,
+ 65179,
+ 27303,
+ 56741,
+ -16892,
+ -62772,
+ 9486,
+ -57811,
+ -60281,
+ -30549,
+ -62122,
+ -4370,
+ -7319,
+ 62562,
+ 21966,
+ -35644,
+ -23742,
+ -29681,
+ 3570,
+ -45888,
+ -64343,
+ -56950,
+ 24343,
+ 41651,
+ -9419,
+ 835,
+ 39234,
+ -53569,
+ 45390,
+ 11084,
+ 35335,
+ 7820,
+ -11804,
+ 57433,
+ 4126,
+ -49577,
+ 12442,
+ 25291,
+ 52115,
+ 61257,
+ -61736,
+ 35203,
+ 46549,
+ -62276,
+ 5409,
+ -23350,
+ -49118,
+ -35107,
+ -48254,
+ -50708,
+ 18279,
+ 5216,
+ 52763,
+ 1939,
+ 986,
+ -23141,
+ 57939,
+ -54241,
+ 14571,
+ -21807,
+ -2426,
+ 10113,
+ -2012,
+ -61409,
+ -58595,
+ -3981,
+ -60304,
+ -10287,
+ 48753,
+ 21733,
+ -59362,
+ -19513,
+ 33164,
+ 58246,
+ 14111,
+ 39853,
+ 35906,
+ -16719,
+ -39159,
+ -33452,
+ -914,
+ 13915,
+ -55762,
+ -20454,
+ -39630,
+ -55826,
+ 6021,
+ -41963,
+ -47892,
+ -25178,
+ -35191,
+ 44547,
+ -44663,
+ -20149,
+ -26274,
+ -59356,
+ 32172,
+ -63867,
+ 61543,
+ -5500,
+ 11152,
+ -61759,
+ -63589,
+ 32430,
+ 49527,
+ -54929,
+ -45086,
+ 8300,
+ 64695,
+ -35899,
+ 14500,
+ 30499,
+ -30893,
+ -11152,
+ 12348,
+ -65061,
+ 9840,
+ 39298,
+ 37636,
+ -41432,
+ -38419,
+ 54150,
+ 65265,
+ 50214,
+ 30992,
+ -27744,
+ -63254,
+ -45376,
+ 10675,
+ 32008,
+ 7225,
+ -25837,
+ -60032,
+ -26380,
+ -4900,
+ 19772,
+ 10911,
+ -31126,
+ -29856,
+ 30437,
+ 44227,
+ -13352,
+ -49430,
+ 15624,
+ 56963,
+ 10276,
+ 63455,
+ 8232,
+ -11469,
+ -14476,
+ -15080,
+ -3106,
+ 24506,
+ -13515,
+ -19095,
+ 50952,
+ 760,
+ -30462,
+ 17844,
+ -24410,
+ -32687,
+ -44357,
+ 14283,
+ -31064,
+ 62546,
+ -34317,
+ -2261,
+ -46318,
+ -25723,
+ -4245,
+ 8822,
+ 1152,
+ -17476,
+ -56883,
+ 50427,
+ 50767,
+ -40621,
+ -13293,
+ -46666,
+ 6194,
+ 46361,
+ -14155,
+ 2136,
+ 39822,
+ 63542,
+ 22104,
+ 27476,
+ 61918,
+ 24185,
+ 38498,
+ 51577,
+ 46536,
+ -33782,
+ -14415,
+ 13804,
+ -7912,
+ -32027,
+ -17878,
+ -23846,
+ 50619,
+ -53163,
+ -9033,
+ -51770,
+ 46484,
+ 50204,
+ 29872,
+ -35329,
+ 49330,
+ -60086,
+ -36094,
+ -22669,
+ 32031,
+ -19434,
+ 57594,
+ 2012,
+ -28023,
+ -30653,
+ 59465,
+ 59030,
+ 52016,
+ -43770,
+ 47674,
+ 25825,
+ -36069,
+ -42857,
+ -57323,
+ -42502,
+ 37726,
+ 5633,
+ 39782,
+ -63668,
+ -38826,
+ 33812,
+ 46349,
+ -42674,
+ 46046,
+ 32116,
+ 10900,
+ 64047,
+ 31897,
+ -43044,
+ 58425,
+ 12396,
+ -55439,
+ -33244,
+ 37728,
+ 8059,
+ -57342,
+ -23132,
+ 37436,
+ -49710,
+ 65029,
+ 62502,
+ 18764,
+ 39047,
+ 18959,
+ -11231,
+ -59547,
+ -4715,
+ 1497,
+ -53273,
+ 1942,
+ 15011,
+ 11338,
+ 49945,
+ 44973,
+ 12472,
+ 44469,
+ -9710,
+ 7704,
+ 43279,
+ 64451,
+ -55423,
+ -48167,
+ -10661,
+ 3550,
+ -36945,
+ -21951,
+ 45505,
+ -51341,
+ 29498,
+ 17463,
+ -31023,
+ -20824,
+ -2459,
+ 39042,
+ -58672,
+ -33705,
+ -23337,
+ -5853,
+ -62566,
+ -19970,
+ -44872,
+ -28351,
+ -57381,
+ -44922,
+ 16845,
+ -1734,
+ -3363,
+ -29489,
+ 20987,
+ -10001,
+ -3642,
+ 15857,
+ -59038,
+ -7795,
+ -482,
+ -21490,
+ 19788,
+ 25508,
+ 21780,
+ -33199,
+ -54590,
+ 49658,
+ -56033,
+ -56067,
+ -10205,
+ 24431,
+ -50362,
+ 6396,
+ -5841,
+ 63978,
+ -37474,
+ -26083,
+ -35371,
+ -14832,
+ 50715,
+ 28815,
+ 5952,
+ 17365,
+ 14084,
+ -51854,
+ -2055,
+ -42573,
+ 4600,
+ -33505,
+ -20267,
+ -13959,
+ 64328,
+ 41057,
+ -26340,
+ 28833,
+ 27559,
+ 12082,
+ -33933,
+ 55185,
+ 56613,
+ 10462,
+ -1743,
+ -10623,
+ 11256,
+ 22379,
+ 27511,
+ -18327,
+ 50827,
+ 61557,
+ 30774,
+ -38324,
+ -129,
+ 39826,
+ -11613,
+ 34714,
+ 47282,
+ 44216,
+ 26949,
+ 41234,
+ -60985,
+ -17641,
+ 37698,
+ 14743,
+ -37249,
+ 52736,
+ 4668,
+ 44370,
+ -13340,
+ 13468,
+ -59640,
+ 30038,
+ -13956,
+ 54283,
+ -12452,
+ 22524,
+ 35718,
+ -40568,
+ 42900,
+ 47976,
+ 37339,
+ 51612,
+ 56019,
+ -16103,
+ -21969,
+ 19228,
+ 53599,
+ -54145,
+ 30202,
+ 15448,
+ 11346,
+ 19695,
+ -43981,
+ 55317,
+ -28750,
+ 4350,
+ 34030,
+ 6931,
+ -34430,
+ 23618,
+ 1535,
+ -38703,
+ -25100,
+ -9827,
+ 58103,
+ -63968,
+ -56213,
+ 32466,
+ -20560,
+ -27173,
+ -51402,
+ 5131,
+ -45424,
+ -19078,
+ 10740,
+ -32170,
+ 53554,
+ 20589,
+ 49427,
+ -53258,
+ 28902,
+ 58151,
+ -24158,
+ 9011,
+ 49102,
+ 56810,
+ -26703,
+ -4864,
+ -45453,
+ 42933,
+ -18845,
+ 26542,
+ 54429,
+ 28413,
+ 53842,
+ -18005,
+ 44178,
+ -65218,
+ -57438,
+ -35588,
+ -57063,
+ -19368,
+ -58099,
+ -33861,
+ -41446,
+ 51194,
+ -13710,
+ 36871,
+ 28463,
+ -2187,
+ 59985,
+ -37600,
+ -25522,
+ -24747,
+ 43900,
+ -21445,
+ 25045,
+ -55775,
+ -36207,
+ 32971,
+ 21748,
+ 28446,
+ 18374,
+ -32426,
+ -50598,
+ -19478,
+ 63674,
+ -35021,
+ 29319,
+ 42591,
+ 23782,
+ 19620,
+ 53608,
+ -5259,
+ -58703,
+ -12001,
+ 29576,
+ 39312,
+ -35099,
+ 36959,
+ 46235,
+ 64321,
+ -19764,
+ 63893,
+ -65345,
+ 35006,
+ 37631,
+ 34633,
+ -15928,
+ 26906,
+ 64375,
+ -42439,
+ 47158,
+ -34986,
+ -65033,
+ 44731,
+ -30617,
+ -30417,
+ 21957,
+ -39900,
+ -22688,
+ -57332,
+ 29206,
+ 35190,
+ 36906,
+ 12991,
+ 22584,
+ -13840,
+ 60414,
+ 5400,
+ 13258,
+ -50513,
+ -6255,
+ 38478,
+ 20965,
+ 20294,
+ -3749,
+ 2423,
+ -24670,
+ -30127,
+ 8741,
+ -35918,
+ 46608,
+ -39959,
+ 28415,
+ -22476,
+ 3509,
+ -56519,
+ -54244,
+ -10715,
+ 16801,
+ -14047,
+ -25828,
+ -44984,
+ 418,
+ 30588,
+ 40141,
+ 3065,
+ 48592,
+ 14442,
+ -27575,
+ -19717,
+ -52144,
+ 54565,
+ -45569,
+ 18814,
+ 65135,
+ -27605,
+ 49442,
+ 7440,
+ -15427,
+ 38440,
+ -17293,
+ 52004,
+ -17565,
+ 30175,
+ 49454,
+ -27037,
+ 20346,
+ -32555,
+ 43929,
+ 50865,
+ 38015,
+ 60859,
+ 48082,
+ -48098,
+ 20604,
+ 61227,
+ 33728,
+ -48882,
+ -64707,
+ -33443,
+ 17366,
+ 37338,
+ -43760,
+ -29212,
+ -2051,
+ 26912,
+ 39171,
+ -26797,
+ -9585,
+ -46828,
+ -58269,
+ -63469,
+ -2645,
+ -54673,
+ -17861,
+ -11040,
+ -2772,
+ -23034,
+ 45920,
+ 53213,
+ -41588,
+ -23025,
+ 47404,
+ -33642,
+ 38773,
+ -16483,
+ -25442,
+ 14357,
+ 17340,
+ -7294,
+ 65458,
+ 19030,
+ -52803,
+ -614,
+ 49868,
+ 26221,
+ 64407,
+ 24571,
+ -59976,
+ -54135,
+ 31455,
+ 21438,
+ 32772,
+ -34340,
+ 14490,
+ 53798,
+ -55509,
+ 58829,
+ 12961,
+ 47673,
+ -23755,
+ 45476,
+ -58598,
+ -5355,
+ 4090,
+ -19881,
+ -64270,
+ -44398,
+ -31645,
+ -11347,
+ -23515,
+ 36738,
+ 61801,
+ 53528,
+ -16937,
+ 46761,
+ 14356,
+ -22383,
+ 13203,
+ 24646,
+ -37821,
+ 63865,
+ 10021,
+ -27095,
+ -34074,
+ -48877,
+ -58678,
+ 40655,
+ -30962,
+ 56339,
+ -57352,
+ 20580,
+ 51929,
+ 52987,
+ -9703,
+ 17466,
+ 56242,
+ 29981,
+ -47107,
+ -24355,
+ 52900,
+ -63073,
+ 43816,
+ 48497,
+ -30512,
+ 43876,
+ 33793,
+ 33507,
+ 47247,
+ -38071,
+ 64304,
+ 60322,
+ -48602,
+ -46792,
+ 23109,
+ -33627,
+ 772,
+ 17853,
+ -59638,
+ 8907,
+ -27234,
+ -5584,
+ -62081,
+ -54707,
+ 60576,
+ -31079,
+ -39565,
+ 10731,
+ 23960,
+ 23765,
+ -52009,
+ -42383,
+ -28402,
+ 20747,
+ 51178,
+ 12687,
+ -5146,
+ -38791,
+ -55581,
+ 40154,
+ -27630,
+ 6246,
+ 40119,
+ 9743,
+ 45841,
+ 50245,
+ 44468,
+ -43709,
+ 29259,
+ 26936,
+ -63633,
+ 55399,
+ -6696,
+ -16272,
+ 57452,
+ -56028,
+ -17786,
+ -57241,
+ -5431,
+ 56092,
+ -27437,
+ 52434,
+ 49713,
+ -31366,
+ 26240,
+ 47059,
+ 52538,
+ 61628]</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">merge_sort</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">l</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<h3>Hanoi Towers</h3>
+<p>The Tower of Hanoi is a classic mathematical puzzle that involves moving a stack of disks from one rod to another. The puzzle consists of three rods and a number of disks of different sizes, which can slide onto any rod. The puzzle starts with the disks in a neat stack in ascending order of size on one rod, the smallest at the top, thus making a conical shape.The objective of the puzzle is to move the entire stack to another rod, obeying the following simple rules:</p>
+<ul><li>Only one disk can be moved at a time.</li>
+    <li>Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod.
+No disk may be placed on top of a smaller disk.</li>
+</ul>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">hanoi_problem</span><span class="p">(</span><span class="n">disks</span><span class="p">):</span>
+    <span class="n">hanoi_tower</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">disks</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">hanoi_tower</span><span class="p">,[],[]]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">hanoi_tower</span><span class="p">(</span><span class="n">n</span> <span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">auxiliary</span><span class="p">,</span><span class="n">l</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    
+    <span class="n">hanoi_tower</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">auxiliary</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">ele</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="n">l</span><span class="p">[</span><span class="n">destination</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ele</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">hanoi_tower</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">auxiliary</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
+    
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">l</span><span class="o">=</span><span class="n">hanoi_problem</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="n">hanoi_tower</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+    <div class="prompt"></div>
+<div class="output_png output_subarea ">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[[4, 3, 2, 1], [], []]
+[[4, 3, 2], [1], []]
+[[4, 3], [1], [2]]
+[[4, 3], [], [2, 1]]
+[[4], [3], [2, 1]]
+[[4, 1], [3], [2]]
+[[4, 1], [3, 2], []]
+[[4], [3, 2, 1], []]
+[[], [3, 2, 1], [4]]
+[[], [3, 2], [4, 1]]
+[[2], [3], [4, 1]]
+[[2, 1], [3], [4]]
+[[2, 1], [], [4, 3]]
+[[2], [1], [4, 3]]
+[[], [1], [4, 3, 2]]
+[[], [], [4, 3, 2, 1]]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">l</span><span class="o">=</span><span class="n">hanoi_problem</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="n">hanoi_tower</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+    <div class="prompt"></div>
+<div class="output_png output_subarea ">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[[10, 9, 8, 7, 6, 5, 4, 3, 2, 1], [], []]
+[[10, 9, 8, 7, 6, 5, 4, 3, 2], [1], []]
+[[10, 9, 8, 7, 6, 5, 4, 3], [1], [2]]
+[[10, 9, 8, 7, 6, 5, 4, 3], [], [2, 1]]
+[[10, 9, 8, 7, 6, 5, 4], [3], [2, 1]]
+[[10, 9, 8, 7, 6, 5, 4, 1], [3], [2]]
+[[10, 9, 8, 7, 6, 5, 4, 1], [3, 2], []]
+[[10, 9, 8, 7, 6, 5, 4], [3, 2, 1], []]
+[[10, 9, 8, 7, 6, 5], [3, 2, 1], [4]]
+[[10, 9, 8, 7, 6, 5], [3, 2], [4, 1]]
+[[10, 9, 8, 7, 6, 5, 2], [3], [4, 1]]
+[[10, 9, 8, 7, 6, 5, 2, 1], [3], [4]]
+[[10, 9, 8, 7, 6, 5, 2, 1], [], [4, 3]]
+[[10, 9, 8, 7, 6, 5, 2], [1], [4, 3]]
+[[10, 9, 8, 7, 6, 5], [1], [4, 3, 2]]
+[[10, 9, 8, 7, 6, 5], [], [4, 3, 2, 1]]
+[[10, 9, 8, 7, 6], [5], [4, 3, 2, 1]]
+[[10, 9, 8, 7, 6, 1], [5], [4, 3, 2]]
+[[10, 9, 8, 7, 6, 1], [5, 2], [4, 3]]
+[[10, 9, 8, 7, 6], [5, 2, 1], [4, 3]]
+[[10, 9, 8, 7, 6, 3], [5, 2, 1], [4]]
+[[10, 9, 8, 7, 6, 3], [5, 2], [4, 1]]
+[[10, 9, 8, 7, 6, 3, 2], [5], [4, 1]]
+[[10, 9, 8, 7, 6, 3, 2, 1], [5], [4]]
+[[10, 9, 8, 7, 6, 3, 2, 1], [5, 4], []]
+[[10, 9, 8, 7, 6, 3, 2], [5, 4, 1], []]
+[[10, 9, 8, 7, 6, 3], [5, 4, 1], [2]]
+[[10, 9, 8, 7, 6, 3], [5, 4], [2, 1]]
+[[10, 9, 8, 7, 6], [5, 4, 3], [2, 1]]
+[[10, 9, 8, 7, 6, 1], [5, 4, 3], [2]]
+[[10, 9, 8, 7, 6, 1], [5, 4, 3, 2], []]
+[[10, 9, 8, 7, 6], [5, 4, 3, 2, 1], []]
+[[10, 9, 8, 7], [5, 4, 3, 2, 1], [6]]
+[[10, 9, 8, 7], [5, 4, 3, 2], [6, 1]]
+[[10, 9, 8, 7, 2], [5, 4, 3], [6, 1]]
+[[10, 9, 8, 7, 2, 1], [5, 4, 3], [6]]
+[[10, 9, 8, 7, 2, 1], [5, 4], [6, 3]]
+[[10, 9, 8, 7, 2], [5, 4, 1], [6, 3]]
+[[10, 9, 8, 7], [5, 4, 1], [6, 3, 2]]
+[[10, 9, 8, 7], [5, 4], [6, 3, 2, 1]]
+[[10, 9, 8, 7, 4], [5], [6, 3, 2, 1]]
+[[10, 9, 8, 7, 4, 1], [5], [6, 3, 2]]
+[[10, 9, 8, 7, 4, 1], [5, 2], [6, 3]]
+[[10, 9, 8, 7, 4], [5, 2, 1], [6, 3]]
+[[10, 9, 8, 7, 4, 3], [5, 2, 1], [6]]
+[[10, 9, 8, 7, 4, 3], [5, 2], [6, 1]]
+[[10, 9, 8, 7, 4, 3, 2], [5], [6, 1]]
+[[10, 9, 8, 7, 4, 3, 2, 1], [5], [6]]
+[[10, 9, 8, 7, 4, 3, 2, 1], [], [6, 5]]
+[[10, 9, 8, 7, 4, 3, 2], [1], [6, 5]]
+[[10, 9, 8, 7, 4, 3], [1], [6, 5, 2]]
+[[10, 9, 8, 7, 4, 3], [], [6, 5, 2, 1]]
+[[10, 9, 8, 7, 4], [3], [6, 5, 2, 1]]
+[[10, 9, 8, 7, 4, 1], [3], [6, 5, 2]]
+[[10, 9, 8, 7, 4, 1], [3, 2], [6, 5]]
+[[10, 9, 8, 7, 4], [3, 2, 1], [6, 5]]
+[[10, 9, 8, 7], [3, 2, 1], [6, 5, 4]]
+[[10, 9, 8, 7], [3, 2], [6, 5, 4, 1]]
+[[10, 9, 8, 7, 2], [3], [6, 5, 4, 1]]
+[[10, 9, 8, 7, 2, 1], [3], [6, 5, 4]]
+[[10, 9, 8, 7, 2, 1], [], [6, 5, 4, 3]]
+[[10, 9, 8, 7, 2], [1], [6, 5, 4, 3]]
+[[10, 9, 8, 7], [1], [6, 5, 4, 3, 2]]
+[[10, 9, 8, 7], [], [6, 5, 4, 3, 2, 1]]
+[[10, 9, 8], [7], [6, 5, 4, 3, 2, 1]]
+[[10, 9, 8, 1], [7], [6, 5, 4, 3, 2]]
+[[10, 9, 8, 1], [7, 2], [6, 5, 4, 3]]
+[[10, 9, 8], [7, 2, 1], [6, 5, 4, 3]]
+[[10, 9, 8, 3], [7, 2, 1], [6, 5, 4]]
+[[10, 9, 8, 3], [7, 2], [6, 5, 4, 1]]
+[[10, 9, 8, 3, 2], [7], [6, 5, 4, 1]]
+[[10, 9, 8, 3, 2, 1], [7], [6, 5, 4]]
+[[10, 9, 8, 3, 2, 1], [7, 4], [6, 5]]
+[[10, 9, 8, 3, 2], [7, 4, 1], [6, 5]]
+[[10, 9, 8, 3], [7, 4, 1], [6, 5, 2]]
+[[10, 9, 8, 3], [7, 4], [6, 5, 2, 1]]
+[[10, 9, 8], [7, 4, 3], [6, 5, 2, 1]]
+[[10, 9, 8, 1], [7, 4, 3], [6, 5, 2]]
+[[10, 9, 8, 1], [7, 4, 3, 2], [6, 5]]
+[[10, 9, 8], [7, 4, 3, 2, 1], [6, 5]]
+[[10, 9, 8, 5], [7, 4, 3, 2, 1], [6]]
+[[10, 9, 8, 5], [7, 4, 3, 2], [6, 1]]
+[[10, 9, 8, 5, 2], [7, 4, 3], [6, 1]]
+[[10, 9, 8, 5, 2, 1], [7, 4, 3], [6]]
+[[10, 9, 8, 5, 2, 1], [7, 4], [6, 3]]
+[[10, 9, 8, 5, 2], [7, 4, 1], [6, 3]]
+[[10, 9, 8, 5], [7, 4, 1], [6, 3, 2]]
+[[10, 9, 8, 5], [7, 4], [6, 3, 2, 1]]
+[[10, 9, 8, 5, 4], [7], [6, 3, 2, 1]]
+[[10, 9, 8, 5, 4, 1], [7], [6, 3, 2]]
+[[10, 9, 8, 5, 4, 1], [7, 2], [6, 3]]
+[[10, 9, 8, 5, 4], [7, 2, 1], [6, 3]]
+[[10, 9, 8, 5, 4, 3], [7, 2, 1], [6]]
+[[10, 9, 8, 5, 4, 3], [7, 2], [6, 1]]
+[[10, 9, 8, 5, 4, 3, 2], [7], [6, 1]]
+[[10, 9, 8, 5, 4, 3, 2, 1], [7], [6]]
+[[10, 9, 8, 5, 4, 3, 2, 1], [7, 6], []]
+[[10, 9, 8, 5, 4, 3, 2], [7, 6, 1], []]
+[[10, 9, 8, 5, 4, 3], [7, 6, 1], [2]]
+[[10, 9, 8, 5, 4, 3], [7, 6], [2, 1]]
+[[10, 9, 8, 5, 4], [7, 6, 3], [2, 1]]
+[[10, 9, 8, 5, 4, 1], [7, 6, 3], [2]]
+[[10, 9, 8, 5, 4, 1], [7, 6, 3, 2], []]
+[[10, 9, 8, 5, 4], [7, 6, 3, 2, 1], []]
+[[10, 9, 8, 5], [7, 6, 3, 2, 1], [4]]
+[[10, 9, 8, 5], [7, 6, 3, 2], [4, 1]]
+[[10, 9, 8, 5, 2], [7, 6, 3], [4, 1]]
+[[10, 9, 8, 5, 2, 1], [7, 6, 3], [4]]
+[[10, 9, 8, 5, 2, 1], [7, 6], [4, 3]]
+[[10, 9, 8, 5, 2], [7, 6, 1], [4, 3]]
+[[10, 9, 8, 5], [7, 6, 1], [4, 3, 2]]
+[[10, 9, 8, 5], [7, 6], [4, 3, 2, 1]]
+[[10, 9, 8], [7, 6, 5], [4, 3, 2, 1]]
+[[10, 9, 8, 1], [7, 6, 5], [4, 3, 2]]
+[[10, 9, 8, 1], [7, 6, 5, 2], [4, 3]]
+[[10, 9, 8], [7, 6, 5, 2, 1], [4, 3]]
+[[10, 9, 8, 3], [7, 6, 5, 2, 1], [4]]
+[[10, 9, 8, 3], [7, 6, 5, 2], [4, 1]]
+[[10, 9, 8, 3, 2], [7, 6, 5], [4, 1]]
+[[10, 9, 8, 3, 2, 1], [7, 6, 5], [4]]
+[[10, 9, 8, 3, 2, 1], [7, 6, 5, 4], []]
+[[10, 9, 8, 3, 2], [7, 6, 5, 4, 1], []]
+[[10, 9, 8, 3], [7, 6, 5, 4, 1], [2]]
+[[10, 9, 8, 3], [7, 6, 5, 4], [2, 1]]
+[[10, 9, 8], [7, 6, 5, 4, 3], [2, 1]]
+[[10, 9, 8, 1], [7, 6, 5, 4, 3], [2]]
+[[10, 9, 8, 1], [7, 6, 5, 4, 3, 2], []]
+[[10, 9, 8], [7, 6, 5, 4, 3, 2, 1], []]
+[[10, 9], [7, 6, 5, 4, 3, 2, 1], [8]]
+[[10, 9], [7, 6, 5, 4, 3, 2], [8, 1]]
+[[10, 9, 2], [7, 6, 5, 4, 3], [8, 1]]
+[[10, 9, 2, 1], [7, 6, 5, 4, 3], [8]]
+[[10, 9, 2, 1], [7, 6, 5, 4], [8, 3]]
+[[10, 9, 2], [7, 6, 5, 4, 1], [8, 3]]
+[[10, 9], [7, 6, 5, 4, 1], [8, 3, 2]]
+[[10, 9], [7, 6, 5, 4], [8, 3, 2, 1]]
+[[10, 9, 4], [7, 6, 5], [8, 3, 2, 1]]
+[[10, 9, 4, 1], [7, 6, 5], [8, 3, 2]]
+[[10, 9, 4, 1], [7, 6, 5, 2], [8, 3]]
+[[10, 9, 4], [7, 6, 5, 2, 1], [8, 3]]
+[[10, 9, 4, 3], [7, 6, 5, 2, 1], [8]]
+[[10, 9, 4, 3], [7, 6, 5, 2], [8, 1]]
+[[10, 9, 4, 3, 2], [7, 6, 5], [8, 1]]
+[[10, 9, 4, 3, 2, 1], [7, 6, 5], [8]]
+[[10, 9, 4, 3, 2, 1], [7, 6], [8, 5]]
+[[10, 9, 4, 3, 2], [7, 6, 1], [8, 5]]
+[[10, 9, 4, 3], [7, 6, 1], [8, 5, 2]]
+[[10, 9, 4, 3], [7, 6], [8, 5, 2, 1]]
+[[10, 9, 4], [7, 6, 3], [8, 5, 2, 1]]
+[[10, 9, 4, 1], [7, 6, 3], [8, 5, 2]]
+[[10, 9, 4, 1], [7, 6, 3, 2], [8, 5]]
+[[10, 9, 4], [7, 6, 3, 2, 1], [8, 5]]
+[[10, 9], [7, 6, 3, 2, 1], [8, 5, 4]]
+[[10, 9], [7, 6, 3, 2], [8, 5, 4, 1]]
+[[10, 9, 2], [7, 6, 3], [8, 5, 4, 1]]
+[[10, 9, 2, 1], [7, 6, 3], [8, 5, 4]]
+[[10, 9, 2, 1], [7, 6], [8, 5, 4, 3]]
+[[10, 9, 2], [7, 6, 1], [8, 5, 4, 3]]
+[[10, 9], [7, 6, 1], [8, 5, 4, 3, 2]]
+[[10, 9], [7, 6], [8, 5, 4, 3, 2, 1]]
+[[10, 9, 6], [7], [8, 5, 4, 3, 2, 1]]
+[[10, 9, 6, 1], [7], [8, 5, 4, 3, 2]]
+[[10, 9, 6, 1], [7, 2], [8, 5, 4, 3]]
+[[10, 9, 6], [7, 2, 1], [8, 5, 4, 3]]
+[[10, 9, 6, 3], [7, 2, 1], [8, 5, 4]]
+[[10, 9, 6, 3], [7, 2], [8, 5, 4, 1]]
+[[10, 9, 6, 3, 2], [7], [8, 5, 4, 1]]
+[[10, 9, 6, 3, 2, 1], [7], [8, 5, 4]]
+[[10, 9, 6, 3, 2, 1], [7, 4], [8, 5]]
+[[10, 9, 6, 3, 2], [7, 4, 1], [8, 5]]
+[[10, 9, 6, 3], [7, 4, 1], [8, 5, 2]]
+[[10, 9, 6, 3], [7, 4], [8, 5, 2, 1]]
+[[10, 9, 6], [7, 4, 3], [8, 5, 2, 1]]
+[[10, 9, 6, 1], [7, 4, 3], [8, 5, 2]]
+[[10, 9, 6, 1], [7, 4, 3, 2], [8, 5]]
+[[10, 9, 6], [7, 4, 3, 2, 1], [8, 5]]
+[[10, 9, 6, 5], [7, 4, 3, 2, 1], [8]]
+[[10, 9, 6, 5], [7, 4, 3, 2], [8, 1]]
+[[10, 9, 6, 5, 2], [7, 4, 3], [8, 1]]
+[[10, 9, 6, 5, 2, 1], [7, 4, 3], [8]]
+[[10, 9, 6, 5, 2, 1], [7, 4], [8, 3]]
+[[10, 9, 6, 5, 2], [7, 4, 1], [8, 3]]
+[[10, 9, 6, 5], [7, 4, 1], [8, 3, 2]]
+[[10, 9, 6, 5], [7, 4], [8, 3, 2, 1]]
+[[10, 9, 6, 5, 4], [7], [8, 3, 2, 1]]
+[[10, 9, 6, 5, 4, 1], [7], [8, 3, 2]]
+[[10, 9, 6, 5, 4, 1], [7, 2], [8, 3]]
+[[10, 9, 6, 5, 4], [7, 2, 1], [8, 3]]
+[[10, 9, 6, 5, 4, 3], [7, 2, 1], [8]]
+[[10, 9, 6, 5, 4, 3], [7, 2], [8, 1]]
+[[10, 9, 6, 5, 4, 3, 2], [7], [8, 1]]
+[[10, 9, 6, 5, 4, 3, 2, 1], [7], [8]]
+[[10, 9, 6, 5, 4, 3, 2, 1], [], [8, 7]]
+[[10, 9, 6, 5, 4, 3, 2], [1], [8, 7]]
+[[10, 9, 6, 5, 4, 3], [1], [8, 7, 2]]
+[[10, 9, 6, 5, 4, 3], [], [8, 7, 2, 1]]
+[[10, 9, 6, 5, 4], [3], [8, 7, 2, 1]]
+[[10, 9, 6, 5, 4, 1], [3], [8, 7, 2]]
+[[10, 9, 6, 5, 4, 1], [3, 2], [8, 7]]
+[[10, 9, 6, 5, 4], [3, 2, 1], [8, 7]]
+[[10, 9, 6, 5], [3, 2, 1], [8, 7, 4]]
+[[10, 9, 6, 5], [3, 2], [8, 7, 4, 1]]
+[[10, 9, 6, 5, 2], [3], [8, 7, 4, 1]]
+[[10, 9, 6, 5, 2, 1], [3], [8, 7, 4]]
+[[10, 9, 6, 5, 2, 1], [], [8, 7, 4, 3]]
+[[10, 9, 6, 5, 2], [1], [8, 7, 4, 3]]
+[[10, 9, 6, 5], [1], [8, 7, 4, 3, 2]]
+[[10, 9, 6, 5], [], [8, 7, 4, 3, 2, 1]]
+[[10, 9, 6], [5], [8, 7, 4, 3, 2, 1]]
+[[10, 9, 6, 1], [5], [8, 7, 4, 3, 2]]
+[[10, 9, 6, 1], [5, 2], [8, 7, 4, 3]]
+[[10, 9, 6], [5, 2, 1], [8, 7, 4, 3]]
+[[10, 9, 6, 3], [5, 2, 1], [8, 7, 4]]
+[[10, 9, 6, 3], [5, 2], [8, 7, 4, 1]]
+[[10, 9, 6, 3, 2], [5], [8, 7, 4, 1]]
+[[10, 9, 6, 3, 2, 1], [5], [8, 7, 4]]
+[[10, 9, 6, 3, 2, 1], [5, 4], [8, 7]]
+[[10, 9, 6, 3, 2], [5, 4, 1], [8, 7]]
+[[10, 9, 6, 3], [5, 4, 1], [8, 7, 2]]
+[[10, 9, 6, 3], [5, 4], [8, 7, 2, 1]]
+[[10, 9, 6], [5, 4, 3], [8, 7, 2, 1]]
+[[10, 9, 6, 1], [5, 4, 3], [8, 7, 2]]
+[[10, 9, 6, 1], [5, 4, 3, 2], [8, 7]]
+[[10, 9, 6], [5, 4, 3, 2, 1], [8, 7]]
+[[10, 9], [5, 4, 3, 2, 1], [8, 7, 6]]
+[[10, 9], [5, 4, 3, 2], [8, 7, 6, 1]]
+[[10, 9, 2], [5, 4, 3], [8, 7, 6, 1]]
+[[10, 9, 2, 1], [5, 4, 3], [8, 7, 6]]
+[[10, 9, 2, 1], [5, 4], [8, 7, 6, 3]]
+[[10, 9, 2], [5, 4, 1], [8, 7, 6, 3]]
+[[10, 9], [5, 4, 1], [8, 7, 6, 3, 2]]
+[[10, 9], [5, 4], [8, 7, 6, 3, 2, 1]]
+[[10, 9, 4], [5], [8, 7, 6, 3, 2, 1]]
+[[10, 9, 4, 1], [5], [8, 7, 6, 3, 2]]
+[[10, 9, 4, 1], [5, 2], [8, 7, 6, 3]]
+[[10, 9, 4], [5, 2, 1], [8, 7, 6, 3]]
+[[10, 9, 4, 3], [5, 2, 1], [8, 7, 6]]
+[[10, 9, 4, 3], [5, 2], [8, 7, 6, 1]]
+[[10, 9, 4, 3, 2], [5], [8, 7, 6, 1]]
+[[10, 9, 4, 3, 2, 1], [5], [8, 7, 6]]
+[[10, 9, 4, 3, 2, 1], [], [8, 7, 6, 5]]
+[[10, 9, 4, 3, 2], [1], [8, 7, 6, 5]]
+[[10, 9, 4, 3], [1], [8, 7, 6, 5, 2]]
+[[10, 9, 4, 3], [], [8, 7, 6, 5, 2, 1]]
+[[10, 9, 4], [3], [8, 7, 6, 5, 2, 1]]
+[[10, 9, 4, 1], [3], [8, 7, 6, 5, 2]]
+[[10, 9, 4, 1], [3, 2], [8, 7, 6, 5]]
+[[10, 9, 4], [3, 2, 1], [8, 7, 6, 5]]
+[[10, 9], [3, 2, 1], [8, 7, 6, 5, 4]]
+[[10, 9], [3, 2], [8, 7, 6, 5, 4, 1]]
+[[10, 9, 2], [3], [8, 7, 6, 5, 4, 1]]
+[[10, 9, 2, 1], [3], [8, 7, 6, 5, 4]]
+[[10, 9, 2, 1], [], [8, 7, 6, 5, 4, 3]]
+[[10, 9, 2], [1], [8, 7, 6, 5, 4, 3]]
+[[10, 9], [1], [8, 7, 6, 5, 4, 3, 2]]
+[[10, 9], [], [8, 7, 6, 5, 4, 3, 2, 1]]
+[[10], [9], [8, 7, 6, 5, 4, 3, 2, 1]]
+[[10, 1], [9], [8, 7, 6, 5, 4, 3, 2]]
+[[10, 1], [9, 2], [8, 7, 6, 5, 4, 3]]
+[[10], [9, 2, 1], [8, 7, 6, 5, 4, 3]]
+[[10, 3], [9, 2, 1], [8, 7, 6, 5, 4]]
+[[10, 3], [9, 2], [8, 7, 6, 5, 4, 1]]
+[[10, 3, 2], [9], [8, 7, 6, 5, 4, 1]]
+[[10, 3, 2, 1], [9], [8, 7, 6, 5, 4]]
+[[10, 3, 2, 1], [9, 4], [8, 7, 6, 5]]
+[[10, 3, 2], [9, 4, 1], [8, 7, 6, 5]]
+[[10, 3], [9, 4, 1], [8, 7, 6, 5, 2]]
+[[10, 3], [9, 4], [8, 7, 6, 5, 2, 1]]
+[[10], [9, 4, 3], [8, 7, 6, 5, 2, 1]]
+[[10, 1], [9, 4, 3], [8, 7, 6, 5, 2]]
+[[10, 1], [9, 4, 3, 2], [8, 7, 6, 5]]
+[[10], [9, 4, 3, 2, 1], [8, 7, 6, 5]]
+[[10, 5], [9, 4, 3, 2, 1], [8, 7, 6]]
+[[10, 5], [9, 4, 3, 2], [8, 7, 6, 1]]
+[[10, 5, 2], [9, 4, 3], [8, 7, 6, 1]]
+[[10, 5, 2, 1], [9, 4, 3], [8, 7, 6]]
+[[10, 5, 2, 1], [9, 4], [8, 7, 6, 3]]
+[[10, 5, 2], [9, 4, 1], [8, 7, 6, 3]]
+[[10, 5], [9, 4, 1], [8, 7, 6, 3, 2]]
+[[10, 5], [9, 4], [8, 7, 6, 3, 2, 1]]
+[[10, 5, 4], [9], [8, 7, 6, 3, 2, 1]]
+[[10, 5, 4, 1], [9], [8, 7, 6, 3, 2]]
+[[10, 5, 4, 1], [9, 2], [8, 7, 6, 3]]
+[[10, 5, 4], [9, 2, 1], [8, 7, 6, 3]]
+[[10, 5, 4, 3], [9, 2, 1], [8, 7, 6]]
+[[10, 5, 4, 3], [9, 2], [8, 7, 6, 1]]
+[[10, 5, 4, 3, 2], [9], [8, 7, 6, 1]]
+[[10, 5, 4, 3, 2, 1], [9], [8, 7, 6]]
+[[10, 5, 4, 3, 2, 1], [9, 6], [8, 7]]
+[[10, 5, 4, 3, 2], [9, 6, 1], [8, 7]]
+[[10, 5, 4, 3], [9, 6, 1], [8, 7, 2]]
+[[10, 5, 4, 3], [9, 6], [8, 7, 2, 1]]
+[[10, 5, 4], [9, 6, 3], [8, 7, 2, 1]]
+[[10, 5, 4, 1], [9, 6, 3], [8, 7, 2]]
+[[10, 5, 4, 1], [9, 6, 3, 2], [8, 7]]
+[[10, 5, 4], [9, 6, 3, 2, 1], [8, 7]]
+[[10, 5], [9, 6, 3, 2, 1], [8, 7, 4]]
+[[10, 5], [9, 6, 3, 2], [8, 7, 4, 1]]
+[[10, 5, 2], [9, 6, 3], [8, 7, 4, 1]]
+[[10, 5, 2, 1], [9, 6, 3], [8, 7, 4]]
+[[10, 5, 2, 1], [9, 6], [8, 7, 4, 3]]
+[[10, 5, 2], [9, 6, 1], [8, 7, 4, 3]]
+[[10, 5], [9, 6, 1], [8, 7, 4, 3, 2]]
+[[10, 5], [9, 6], [8, 7, 4, 3, 2, 1]]
+[[10], [9, 6, 5], [8, 7, 4, 3, 2, 1]]
+[[10, 1], [9, 6, 5], [8, 7, 4, 3, 2]]
+[[10, 1], [9, 6, 5, 2], [8, 7, 4, 3]]
+[[10], [9, 6, 5, 2, 1], [8, 7, 4, 3]]
+[[10, 3], [9, 6, 5, 2, 1], [8, 7, 4]]
+[[10, 3], [9, 6, 5, 2], [8, 7, 4, 1]]
+[[10, 3, 2], [9, 6, 5], [8, 7, 4, 1]]
+[[10, 3, 2, 1], [9, 6, 5], [8, 7, 4]]
+[[10, 3, 2, 1], [9, 6, 5, 4], [8, 7]]
+[[10, 3, 2], [9, 6, 5, 4, 1], [8, 7]]
+[[10, 3], [9, 6, 5, 4, 1], [8, 7, 2]]
+[[10, 3], [9, 6, 5, 4], [8, 7, 2, 1]]
+[[10], [9, 6, 5, 4, 3], [8, 7, 2, 1]]
+[[10, 1], [9, 6, 5, 4, 3], [8, 7, 2]]
+[[10, 1], [9, 6, 5, 4, 3, 2], [8, 7]]
+[[10], [9, 6, 5, 4, 3, 2, 1], [8, 7]]
+[[10, 7], [9, 6, 5, 4, 3, 2, 1], [8]]
+[[10, 7], [9, 6, 5, 4, 3, 2], [8, 1]]
+[[10, 7, 2], [9, 6, 5, 4, 3], [8, 1]]
+[[10, 7, 2, 1], [9, 6, 5, 4, 3], [8]]
+[[10, 7, 2, 1], [9, 6, 5, 4], [8, 3]]
+[[10, 7, 2], [9, 6, 5, 4, 1], [8, 3]]
+[[10, 7], [9, 6, 5, 4, 1], [8, 3, 2]]
+[[10, 7], [9, 6, 5, 4], [8, 3, 2, 1]]
+[[10, 7, 4], [9, 6, 5], [8, 3, 2, 1]]
+[[10, 7, 4, 1], [9, 6, 5], [8, 3, 2]]
+[[10, 7, 4, 1], [9, 6, 5, 2], [8, 3]]
+[[10, 7, 4], [9, 6, 5, 2, 1], [8, 3]]
+[[10, 7, 4, 3], [9, 6, 5, 2, 1], [8]]
+[[10, 7, 4, 3], [9, 6, 5, 2], [8, 1]]
+[[10, 7, 4, 3, 2], [9, 6, 5], [8, 1]]
+[[10, 7, 4, 3, 2, 1], [9, 6, 5], [8]]
+[[10, 7, 4, 3, 2, 1], [9, 6], [8, 5]]
+[[10, 7, 4, 3, 2], [9, 6, 1], [8, 5]]
+[[10, 7, 4, 3], [9, 6, 1], [8, 5, 2]]
+[[10, 7, 4, 3], [9, 6], [8, 5, 2, 1]]
+[[10, 7, 4], [9, 6, 3], [8, 5, 2, 1]]
+[[10, 7, 4, 1], [9, 6, 3], [8, 5, 2]]
+[[10, 7, 4, 1], [9, 6, 3, 2], [8, 5]]
+[[10, 7, 4], [9, 6, 3, 2, 1], [8, 5]]
+[[10, 7], [9, 6, 3, 2, 1], [8, 5, 4]]
+[[10, 7], [9, 6, 3, 2], [8, 5, 4, 1]]
+[[10, 7, 2], [9, 6, 3], [8, 5, 4, 1]]
+[[10, 7, 2, 1], [9, 6, 3], [8, 5, 4]]
+[[10, 7, 2, 1], [9, 6], [8, 5, 4, 3]]
+[[10, 7, 2], [9, 6, 1], [8, 5, 4, 3]]
+[[10, 7], [9, 6, 1], [8, 5, 4, 3, 2]]
+[[10, 7], [9, 6], [8, 5, 4, 3, 2, 1]]
+[[10, 7, 6], [9], [8, 5, 4, 3, 2, 1]]
+[[10, 7, 6, 1], [9], [8, 5, 4, 3, 2]]
+[[10, 7, 6, 1], [9, 2], [8, 5, 4, 3]]
+[[10, 7, 6], [9, 2, 1], [8, 5, 4, 3]]
+[[10, 7, 6, 3], [9, 2, 1], [8, 5, 4]]
+[[10, 7, 6, 3], [9, 2], [8, 5, 4, 1]]
+[[10, 7, 6, 3, 2], [9], [8, 5, 4, 1]]
+[[10, 7, 6, 3, 2, 1], [9], [8, 5, 4]]
+[[10, 7, 6, 3, 2, 1], [9, 4], [8, 5]]
+[[10, 7, 6, 3, 2], [9, 4, 1], [8, 5]]
+[[10, 7, 6, 3], [9, 4, 1], [8, 5, 2]]
+[[10, 7, 6, 3], [9, 4], [8, 5, 2, 1]]
+[[10, 7, 6], [9, 4, 3], [8, 5, 2, 1]]
+[[10, 7, 6, 1], [9, 4, 3], [8, 5, 2]]
+[[10, 7, 6, 1], [9, 4, 3, 2], [8, 5]]
+[[10, 7, 6], [9, 4, 3, 2, 1], [8, 5]]
+[[10, 7, 6, 5], [9, 4, 3, 2, 1], [8]]
+[[10, 7, 6, 5], [9, 4, 3, 2], [8, 1]]
+[[10, 7, 6, 5, 2], [9, 4, 3], [8, 1]]
+[[10, 7, 6, 5, 2, 1], [9, 4, 3], [8]]
+[[10, 7, 6, 5, 2, 1], [9, 4], [8, 3]]
+[[10, 7, 6, 5, 2], [9, 4, 1], [8, 3]]
+[[10, 7, 6, 5], [9, 4, 1], [8, 3, 2]]
+[[10, 7, 6, 5], [9, 4], [8, 3, 2, 1]]
+[[10, 7, 6, 5, 4], [9], [8, 3, 2, 1]]
+[[10, 7, 6, 5, 4, 1], [9], [8, 3, 2]]
+[[10, 7, 6, 5, 4, 1], [9, 2], [8, 3]]
+[[10, 7, 6, 5, 4], [9, 2, 1], [8, 3]]
+[[10, 7, 6, 5, 4, 3], [9, 2, 1], [8]]
+[[10, 7, 6, 5, 4, 3], [9, 2], [8, 1]]
+[[10, 7, 6, 5, 4, 3, 2], [9], [8, 1]]
+[[10, 7, 6, 5, 4, 3, 2, 1], [9], [8]]
+[[10, 7, 6, 5, 4, 3, 2, 1], [9, 8], []]
+[[10, 7, 6, 5, 4, 3, 2], [9, 8, 1], []]
+[[10, 7, 6, 5, 4, 3], [9, 8, 1], [2]]
+[[10, 7, 6, 5, 4, 3], [9, 8], [2, 1]]
+[[10, 7, 6, 5, 4], [9, 8, 3], [2, 1]]
+[[10, 7, 6, 5, 4, 1], [9, 8, 3], [2]]
+[[10, 7, 6, 5, 4, 1], [9, 8, 3, 2], []]
+[[10, 7, 6, 5, 4], [9, 8, 3, 2, 1], []]
+[[10, 7, 6, 5], [9, 8, 3, 2, 1], [4]]
+[[10, 7, 6, 5], [9, 8, 3, 2], [4, 1]]
+[[10, 7, 6, 5, 2], [9, 8, 3], [4, 1]]
+[[10, 7, 6, 5, 2, 1], [9, 8, 3], [4]]
+[[10, 7, 6, 5, 2, 1], [9, 8], [4, 3]]
+[[10, 7, 6, 5, 2], [9, 8, 1], [4, 3]]
+[[10, 7, 6, 5], [9, 8, 1], [4, 3, 2]]
+[[10, 7, 6, 5], [9, 8], [4, 3, 2, 1]]
+[[10, 7, 6], [9, 8, 5], [4, 3, 2, 1]]
+[[10, 7, 6, 1], [9, 8, 5], [4, 3, 2]]
+[[10, 7, 6, 1], [9, 8, 5, 2], [4, 3]]
+[[10, 7, 6], [9, 8, 5, 2, 1], [4, 3]]
+[[10, 7, 6, 3], [9, 8, 5, 2, 1], [4]]
+[[10, 7, 6, 3], [9, 8, 5, 2], [4, 1]]
+[[10, 7, 6, 3, 2], [9, 8, 5], [4, 1]]
+[[10, 7, 6, 3, 2, 1], [9, 8, 5], [4]]
+[[10, 7, 6, 3, 2, 1], [9, 8, 5, 4], []]
+[[10, 7, 6, 3, 2], [9, 8, 5, 4, 1], []]
+[[10, 7, 6, 3], [9, 8, 5, 4, 1], [2]]
+[[10, 7, 6, 3], [9, 8, 5, 4], [2, 1]]
+[[10, 7, 6], [9, 8, 5, 4, 3], [2, 1]]
+[[10, 7, 6, 1], [9, 8, 5, 4, 3], [2]]
+[[10, 7, 6, 1], [9, 8, 5, 4, 3, 2], []]
+[[10, 7, 6], [9, 8, 5, 4, 3, 2, 1], []]
+[[10, 7], [9, 8, 5, 4, 3, 2, 1], [6]]
+[[10, 7], [9, 8, 5, 4, 3, 2], [6, 1]]
+[[10, 7, 2], [9, 8, 5, 4, 3], [6, 1]]
+[[10, 7, 2, 1], [9, 8, 5, 4, 3], [6]]
+[[10, 7, 2, 1], [9, 8, 5, 4], [6, 3]]
+[[10, 7, 2], [9, 8, 5, 4, 1], [6, 3]]
+[[10, 7], [9, 8, 5, 4, 1], [6, 3, 2]]
+[[10, 7], [9, 8, 5, 4], [6, 3, 2, 1]]
+[[10, 7, 4], [9, 8, 5], [6, 3, 2, 1]]
+[[10, 7, 4, 1], [9, 8, 5], [6, 3, 2]]
+[[10, 7, 4, 1], [9, 8, 5, 2], [6, 3]]
+[[10, 7, 4], [9, 8, 5, 2, 1], [6, 3]]
+[[10, 7, 4, 3], [9, 8, 5, 2, 1], [6]]
+[[10, 7, 4, 3], [9, 8, 5, 2], [6, 1]]
+[[10, 7, 4, 3, 2], [9, 8, 5], [6, 1]]
+[[10, 7, 4, 3, 2, 1], [9, 8, 5], [6]]
+[[10, 7, 4, 3, 2, 1], [9, 8], [6, 5]]
+[[10, 7, 4, 3, 2], [9, 8, 1], [6, 5]]
+[[10, 7, 4, 3], [9, 8, 1], [6, 5, 2]]
+[[10, 7, 4, 3], [9, 8], [6, 5, 2, 1]]
+[[10, 7, 4], [9, 8, 3], [6, 5, 2, 1]]
+[[10, 7, 4, 1], [9, 8, 3], [6, 5, 2]]
+[[10, 7, 4, 1], [9, 8, 3, 2], [6, 5]]
+[[10, 7, 4], [9, 8, 3, 2, 1], [6, 5]]
+[[10, 7], [9, 8, 3, 2, 1], [6, 5, 4]]
+[[10, 7], [9, 8, 3, 2], [6, 5, 4, 1]]
+[[10, 7, 2], [9, 8, 3], [6, 5, 4, 1]]
+[[10, 7, 2, 1], [9, 8, 3], [6, 5, 4]]
+[[10, 7, 2, 1], [9, 8], [6, 5, 4, 3]]
+[[10, 7, 2], [9, 8, 1], [6, 5, 4, 3]]
+[[10, 7], [9, 8, 1], [6, 5, 4, 3, 2]]
+[[10, 7], [9, 8], [6, 5, 4, 3, 2, 1]]
+[[10], [9, 8, 7], [6, 5, 4, 3, 2, 1]]
+[[10, 1], [9, 8, 7], [6, 5, 4, 3, 2]]
+[[10, 1], [9, 8, 7, 2], [6, 5, 4, 3]]
+[[10], [9, 8, 7, 2, 1], [6, 5, 4, 3]]
+[[10, 3], [9, 8, 7, 2, 1], [6, 5, 4]]
+[[10, 3], [9, 8, 7, 2], [6, 5, 4, 1]]
+[[10, 3, 2], [9, 8, 7], [6, 5, 4, 1]]
+[[10, 3, 2, 1], [9, 8, 7], [6, 5, 4]]
+[[10, 3, 2, 1], [9, 8, 7, 4], [6, 5]]
+[[10, 3, 2], [9, 8, 7, 4, 1], [6, 5]]
+[[10, 3], [9, 8, 7, 4, 1], [6, 5, 2]]
+[[10, 3], [9, 8, 7, 4], [6, 5, 2, 1]]
+[[10], [9, 8, 7, 4, 3], [6, 5, 2, 1]]
+[[10, 1], [9, 8, 7, 4, 3], [6, 5, 2]]
+[[10, 1], [9, 8, 7, 4, 3, 2], [6, 5]]
+[[10], [9, 8, 7, 4, 3, 2, 1], [6, 5]]
+[[10, 5], [9, 8, 7, 4, 3, 2, 1], [6]]
+[[10, 5], [9, 8, 7, 4, 3, 2], [6, 1]]
+[[10, 5, 2], [9, 8, 7, 4, 3], [6, 1]]
+[[10, 5, 2, 1], [9, 8, 7, 4, 3], [6]]
+[[10, 5, 2, 1], [9, 8, 7, 4], [6, 3]]
+[[10, 5, 2], [9, 8, 7, 4, 1], [6, 3]]
+[[10, 5], [9, 8, 7, 4, 1], [6, 3, 2]]
+[[10, 5], [9, 8, 7, 4], [6, 3, 2, 1]]
+[[10, 5, 4], [9, 8, 7], [6, 3, 2, 1]]
+[[10, 5, 4, 1], [9, 8, 7], [6, 3, 2]]
+[[10, 5, 4, 1], [9, 8, 7, 2], [6, 3]]
+[[10, 5, 4], [9, 8, 7, 2, 1], [6, 3]]
+[[10, 5, 4, 3], [9, 8, 7, 2, 1], [6]]
+[[10, 5, 4, 3], [9, 8, 7, 2], [6, 1]]
+[[10, 5, 4, 3, 2], [9, 8, 7], [6, 1]]
+[[10, 5, 4, 3, 2, 1], [9, 8, 7], [6]]
+[[10, 5, 4, 3, 2, 1], [9, 8, 7, 6], []]
+[[10, 5, 4, 3, 2], [9, 8, 7, 6, 1], []]
+[[10, 5, 4, 3], [9, 8, 7, 6, 1], [2]]
+[[10, 5, 4, 3], [9, 8, 7, 6], [2, 1]]
+[[10, 5, 4], [9, 8, 7, 6, 3], [2, 1]]
+[[10, 5, 4, 1], [9, 8, 7, 6, 3], [2]]
+[[10, 5, 4, 1], [9, 8, 7, 6, 3, 2], []]
+[[10, 5, 4], [9, 8, 7, 6, 3, 2, 1], []]
+[[10, 5], [9, 8, 7, 6, 3, 2, 1], [4]]
+[[10, 5], [9, 8, 7, 6, 3, 2], [4, 1]]
+[[10, 5, 2], [9, 8, 7, 6, 3], [4, 1]]
+[[10, 5, 2, 1], [9, 8, 7, 6, 3], [4]]
+[[10, 5, 2, 1], [9, 8, 7, 6], [4, 3]]
+[[10, 5, 2], [9, 8, 7, 6, 1], [4, 3]]
+[[10, 5], [9, 8, 7, 6, 1], [4, 3, 2]]
+[[10, 5], [9, 8, 7, 6], [4, 3, 2, 1]]
+[[10], [9, 8, 7, 6, 5], [4, 3, 2, 1]]
+[[10, 1], [9, 8, 7, 6, 5], [4, 3, 2]]
+[[10, 1], [9, 8, 7, 6, 5, 2], [4, 3]]
+[[10], [9, 8, 7, 6, 5, 2, 1], [4, 3]]
+[[10, 3], [9, 8, 7, 6, 5, 2, 1], [4]]
+[[10, 3], [9, 8, 7, 6, 5, 2], [4, 1]]
+[[10, 3, 2], [9, 8, 7, 6, 5], [4, 1]]
+[[10, 3, 2, 1], [9, 8, 7, 6, 5], [4]]
+[[10, 3, 2, 1], [9, 8, 7, 6, 5, 4], []]
+[[10, 3, 2], [9, 8, 7, 6, 5, 4, 1], []]
+[[10, 3], [9, 8, 7, 6, 5, 4, 1], [2]]
+[[10, 3], [9, 8, 7, 6, 5, 4], [2, 1]]
+[[10], [9, 8, 7, 6, 5, 4, 3], [2, 1]]
+[[10, 1], [9, 8, 7, 6, 5, 4, 3], [2]]
+[[10, 1], [9, 8, 7, 6, 5, 4, 3, 2], []]
+[[10], [9, 8, 7, 6, 5, 4, 3, 2, 1], []]
+[[], [9, 8, 7, 6, 5, 4, 3, 2, 1], [10]]
+[[], [9, 8, 7, 6, 5, 4, 3, 2], [10, 1]]
+[[2], [9, 8, 7, 6, 5, 4, 3], [10, 1]]
+[[2, 1], [9, 8, 7, 6, 5, 4, 3], [10]]
+[[2, 1], [9, 8, 7, 6, 5, 4], [10, 3]]
+[[2], [9, 8, 7, 6, 5, 4, 1], [10, 3]]
+[[], [9, 8, 7, 6, 5, 4, 1], [10, 3, 2]]
+[[], [9, 8, 7, 6, 5, 4], [10, 3, 2, 1]]
+[[4], [9, 8, 7, 6, 5], [10, 3, 2, 1]]
+[[4, 1], [9, 8, 7, 6, 5], [10, 3, 2]]
+[[4, 1], [9, 8, 7, 6, 5, 2], [10, 3]]
+[[4], [9, 8, 7, 6, 5, 2, 1], [10, 3]]
+[[4, 3], [9, 8, 7, 6, 5, 2, 1], [10]]
+[[4, 3], [9, 8, 7, 6, 5, 2], [10, 1]]
+[[4, 3, 2], [9, 8, 7, 6, 5], [10, 1]]
+[[4, 3, 2, 1], [9, 8, 7, 6, 5], [10]]
+[[4, 3, 2, 1], [9, 8, 7, 6], [10, 5]]
+[[4, 3, 2], [9, 8, 7, 6, 1], [10, 5]]
+[[4, 3], [9, 8, 7, 6, 1], [10, 5, 2]]
+[[4, 3], [9, 8, 7, 6], [10, 5, 2, 1]]
+[[4], [9, 8, 7, 6, 3], [10, 5, 2, 1]]
+[[4, 1], [9, 8, 7, 6, 3], [10, 5, 2]]
+[[4, 1], [9, 8, 7, 6, 3, 2], [10, 5]]
+[[4], [9, 8, 7, 6, 3, 2, 1], [10, 5]]
+[[], [9, 8, 7, 6, 3, 2, 1], [10, 5, 4]]
+[[], [9, 8, 7, 6, 3, 2], [10, 5, 4, 1]]
+[[2], [9, 8, 7, 6, 3], [10, 5, 4, 1]]
+[[2, 1], [9, 8, 7, 6, 3], [10, 5, 4]]
+[[2, 1], [9, 8, 7, 6], [10, 5, 4, 3]]
+[[2], [9, 8, 7, 6, 1], [10, 5, 4, 3]]
+[[], [9, 8, 7, 6, 1], [10, 5, 4, 3, 2]]
+[[], [9, 8, 7, 6], [10, 5, 4, 3, 2, 1]]
+[[6], [9, 8, 7], [10, 5, 4, 3, 2, 1]]
+[[6, 1], [9, 8, 7], [10, 5, 4, 3, 2]]
+[[6, 1], [9, 8, 7, 2], [10, 5, 4, 3]]
+[[6], [9, 8, 7, 2, 1], [10, 5, 4, 3]]
+[[6, 3], [9, 8, 7, 2, 1], [10, 5, 4]]
+[[6, 3], [9, 8, 7, 2], [10, 5, 4, 1]]
+[[6, 3, 2], [9, 8, 7], [10, 5, 4, 1]]
+[[6, 3, 2, 1], [9, 8, 7], [10, 5, 4]]
+[[6, 3, 2, 1], [9, 8, 7, 4], [10, 5]]
+[[6, 3, 2], [9, 8, 7, 4, 1], [10, 5]]
+[[6, 3], [9, 8, 7, 4, 1], [10, 5, 2]]
+[[6, 3], [9, 8, 7, 4], [10, 5, 2, 1]]
+[[6], [9, 8, 7, 4, 3], [10, 5, 2, 1]]
+[[6, 1], [9, 8, 7, 4, 3], [10, 5, 2]]
+[[6, 1], [9, 8, 7, 4, 3, 2], [10, 5]]
+[[6], [9, 8, 7, 4, 3, 2, 1], [10, 5]]
+[[6, 5], [9, 8, 7, 4, 3, 2, 1], [10]]
+[[6, 5], [9, 8, 7, 4, 3, 2], [10, 1]]
+[[6, 5, 2], [9, 8, 7, 4, 3], [10, 1]]
+[[6, 5, 2, 1], [9, 8, 7, 4, 3], [10]]
+[[6, 5, 2, 1], [9, 8, 7, 4], [10, 3]]
+[[6, 5, 2], [9, 8, 7, 4, 1], [10, 3]]
+[[6, 5], [9, 8, 7, 4, 1], [10, 3, 2]]
+[[6, 5], [9, 8, 7, 4], [10, 3, 2, 1]]
+[[6, 5, 4], [9, 8, 7], [10, 3, 2, 1]]
+[[6, 5, 4, 1], [9, 8, 7], [10, 3, 2]]
+[[6, 5, 4, 1], [9, 8, 7, 2], [10, 3]]
+[[6, 5, 4], [9, 8, 7, 2, 1], [10, 3]]
+[[6, 5, 4, 3], [9, 8, 7, 2, 1], [10]]
+[[6, 5, 4, 3], [9, 8, 7, 2], [10, 1]]
+[[6, 5, 4, 3, 2], [9, 8, 7], [10, 1]]
+[[6, 5, 4, 3, 2, 1], [9, 8, 7], [10]]
+[[6, 5, 4, 3, 2, 1], [9, 8], [10, 7]]
+[[6, 5, 4, 3, 2], [9, 8, 1], [10, 7]]
+[[6, 5, 4, 3], [9, 8, 1], [10, 7, 2]]
+[[6, 5, 4, 3], [9, 8], [10, 7, 2, 1]]
+[[6, 5, 4], [9, 8, 3], [10, 7, 2, 1]]
+[[6, 5, 4, 1], [9, 8, 3], [10, 7, 2]]
+[[6, 5, 4, 1], [9, 8, 3, 2], [10, 7]]
+[[6, 5, 4], [9, 8, 3, 2, 1], [10, 7]]
+[[6, 5], [9, 8, 3, 2, 1], [10, 7, 4]]
+[[6, 5], [9, 8, 3, 2], [10, 7, 4, 1]]
+[[6, 5, 2], [9, 8, 3], [10, 7, 4, 1]]
+[[6, 5, 2, 1], [9, 8, 3], [10, 7, 4]]
+[[6, 5, 2, 1], [9, 8], [10, 7, 4, 3]]
+[[6, 5, 2], [9, 8, 1], [10, 7, 4, 3]]
+[[6, 5], [9, 8, 1], [10, 7, 4, 3, 2]]
+[[6, 5], [9, 8], [10, 7, 4, 3, 2, 1]]
+[[6], [9, 8, 5], [10, 7, 4, 3, 2, 1]]
+[[6, 1], [9, 8, 5], [10, 7, 4, 3, 2]]
+[[6, 1], [9, 8, 5, 2], [10, 7, 4, 3]]
+[[6], [9, 8, 5, 2, 1], [10, 7, 4, 3]]
+[[6, 3], [9, 8, 5, 2, 1], [10, 7, 4]]
+[[6, 3], [9, 8, 5, 2], [10, 7, 4, 1]]
+[[6, 3, 2], [9, 8, 5], [10, 7, 4, 1]]
+[[6, 3, 2, 1], [9, 8, 5], [10, 7, 4]]
+[[6, 3, 2, 1], [9, 8, 5, 4], [10, 7]]
+[[6, 3, 2], [9, 8, 5, 4, 1], [10, 7]]
+[[6, 3], [9, 8, 5, 4, 1], [10, 7, 2]]
+[[6, 3], [9, 8, 5, 4], [10, 7, 2, 1]]
+[[6], [9, 8, 5, 4, 3], [10, 7, 2, 1]]
+[[6, 1], [9, 8, 5, 4, 3], [10, 7, 2]]
+[[6, 1], [9, 8, 5, 4, 3, 2], [10, 7]]
+[[6], [9, 8, 5, 4, 3, 2, 1], [10, 7]]
+[[], [9, 8, 5, 4, 3, 2, 1], [10, 7, 6]]
+[[], [9, 8, 5, 4, 3, 2], [10, 7, 6, 1]]
+[[2], [9, 8, 5, 4, 3], [10, 7, 6, 1]]
+[[2, 1], [9, 8, 5, 4, 3], [10, 7, 6]]
+[[2, 1], [9, 8, 5, 4], [10, 7, 6, 3]]
+[[2], [9, 8, 5, 4, 1], [10, 7, 6, 3]]
+[[], [9, 8, 5, 4, 1], [10, 7, 6, 3, 2]]
+[[], [9, 8, 5, 4], [10, 7, 6, 3, 2, 1]]
+[[4], [9, 8, 5], [10, 7, 6, 3, 2, 1]]
+[[4, 1], [9, 8, 5], [10, 7, 6, 3, 2]]
+[[4, 1], [9, 8, 5, 2], [10, 7, 6, 3]]
+[[4], [9, 8, 5, 2, 1], [10, 7, 6, 3]]
+[[4, 3], [9, 8, 5, 2, 1], [10, 7, 6]]
+[[4, 3], [9, 8, 5, 2], [10, 7, 6, 1]]
+[[4, 3, 2], [9, 8, 5], [10, 7, 6, 1]]
+[[4, 3, 2, 1], [9, 8, 5], [10, 7, 6]]
+[[4, 3, 2, 1], [9, 8], [10, 7, 6, 5]]
+[[4, 3, 2], [9, 8, 1], [10, 7, 6, 5]]
+[[4, 3], [9, 8, 1], [10, 7, 6, 5, 2]]
+[[4, 3], [9, 8], [10, 7, 6, 5, 2, 1]]
+[[4], [9, 8, 3], [10, 7, 6, 5, 2, 1]]
+[[4, 1], [9, 8, 3], [10, 7, 6, 5, 2]]
+[[4, 1], [9, 8, 3, 2], [10, 7, 6, 5]]
+[[4], [9, 8, 3, 2, 1], [10, 7, 6, 5]]
+[[], [9, 8, 3, 2, 1], [10, 7, 6, 5, 4]]
+[[], [9, 8, 3, 2], [10, 7, 6, 5, 4, 1]]
+[[2], [9, 8, 3], [10, 7, 6, 5, 4, 1]]
+[[2, 1], [9, 8, 3], [10, 7, 6, 5, 4]]
+[[2, 1], [9, 8], [10, 7, 6, 5, 4, 3]]
+[[2], [9, 8, 1], [10, 7, 6, 5, 4, 3]]
+[[], [9, 8, 1], [10, 7, 6, 5, 4, 3, 2]]
+[[], [9, 8], [10, 7, 6, 5, 4, 3, 2, 1]]
+[[8], [9], [10, 7, 6, 5, 4, 3, 2, 1]]
+[[8, 1], [9], [10, 7, 6, 5, 4, 3, 2]]
+[[8, 1], [9, 2], [10, 7, 6, 5, 4, 3]]
+[[8], [9, 2, 1], [10, 7, 6, 5, 4, 3]]
+[[8, 3], [9, 2, 1], [10, 7, 6, 5, 4]]
+[[8, 3], [9, 2], [10, 7, 6, 5, 4, 1]]
+[[8, 3, 2], [9], [10, 7, 6, 5, 4, 1]]
+[[8, 3, 2, 1], [9], [10, 7, 6, 5, 4]]
+[[8, 3, 2, 1], [9, 4], [10, 7, 6, 5]]
+[[8, 3, 2], [9, 4, 1], [10, 7, 6, 5]]
+[[8, 3], [9, 4, 1], [10, 7, 6, 5, 2]]
+[[8, 3], [9, 4], [10, 7, 6, 5, 2, 1]]
+[[8], [9, 4, 3], [10, 7, 6, 5, 2, 1]]
+[[8, 1], [9, 4, 3], [10, 7, 6, 5, 2]]
+[[8, 1], [9, 4, 3, 2], [10, 7, 6, 5]]
+[[8], [9, 4, 3, 2, 1], [10, 7, 6, 5]]
+[[8, 5], [9, 4, 3, 2, 1], [10, 7, 6]]
+[[8, 5], [9, 4, 3, 2], [10, 7, 6, 1]]
+[[8, 5, 2], [9, 4, 3], [10, 7, 6, 1]]
+[[8, 5, 2, 1], [9, 4, 3], [10, 7, 6]]
+[[8, 5, 2, 1], [9, 4], [10, 7, 6, 3]]
+[[8, 5, 2], [9, 4, 1], [10, 7, 6, 3]]
+[[8, 5], [9, 4, 1], [10, 7, 6, 3, 2]]
+[[8, 5], [9, 4], [10, 7, 6, 3, 2, 1]]
+[[8, 5, 4], [9], [10, 7, 6, 3, 2, 1]]
+[[8, 5, 4, 1], [9], [10, 7, 6, 3, 2]]
+[[8, 5, 4, 1], [9, 2], [10, 7, 6, 3]]
+[[8, 5, 4], [9, 2, 1], [10, 7, 6, 3]]
+[[8, 5, 4, 3], [9, 2, 1], [10, 7, 6]]
+[[8, 5, 4, 3], [9, 2], [10, 7, 6, 1]]
+[[8, 5, 4, 3, 2], [9], [10, 7, 6, 1]]
+[[8, 5, 4, 3, 2, 1], [9], [10, 7, 6]]
+[[8, 5, 4, 3, 2, 1], [9, 6], [10, 7]]
+[[8, 5, 4, 3, 2], [9, 6, 1], [10, 7]]
+[[8, 5, 4, 3], [9, 6, 1], [10, 7, 2]]
+[[8, 5, 4, 3], [9, 6], [10, 7, 2, 1]]
+[[8, 5, 4], [9, 6, 3], [10, 7, 2, 1]]
+[[8, 5, 4, 1], [9, 6, 3], [10, 7, 2]]
+[[8, 5, 4, 1], [9, 6, 3, 2], [10, 7]]
+[[8, 5, 4], [9, 6, 3, 2, 1], [10, 7]]
+[[8, 5], [9, 6, 3, 2, 1], [10, 7, 4]]
+[[8, 5], [9, 6, 3, 2], [10, 7, 4, 1]]
+[[8, 5, 2], [9, 6, 3], [10, 7, 4, 1]]
+[[8, 5, 2, 1], [9, 6, 3], [10, 7, 4]]
+[[8, 5, 2, 1], [9, 6], [10, 7, 4, 3]]
+[[8, 5, 2], [9, 6, 1], [10, 7, 4, 3]]
+[[8, 5], [9, 6, 1], [10, 7, 4, 3, 2]]
+[[8, 5], [9, 6], [10, 7, 4, 3, 2, 1]]
+[[8], [9, 6, 5], [10, 7, 4, 3, 2, 1]]
+[[8, 1], [9, 6, 5], [10, 7, 4, 3, 2]]
+[[8, 1], [9, 6, 5, 2], [10, 7, 4, 3]]
+[[8], [9, 6, 5, 2, 1], [10, 7, 4, 3]]
+[[8, 3], [9, 6, 5, 2, 1], [10, 7, 4]]
+[[8, 3], [9, 6, 5, 2], [10, 7, 4, 1]]
+[[8, 3, 2], [9, 6, 5], [10, 7, 4, 1]]
+[[8, 3, 2, 1], [9, 6, 5], [10, 7, 4]]
+[[8, 3, 2, 1], [9, 6, 5, 4], [10, 7]]
+[[8, 3, 2], [9, 6, 5, 4, 1], [10, 7]]
+[[8, 3], [9, 6, 5, 4, 1], [10, 7, 2]]
+[[8, 3], [9, 6, 5, 4], [10, 7, 2, 1]]
+[[8], [9, 6, 5, 4, 3], [10, 7, 2, 1]]
+[[8, 1], [9, 6, 5, 4, 3], [10, 7, 2]]
+[[8, 1], [9, 6, 5, 4, 3, 2], [10, 7]]
+[[8], [9, 6, 5, 4, 3, 2, 1], [10, 7]]
+[[8, 7], [9, 6, 5, 4, 3, 2, 1], [10]]
+[[8, 7], [9, 6, 5, 4, 3, 2], [10, 1]]
+[[8, 7, 2], [9, 6, 5, 4, 3], [10, 1]]
+[[8, 7, 2, 1], [9, 6, 5, 4, 3], [10]]
+[[8, 7, 2, 1], [9, 6, 5, 4], [10, 3]]
+[[8, 7, 2], [9, 6, 5, 4, 1], [10, 3]]
+[[8, 7], [9, 6, 5, 4, 1], [10, 3, 2]]
+[[8, 7], [9, 6, 5, 4], [10, 3, 2, 1]]
+[[8, 7, 4], [9, 6, 5], [10, 3, 2, 1]]
+[[8, 7, 4, 1], [9, 6, 5], [10, 3, 2]]
+[[8, 7, 4, 1], [9, 6, 5, 2], [10, 3]]
+[[8, 7, 4], [9, 6, 5, 2, 1], [10, 3]]
+[[8, 7, 4, 3], [9, 6, 5, 2, 1], [10]]
+[[8, 7, 4, 3], [9, 6, 5, 2], [10, 1]]
+[[8, 7, 4, 3, 2], [9, 6, 5], [10, 1]]
+[[8, 7, 4, 3, 2, 1], [9, 6, 5], [10]]
+[[8, 7, 4, 3, 2, 1], [9, 6], [10, 5]]
+[[8, 7, 4, 3, 2], [9, 6, 1], [10, 5]]
+[[8, 7, 4, 3], [9, 6, 1], [10, 5, 2]]
+[[8, 7, 4, 3], [9, 6], [10, 5, 2, 1]]
+[[8, 7, 4], [9, 6, 3], [10, 5, 2, 1]]
+[[8, 7, 4, 1], [9, 6, 3], [10, 5, 2]]
+[[8, 7, 4, 1], [9, 6, 3, 2], [10, 5]]
+[[8, 7, 4], [9, 6, 3, 2, 1], [10, 5]]
+[[8, 7], [9, 6, 3, 2, 1], [10, 5, 4]]
+[[8, 7], [9, 6, 3, 2], [10, 5, 4, 1]]
+[[8, 7, 2], [9, 6, 3], [10, 5, 4, 1]]
+[[8, 7, 2, 1], [9, 6, 3], [10, 5, 4]]
+[[8, 7, 2, 1], [9, 6], [10, 5, 4, 3]]
+[[8, 7, 2], [9, 6, 1], [10, 5, 4, 3]]
+[[8, 7], [9, 6, 1], [10, 5, 4, 3, 2]]
+[[8, 7], [9, 6], [10, 5, 4, 3, 2, 1]]
+[[8, 7, 6], [9], [10, 5, 4, 3, 2, 1]]
+[[8, 7, 6, 1], [9], [10, 5, 4, 3, 2]]
+[[8, 7, 6, 1], [9, 2], [10, 5, 4, 3]]
+[[8, 7, 6], [9, 2, 1], [10, 5, 4, 3]]
+[[8, 7, 6, 3], [9, 2, 1], [10, 5, 4]]
+[[8, 7, 6, 3], [9, 2], [10, 5, 4, 1]]
+[[8, 7, 6, 3, 2], [9], [10, 5, 4, 1]]
+[[8, 7, 6, 3, 2, 1], [9], [10, 5, 4]]
+[[8, 7, 6, 3, 2, 1], [9, 4], [10, 5]]
+[[8, 7, 6, 3, 2], [9, 4, 1], [10, 5]]
+[[8, 7, 6, 3], [9, 4, 1], [10, 5, 2]]
+[[8, 7, 6, 3], [9, 4], [10, 5, 2, 1]]
+[[8, 7, 6], [9, 4, 3], [10, 5, 2, 1]]
+[[8, 7, 6, 1], [9, 4, 3], [10, 5, 2]]
+[[8, 7, 6, 1], [9, 4, 3, 2], [10, 5]]
+[[8, 7, 6], [9, 4, 3, 2, 1], [10, 5]]
+[[8, 7, 6, 5], [9, 4, 3, 2, 1], [10]]
+[[8, 7, 6, 5], [9, 4, 3, 2], [10, 1]]
+[[8, 7, 6, 5, 2], [9, 4, 3], [10, 1]]
+[[8, 7, 6, 5, 2, 1], [9, 4, 3], [10]]
+[[8, 7, 6, 5, 2, 1], [9, 4], [10, 3]]
+[[8, 7, 6, 5, 2], [9, 4, 1], [10, 3]]
+[[8, 7, 6, 5], [9, 4, 1], [10, 3, 2]]
+[[8, 7, 6, 5], [9, 4], [10, 3, 2, 1]]
+[[8, 7, 6, 5, 4], [9], [10, 3, 2, 1]]
+[[8, 7, 6, 5, 4, 1], [9], [10, 3, 2]]
+[[8, 7, 6, 5, 4, 1], [9, 2], [10, 3]]
+[[8, 7, 6, 5, 4], [9, 2, 1], [10, 3]]
+[[8, 7, 6, 5, 4, 3], [9, 2, 1], [10]]
+[[8, 7, 6, 5, 4, 3], [9, 2], [10, 1]]
+[[8, 7, 6, 5, 4, 3, 2], [9], [10, 1]]
+[[8, 7, 6, 5, 4, 3, 2, 1], [9], [10]]
+[[8, 7, 6, 5, 4, 3, 2, 1], [], [10, 9]]
+[[8, 7, 6, 5, 4, 3, 2], [1], [10, 9]]
+[[8, 7, 6, 5, 4, 3], [1], [10, 9, 2]]
+[[8, 7, 6, 5, 4, 3], [], [10, 9, 2, 1]]
+[[8, 7, 6, 5, 4], [3], [10, 9, 2, 1]]
+[[8, 7, 6, 5, 4, 1], [3], [10, 9, 2]]
+[[8, 7, 6, 5, 4, 1], [3, 2], [10, 9]]
+[[8, 7, 6, 5, 4], [3, 2, 1], [10, 9]]
+[[8, 7, 6, 5], [3, 2, 1], [10, 9, 4]]
+[[8, 7, 6, 5], [3, 2], [10, 9, 4, 1]]
+[[8, 7, 6, 5, 2], [3], [10, 9, 4, 1]]
+[[8, 7, 6, 5, 2, 1], [3], [10, 9, 4]]
+[[8, 7, 6, 5, 2, 1], [], [10, 9, 4, 3]]
+[[8, 7, 6, 5, 2], [1], [10, 9, 4, 3]]
+[[8, 7, 6, 5], [1], [10, 9, 4, 3, 2]]
+[[8, 7, 6, 5], [], [10, 9, 4, 3, 2, 1]]
+[[8, 7, 6], [5], [10, 9, 4, 3, 2, 1]]
+[[8, 7, 6, 1], [5], [10, 9, 4, 3, 2]]
+[[8, 7, 6, 1], [5, 2], [10, 9, 4, 3]]
+[[8, 7, 6], [5, 2, 1], [10, 9, 4, 3]]
+[[8, 7, 6, 3], [5, 2, 1], [10, 9, 4]]
+[[8, 7, 6, 3], [5, 2], [10, 9, 4, 1]]
+[[8, 7, 6, 3, 2], [5], [10, 9, 4, 1]]
+[[8, 7, 6, 3, 2, 1], [5], [10, 9, 4]]
+[[8, 7, 6, 3, 2, 1], [5, 4], [10, 9]]
+[[8, 7, 6, 3, 2], [5, 4, 1], [10, 9]]
+[[8, 7, 6, 3], [5, 4, 1], [10, 9, 2]]
+[[8, 7, 6, 3], [5, 4], [10, 9, 2, 1]]
+[[8, 7, 6], [5, 4, 3], [10, 9, 2, 1]]
+[[8, 7, 6, 1], [5, 4, 3], [10, 9, 2]]
+[[8, 7, 6, 1], [5, 4, 3, 2], [10, 9]]
+[[8, 7, 6], [5, 4, 3, 2, 1], [10, 9]]
+[[8, 7], [5, 4, 3, 2, 1], [10, 9, 6]]
+[[8, 7], [5, 4, 3, 2], [10, 9, 6, 1]]
+[[8, 7, 2], [5, 4, 3], [10, 9, 6, 1]]
+[[8, 7, 2, 1], [5, 4, 3], [10, 9, 6]]
+[[8, 7, 2, 1], [5, 4], [10, 9, 6, 3]]
+[[8, 7, 2], [5, 4, 1], [10, 9, 6, 3]]
+[[8, 7], [5, 4, 1], [10, 9, 6, 3, 2]]
+[[8, 7], [5, 4], [10, 9, 6, 3, 2, 1]]
+[[8, 7, 4], [5], [10, 9, 6, 3, 2, 1]]
+[[8, 7, 4, 1], [5], [10, 9, 6, 3, 2]]
+[[8, 7, 4, 1], [5, 2], [10, 9, 6, 3]]
+[[8, 7, 4], [5, 2, 1], [10, 9, 6, 3]]
+[[8, 7, 4, 3], [5, 2, 1], [10, 9, 6]]
+[[8, 7, 4, 3], [5, 2], [10, 9, 6, 1]]
+[[8, 7, 4, 3, 2], [5], [10, 9, 6, 1]]
+[[8, 7, 4, 3, 2, 1], [5], [10, 9, 6]]
+[[8, 7, 4, 3, 2, 1], [], [10, 9, 6, 5]]
+[[8, 7, 4, 3, 2], [1], [10, 9, 6, 5]]
+[[8, 7, 4, 3], [1], [10, 9, 6, 5, 2]]
+[[8, 7, 4, 3], [], [10, 9, 6, 5, 2, 1]]
+[[8, 7, 4], [3], [10, 9, 6, 5, 2, 1]]
+[[8, 7, 4, 1], [3], [10, 9, 6, 5, 2]]
+[[8, 7, 4, 1], [3, 2], [10, 9, 6, 5]]
+[[8, 7, 4], [3, 2, 1], [10, 9, 6, 5]]
+[[8, 7], [3, 2, 1], [10, 9, 6, 5, 4]]
+[[8, 7], [3, 2], [10, 9, 6, 5, 4, 1]]
+[[8, 7, 2], [3], [10, 9, 6, 5, 4, 1]]
+[[8, 7, 2, 1], [3], [10, 9, 6, 5, 4]]
+[[8, 7, 2, 1], [], [10, 9, 6, 5, 4, 3]]
+[[8, 7, 2], [1], [10, 9, 6, 5, 4, 3]]
+[[8, 7], [1], [10, 9, 6, 5, 4, 3, 2]]
+[[8, 7], [], [10, 9, 6, 5, 4, 3, 2, 1]]
+[[8], [7], [10, 9, 6, 5, 4, 3, 2, 1]]
+[[8, 1], [7], [10, 9, 6, 5, 4, 3, 2]]
+[[8, 1], [7, 2], [10, 9, 6, 5, 4, 3]]
+[[8], [7, 2, 1], [10, 9, 6, 5, 4, 3]]
+[[8, 3], [7, 2, 1], [10, 9, 6, 5, 4]]
+[[8, 3], [7, 2], [10, 9, 6, 5, 4, 1]]
+[[8, 3, 2], [7], [10, 9, 6, 5, 4, 1]]
+[[8, 3, 2, 1], [7], [10, 9, 6, 5, 4]]
+[[8, 3, 2, 1], [7, 4], [10, 9, 6, 5]]
+[[8, 3, 2], [7, 4, 1], [10, 9, 6, 5]]
+[[8, 3], [7, 4, 1], [10, 9, 6, 5, 2]]
+[[8, 3], [7, 4], [10, 9, 6, 5, 2, 1]]
+[[8], [7, 4, 3], [10, 9, 6, 5, 2, 1]]
+[[8, 1], [7, 4, 3], [10, 9, 6, 5, 2]]
+[[8, 1], [7, 4, 3, 2], [10, 9, 6, 5]]
+[[8], [7, 4, 3, 2, 1], [10, 9, 6, 5]]
+[[8, 5], [7, 4, 3, 2, 1], [10, 9, 6]]
+[[8, 5], [7, 4, 3, 2], [10, 9, 6, 1]]
+[[8, 5, 2], [7, 4, 3], [10, 9, 6, 1]]
+[[8, 5, 2, 1], [7, 4, 3], [10, 9, 6]]
+[[8, 5, 2, 1], [7, 4], [10, 9, 6, 3]]
+[[8, 5, 2], [7, 4, 1], [10, 9, 6, 3]]
+[[8, 5], [7, 4, 1], [10, 9, 6, 3, 2]]
+[[8, 5], [7, 4], [10, 9, 6, 3, 2, 1]]
+[[8, 5, 4], [7], [10, 9, 6, 3, 2, 1]]
+[[8, 5, 4, 1], [7], [10, 9, 6, 3, 2]]
+[[8, 5, 4, 1], [7, 2], [10, 9, 6, 3]]
+[[8, 5, 4], [7, 2, 1], [10, 9, 6, 3]]
+[[8, 5, 4, 3], [7, 2, 1], [10, 9, 6]]
+[[8, 5, 4, 3], [7, 2], [10, 9, 6, 1]]
+[[8, 5, 4, 3, 2], [7], [10, 9, 6, 1]]
+[[8, 5, 4, 3, 2, 1], [7], [10, 9, 6]]
+[[8, 5, 4, 3, 2, 1], [7, 6], [10, 9]]
+[[8, 5, 4, 3, 2], [7, 6, 1], [10, 9]]
+[[8, 5, 4, 3], [7, 6, 1], [10, 9, 2]]
+[[8, 5, 4, 3], [7, 6], [10, 9, 2, 1]]
+[[8, 5, 4], [7, 6, 3], [10, 9, 2, 1]]
+[[8, 5, 4, 1], [7, 6, 3], [10, 9, 2]]
+[[8, 5, 4, 1], [7, 6, 3, 2], [10, 9]]
+[[8, 5, 4], [7, 6, 3, 2, 1], [10, 9]]
+[[8, 5], [7, 6, 3, 2, 1], [10, 9, 4]]
+[[8, 5], [7, 6, 3, 2], [10, 9, 4, 1]]
+[[8, 5, 2], [7, 6, 3], [10, 9, 4, 1]]
+[[8, 5, 2, 1], [7, 6, 3], [10, 9, 4]]
+[[8, 5, 2, 1], [7, 6], [10, 9, 4, 3]]
+[[8, 5, 2], [7, 6, 1], [10, 9, 4, 3]]
+[[8, 5], [7, 6, 1], [10, 9, 4, 3, 2]]
+[[8, 5], [7, 6], [10, 9, 4, 3, 2, 1]]
+[[8], [7, 6, 5], [10, 9, 4, 3, 2, 1]]
+[[8, 1], [7, 6, 5], [10, 9, 4, 3, 2]]
+[[8, 1], [7, 6, 5, 2], [10, 9, 4, 3]]
+[[8], [7, 6, 5, 2, 1], [10, 9, 4, 3]]
+[[8, 3], [7, 6, 5, 2, 1], [10, 9, 4]]
+[[8, 3], [7, 6, 5, 2], [10, 9, 4, 1]]
+[[8, 3, 2], [7, 6, 5], [10, 9, 4, 1]]
+[[8, 3, 2, 1], [7, 6, 5], [10, 9, 4]]
+[[8, 3, 2, 1], [7, 6, 5, 4], [10, 9]]
+[[8, 3, 2], [7, 6, 5, 4, 1], [10, 9]]
+[[8, 3], [7, 6, 5, 4, 1], [10, 9, 2]]
+[[8, 3], [7, 6, 5, 4], [10, 9, 2, 1]]
+[[8], [7, 6, 5, 4, 3], [10, 9, 2, 1]]
+[[8, 1], [7, 6, 5, 4, 3], [10, 9, 2]]
+[[8, 1], [7, 6, 5, 4, 3, 2], [10, 9]]
+[[8], [7, 6, 5, 4, 3, 2, 1], [10, 9]]
+[[], [7, 6, 5, 4, 3, 2, 1], [10, 9, 8]]
+[[], [7, 6, 5, 4, 3, 2], [10, 9, 8, 1]]
+[[2], [7, 6, 5, 4, 3], [10, 9, 8, 1]]
+[[2, 1], [7, 6, 5, 4, 3], [10, 9, 8]]
+[[2, 1], [7, 6, 5, 4], [10, 9, 8, 3]]
+[[2], [7, 6, 5, 4, 1], [10, 9, 8, 3]]
+[[], [7, 6, 5, 4, 1], [10, 9, 8, 3, 2]]
+[[], [7, 6, 5, 4], [10, 9, 8, 3, 2, 1]]
+[[4], [7, 6, 5], [10, 9, 8, 3, 2, 1]]
+[[4, 1], [7, 6, 5], [10, 9, 8, 3, 2]]
+[[4, 1], [7, 6, 5, 2], [10, 9, 8, 3]]
+[[4], [7, 6, 5, 2, 1], [10, 9, 8, 3]]
+[[4, 3], [7, 6, 5, 2, 1], [10, 9, 8]]
+[[4, 3], [7, 6, 5, 2], [10, 9, 8, 1]]
+[[4, 3, 2], [7, 6, 5], [10, 9, 8, 1]]
+[[4, 3, 2, 1], [7, 6, 5], [10, 9, 8]]
+[[4, 3, 2, 1], [7, 6], [10, 9, 8, 5]]
+[[4, 3, 2], [7, 6, 1], [10, 9, 8, 5]]
+[[4, 3], [7, 6, 1], [10, 9, 8, 5, 2]]
+[[4, 3], [7, 6], [10, 9, 8, 5, 2, 1]]
+[[4], [7, 6, 3], [10, 9, 8, 5, 2, 1]]
+[[4, 1], [7, 6, 3], [10, 9, 8, 5, 2]]
+[[4, 1], [7, 6, 3, 2], [10, 9, 8, 5]]
+[[4], [7, 6, 3, 2, 1], [10, 9, 8, 5]]
+[[], [7, 6, 3, 2, 1], [10, 9, 8, 5, 4]]
+[[], [7, 6, 3, 2], [10, 9, 8, 5, 4, 1]]
+[[2], [7, 6, 3], [10, 9, 8, 5, 4, 1]]
+[[2, 1], [7, 6, 3], [10, 9, 8, 5, 4]]
+[[2, 1], [7, 6], [10, 9, 8, 5, 4, 3]]
+[[2], [7, 6, 1], [10, 9, 8, 5, 4, 3]]
+[[], [7, 6, 1], [10, 9, 8, 5, 4, 3, 2]]
+[[], [7, 6], [10, 9, 8, 5, 4, 3, 2, 1]]
+[[6], [7], [10, 9, 8, 5, 4, 3, 2, 1]]
+[[6, 1], [7], [10, 9, 8, 5, 4, 3, 2]]
+[[6, 1], [7, 2], [10, 9, 8, 5, 4, 3]]
+[[6], [7, 2, 1], [10, 9, 8, 5, 4, 3]]
+[[6, 3], [7, 2, 1], [10, 9, 8, 5, 4]]
+[[6, 3], [7, 2], [10, 9, 8, 5, 4, 1]]
+[[6, 3, 2], [7], [10, 9, 8, 5, 4, 1]]
+[[6, 3, 2, 1], [7], [10, 9, 8, 5, 4]]
+[[6, 3, 2, 1], [7, 4], [10, 9, 8, 5]]
+[[6, 3, 2], [7, 4, 1], [10, 9, 8, 5]]
+[[6, 3], [7, 4, 1], [10, 9, 8, 5, 2]]
+[[6, 3], [7, 4], [10, 9, 8, 5, 2, 1]]
+[[6], [7, 4, 3], [10, 9, 8, 5, 2, 1]]
+[[6, 1], [7, 4, 3], [10, 9, 8, 5, 2]]
+[[6, 1], [7, 4, 3, 2], [10, 9, 8, 5]]
+[[6], [7, 4, 3, 2, 1], [10, 9, 8, 5]]
+[[6, 5], [7, 4, 3, 2, 1], [10, 9, 8]]
+[[6, 5], [7, 4, 3, 2], [10, 9, 8, 1]]
+[[6, 5, 2], [7, 4, 3], [10, 9, 8, 1]]
+[[6, 5, 2, 1], [7, 4, 3], [10, 9, 8]]
+[[6, 5, 2, 1], [7, 4], [10, 9, 8, 3]]
+[[6, 5, 2], [7, 4, 1], [10, 9, 8, 3]]
+[[6, 5], [7, 4, 1], [10, 9, 8, 3, 2]]
+[[6, 5], [7, 4], [10, 9, 8, 3, 2, 1]]
+[[6, 5, 4], [7], [10, 9, 8, 3, 2, 1]]
+[[6, 5, 4, 1], [7], [10, 9, 8, 3, 2]]
+[[6, 5, 4, 1], [7, 2], [10, 9, 8, 3]]
+[[6, 5, 4], [7, 2, 1], [10, 9, 8, 3]]
+[[6, 5, 4, 3], [7, 2, 1], [10, 9, 8]]
+[[6, 5, 4, 3], [7, 2], [10, 9, 8, 1]]
+[[6, 5, 4, 3, 2], [7], [10, 9, 8, 1]]
+[[6, 5, 4, 3, 2, 1], [7], [10, 9, 8]]
+[[6, 5, 4, 3, 2, 1], [], [10, 9, 8, 7]]
+[[6, 5, 4, 3, 2], [1], [10, 9, 8, 7]]
+[[6, 5, 4, 3], [1], [10, 9, 8, 7, 2]]
+[[6, 5, 4, 3], [], [10, 9, 8, 7, 2, 1]]
+[[6, 5, 4], [3], [10, 9, 8, 7, 2, 1]]
+[[6, 5, 4, 1], [3], [10, 9, 8, 7, 2]]
+[[6, 5, 4, 1], [3, 2], [10, 9, 8, 7]]
+[[6, 5, 4], [3, 2, 1], [10, 9, 8, 7]]
+[[6, 5], [3, 2, 1], [10, 9, 8, 7, 4]]
+[[6, 5], [3, 2], [10, 9, 8, 7, 4, 1]]
+[[6, 5, 2], [3], [10, 9, 8, 7, 4, 1]]
+[[6, 5, 2, 1], [3], [10, 9, 8, 7, 4]]
+[[6, 5, 2, 1], [], [10, 9, 8, 7, 4, 3]]
+[[6, 5, 2], [1], [10, 9, 8, 7, 4, 3]]
+[[6, 5], [1], [10, 9, 8, 7, 4, 3, 2]]
+[[6, 5], [], [10, 9, 8, 7, 4, 3, 2, 1]]
+[[6], [5], [10, 9, 8, 7, 4, 3, 2, 1]]
+[[6, 1], [5], [10, 9, 8, 7, 4, 3, 2]]
+[[6, 1], [5, 2], [10, 9, 8, 7, 4, 3]]
+[[6], [5, 2, 1], [10, 9, 8, 7, 4, 3]]
+[[6, 3], [5, 2, 1], [10, 9, 8, 7, 4]]
+[[6, 3], [5, 2], [10, 9, 8, 7, 4, 1]]
+[[6, 3, 2], [5], [10, 9, 8, 7, 4, 1]]
+[[6, 3, 2, 1], [5], [10, 9, 8, 7, 4]]
+[[6, 3, 2, 1], [5, 4], [10, 9, 8, 7]]
+[[6, 3, 2], [5, 4, 1], [10, 9, 8, 7]]
+[[6, 3], [5, 4, 1], [10, 9, 8, 7, 2]]
+[[6, 3], [5, 4], [10, 9, 8, 7, 2, 1]]
+[[6], [5, 4, 3], [10, 9, 8, 7, 2, 1]]
+[[6, 1], [5, 4, 3], [10, 9, 8, 7, 2]]
+[[6, 1], [5, 4, 3, 2], [10, 9, 8, 7]]
+[[6], [5, 4, 3, 2, 1], [10, 9, 8, 7]]
+[[], [5, 4, 3, 2, 1], [10, 9, 8, 7, 6]]
+[[], [5, 4, 3, 2], [10, 9, 8, 7, 6, 1]]
+[[2], [5, 4, 3], [10, 9, 8, 7, 6, 1]]
+[[2, 1], [5, 4, 3], [10, 9, 8, 7, 6]]
+[[2, 1], [5, 4], [10, 9, 8, 7, 6, 3]]
+[[2], [5, 4, 1], [10, 9, 8, 7, 6, 3]]
+[[], [5, 4, 1], [10, 9, 8, 7, 6, 3, 2]]
+[[], [5, 4], [10, 9, 8, 7, 6, 3, 2, 1]]
+[[4], [5], [10, 9, 8, 7, 6, 3, 2, 1]]
+[[4, 1], [5], [10, 9, 8, 7, 6, 3, 2]]
+[[4, 1], [5, 2], [10, 9, 8, 7, 6, 3]]
+[[4], [5, 2, 1], [10, 9, 8, 7, 6, 3]]
+[[4, 3], [5, 2, 1], [10, 9, 8, 7, 6]]
+[[4, 3], [5, 2], [10, 9, 8, 7, 6, 1]]
+[[4, 3, 2], [5], [10, 9, 8, 7, 6, 1]]
+[[4, 3, 2, 1], [5], [10, 9, 8, 7, 6]]
+[[4, 3, 2, 1], [], [10, 9, 8, 7, 6, 5]]
+[[4, 3, 2], [1], [10, 9, 8, 7, 6, 5]]
+[[4, 3], [1], [10, 9, 8, 7, 6, 5, 2]]
+[[4, 3], [], [10, 9, 8, 7, 6, 5, 2, 1]]
+[[4], [3], [10, 9, 8, 7, 6, 5, 2, 1]]
+[[4, 1], [3], [10, 9, 8, 7, 6, 5, 2]]
+[[4, 1], [3, 2], [10, 9, 8, 7, 6, 5]]
+[[4], [3, 2, 1], [10, 9, 8, 7, 6, 5]]
+[[], [3, 2, 1], [10, 9, 8, 7, 6, 5, 4]]
+[[], [3, 2], [10, 9, 8, 7, 6, 5, 4, 1]]
+[[2], [3], [10, 9, 8, 7, 6, 5, 4, 1]]
+[[2, 1], [3], [10, 9, 8, 7, 6, 5, 4]]
+[[2, 1], [], [10, 9, 8, 7, 6, 5, 4, 3]]
+[[2], [1], [10, 9, 8, 7, 6, 5, 4, 3]]
+[[], [1], [10, 9, 8, 7, 6, 5, 4, 3, 2]]
+[[], [], [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>

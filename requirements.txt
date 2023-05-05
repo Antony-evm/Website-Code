@@ -1,4 +1,5 @@
 Flask==2.0.3
+Flask-Login==0.5.0
 Flask-Mail==0.9.1
 Flask-SQLAlchemy==2.5.1
 Werkzeug==2.0.1
@@ -6,3 +7,4 @@ SQLAlchemy==1.4.31
 Jinja2==3.0.3
 sympy==1.9
 numpy==1.19.5
+Flask-Sitemap==0.3.0

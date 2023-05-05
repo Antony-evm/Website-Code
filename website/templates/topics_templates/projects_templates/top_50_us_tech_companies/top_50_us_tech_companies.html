@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block title %}{{article.title}}{% endblock %}
+
+{% block content %}
+
+<div class = 'content'>
+	<h1>{{article.title}}</h1>
+<div class = 'content'>
+
+<h2> Introduction </h2>
+
+<p> My goal in this project is to perform exploratory data analysis (EDA) on the Top 50 US Tech Companies dataset from kaggle (found <a href = "https://www.kaggle.com/datasets/lamiatabassum/top-50-us-tech-companies-2022-2023-dataset" target="_blank" class='contact_url'>here</a>), showcasing various techniques and potential graphs that can be utilized to extract meaningful insights from the data. EDA is an essential step in any data analysis project, as it helps in understanding the structure of the data and identifying any patterns, trends, or outliers that may be present. </p>
+
+<p>
+	The given dataset provides a comprehensive list of the top 50 Tech companies in the United States, along with their quantifiable and categorical attributes. With 50 rows and 10 columns, the dataset offers a compact yet informative source of data for anyone interested in conducting exploratory data analysis (EDA) on this subject. </p>
+
+<p>The columns in the dataset provide a range of information on the companies, including their name, industry, sector, location of their corporate headquarter, founding year, annual revenue, market capitalization, stock name, annual income tax, and employee size. These attributes offer a diverse range of information, ranging from the financial performance of these companies to their market position and size. </p>
+
+<p>Researchers, data analysts, and other stakeholders can utilize this dataset to identify trends and patterns in the US Tech industry and explore relationships between the different attributes. For instance, one could investigate if the employee size of a company is correlated to its annual revenue or market capitalization. Furthermore, it could be possible to investigate if there are any trends in the location of corporate headquarters of these companies based on their industry or sector. Overall, this dataset provides an excellent starting point for anyone interested in gaining insights into the current top 50 Tech companies in the United States. </p>
+
+
+<p> By performing EDA on this dataset and showcasing the techniques and potential graphs that can be used to analyze such data, we can help stakeholders better understand the US Tech industry's current state and the trends and patterns within it. Furthermore, our analysis could provide valuable insights to businesses, investors, and policymakers in making informed decisions in this field. </p>
+
+
+
+
+<h2> Exploratory Data Analysis </h2>
+
+{% include "topics_templates/projects_templates/top_50_us_tech_companies/Top 50 US Tech Companies.html" %}
+
+
+<p> Hope the above will be proven helpful in starting out your data analysis journey and in creating meaningful charts. If you have any questions or comments you can reach out to me either via the contact form, or you can visit the submission for this dataset in <a href = "https://www.kaggle.com/code/antonyevmorfopoulos/top-50-us-tech-companies-eda" target="_blank" class='contact_url'>Kaggle</a> or in <a href = "https://github.com/Antony-evm/Top-50-US-Companies-EDA" target="_blank" class='contact_url'>Github</a>. </p>
+
+{% endblock %}

@@ -1,0 +1,1463 @@
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> nb_black
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">opendatasets</span> <span class="k">as</span> <span class="nn">od</span>
+<span class="kn">import</span> <span class="nn">plotly.figure_factory</span> <span class="k">as</span> <span class="nn">ff</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="s2">&quot;plotly&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<h2> Download & Import the dataset </h2>
+<p> Required a Kaggle API Key </p>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#od.download(&#39;https://www.kaggle.com/datasets/lamiatabassum/top-50-us-tech-companies-2022-2023-dataset&#39;)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;top-50-us-tech-companies-2022-2023-dataset/Top 50 US Tech Companies 2022 - 2023.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<h2> What does the dataset contain? </h2>
+
+<p> We can see we have the top 50 US Tech companies and the dataset also provides us with some basic figures for said companies.
+
+Descriptive: Company Name, Industry, Sector, HQ State, Stock Name, Founding Year
+
+Size of the company/Financials: Annual Revenue 2022-2023 (USD in Billions), Market Cap (USD in Trillions), Annual Income Tax in 2022-2023 (USD in Billions), Employee Size </p>
+
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(50, 10)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Company Name</th>
+      <th>Industry</th>
+      <th>Sector</th>
+      <th>HQ State</th>
+      <th>Founding Year</th>
+      <th>Annual Revenue 2022-2023 (USD in Billions)</th>
+      <th>Market Cap (USD in Trillions)</th>
+      <th>Stock Name</th>
+      <th>Annual Income Tax in 2022-2023 (USD in Billions)</th>
+      <th>Employee Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Apple Inc.</td>
+      <td>Technology</td>
+      <td>Consumer Electronics</td>
+      <td>California</td>
+      <td>1976</td>
+      <td>387.53</td>
+      <td>2.520</td>
+      <td>AAPL</td>
+      <td>18.314</td>
+      <td>164000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Microsoft Corporation</td>
+      <td>Technology</td>
+      <td>Software Infrastructure</td>
+      <td>Washington</td>
+      <td>1975</td>
+      <td>204.09</td>
+      <td>2.037</td>
+      <td>MSFT</td>
+      <td>15.139</td>
+      <td>221000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Alphabet (Google)</td>
+      <td>Technology</td>
+      <td>Software Infrastructure</td>
+      <td>California</td>
+      <td>1998</td>
+      <td>282.83</td>
+      <td>1.350</td>
+      <td>GOOG</td>
+      <td>11.356</td>
+      <td>190234</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Amazon</td>
+      <td>Technology</td>
+      <td>Software Application</td>
+      <td>Washington</td>
+      <td>1994</td>
+      <td>513.98</td>
+      <td>1.030</td>
+      <td>AMZN</td>
+      <td>-3.217</td>
+      <td>1541000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NVIDIA Corporation</td>
+      <td>Technology</td>
+      <td>Semiconductors</td>
+      <td>California</td>
+      <td>1993</td>
+      <td>26.97</td>
+      <td>0.653</td>
+      <td>NVDA</td>
+      <td>0.189</td>
+      <td>22473</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<h2> Basic Statistics </h2>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[6]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Founding Year</th>
+      <th>Annual Revenue 2022-2023 (USD in Billions)</th>
+      <th>Market Cap (USD in Trillions)</th>
+      <th>Annual Income Tax in 2022-2023 (USD in Billions)</th>
+      <th>Employee Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>50.000000</td>
+      <td>50.00000</td>
+      <td>50.000000</td>
+      <td>50.000000</td>
+      <td>5.000000e+01</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>1984.140000</td>
+      <td>51.20440</td>
+      <td>0.252160</td>
+      <td>1.386780</td>
+      <td>8.324962e+04</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>24.988985</td>
+      <td>97.41288</td>
+      <td>0.490377</td>
+      <td>3.687916</td>
+      <td>2.205869e+05</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1890.000000</td>
+      <td>2.06000</td>
+      <td>0.028000</td>
+      <td>-3.217000</td>
+      <td>2.993000e+03</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>1977.250000</td>
+      <td>7.65250</td>
+      <td>0.051250</td>
+      <td>0.098750</td>
+      <td>1.415000e+04</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>1988.500000</td>
+      <td>17.66500</td>
+      <td>0.082500</td>
+      <td>0.280500</td>
+      <td>2.472500e+04</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1999.750000</td>
+      <td>40.81500</td>
+      <td>0.160250</td>
+      <td>0.945000</td>
+      <td>7.015575e+04</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>2012.000000</td>
+      <td>513.98000</td>
+      <td>2.520000</td>
+      <td>18.314000</td>
+      <td>1.541000e+06</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[7]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Company Name</th>
+      <th>Industry</th>
+      <th>Sector</th>
+      <th>HQ State</th>
+      <th>Stock Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>50</td>
+      <td>1</td>
+      <td>8</td>
+      <td>13</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>NVIDIA Corporation</td>
+      <td>Technology</td>
+      <td>Software Application</td>
+      <td>California</td>
+      <td>EQIX</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>1</td>
+      <td>50</td>
+      <td>15</td>
+      <td>33</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[8]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Company Name                                        0
+Industry                                            0
+Sector                                              0
+HQ State                                            0
+Founding Year                                       0
+Annual Revenue 2022-2023 (USD in Billions)          0
+Market Cap (USD in Trillions)                       0
+Stock Name                                          0
+Annual Income Tax in 2022-2023 (USD in Billions)    0
+Employee Size                                       0
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<h2> Initial EDA </h2>
+
+<p> Since we have no null values, we do not need to drop any columns or deal with that isue. Stock Name/Industry/Company Name are distinct features, so we cannot derive any meaningful information, but we can use them to represent our datapoints.</p>
+<p>We can perform EDA based on Sector/State and find patterns for revenue, market cap, annual income and employee size and we can also try to find patterns between the continuous variables of our dataset.</p>
+
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Sector</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Sector&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">Sector</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">Sector</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">textinfo</span><span class="o">=</span><span class="s2">&quot;label+percent+value&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Sector&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/1.png'>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">state_code</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Alabama&quot;</span><span class="p">:</span> <span class="s2">&quot;AL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Alaska&quot;</span><span class="p">:</span> <span class="s2">&quot;AK&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Arizona&quot;</span><span class="p">:</span> <span class="s2">&quot;AZ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Arkansas&quot;</span><span class="p">:</span> <span class="s2">&quot;AR&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;California&quot;</span><span class="p">:</span> <span class="s2">&quot;CA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Colorado&quot;</span><span class="p">:</span> <span class="s2">&quot;CO&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Connecticut&quot;</span><span class="p">:</span> <span class="s2">&quot;CT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Delaware&quot;</span><span class="p">:</span> <span class="s2">&quot;DE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;District of Columbia&quot;</span><span class="p">:</span> <span class="s2">&quot;DC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Florida&quot;</span><span class="p">:</span> <span class="s2">&quot;FL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Georgia&quot;</span><span class="p">:</span> <span class="s2">&quot;GA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Hawaii&quot;</span><span class="p">:</span> <span class="s2">&quot;HI&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Idaho&quot;</span><span class="p">:</span> <span class="s2">&quot;ID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Illinois&quot;</span><span class="p">:</span> <span class="s2">&quot;IL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Indiana&quot;</span><span class="p">:</span> <span class="s2">&quot;IN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Iowa&quot;</span><span class="p">:</span> <span class="s2">&quot;IA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Kansas&quot;</span><span class="p">:</span> <span class="s2">&quot;KS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Kentucky&quot;</span><span class="p">:</span> <span class="s2">&quot;KY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Louisiana&quot;</span><span class="p">:</span> <span class="s2">&quot;LA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Maine&quot;</span><span class="p">:</span> <span class="s2">&quot;ME&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Maryland&quot;</span><span class="p">:</span> <span class="s2">&quot;MD&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Massachusetts&quot;</span><span class="p">:</span> <span class="s2">&quot;MA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Michigan&quot;</span><span class="p">:</span> <span class="s2">&quot;MI&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Minnesota&quot;</span><span class="p">:</span> <span class="s2">&quot;MN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Mississippi&quot;</span><span class="p">:</span> <span class="s2">&quot;MS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Missouri&quot;</span><span class="p">:</span> <span class="s2">&quot;MO&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Montana&quot;</span><span class="p">:</span> <span class="s2">&quot;MT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Nebraska&quot;</span><span class="p">:</span> <span class="s2">&quot;NE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Nevada&quot;</span><span class="p">:</span> <span class="s2">&quot;NV&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;New Hampshire&quot;</span><span class="p">:</span> <span class="s2">&quot;NH&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;New Jersey&quot;</span><span class="p">:</span> <span class="s2">&quot;NJ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;New Mexico&quot;</span><span class="p">:</span> <span class="s2">&quot;NM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;New York&quot;</span><span class="p">:</span> <span class="s2">&quot;NY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;North Carolina&quot;</span><span class="p">:</span> <span class="s2">&quot;NC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;North Dakota&quot;</span><span class="p">:</span> <span class="s2">&quot;ND&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ohio&quot;</span><span class="p">:</span> <span class="s2">&quot;OH&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Oklahoma&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Oregon&quot;</span><span class="p">:</span> <span class="s2">&quot;OR&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Pennsylvania&quot;</span><span class="p">:</span> <span class="s2">&quot;PA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Rhode Island&quot;</span><span class="p">:</span> <span class="s2">&quot;RI&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;South Carolina&quot;</span><span class="p">:</span> <span class="s2">&quot;SC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;South Dakota&quot;</span><span class="p">:</span> <span class="s2">&quot;SD&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Tennessee&quot;</span><span class="p">:</span> <span class="s2">&quot;TN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Texas&quot;</span><span class="p">:</span> <span class="s2">&quot;TX&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Utah&quot;</span><span class="p">:</span> <span class="s2">&quot;UT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Vermont&quot;</span><span class="p">:</span> <span class="s2">&quot;VT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Virginia&quot;</span><span class="p">:</span> <span class="s2">&quot;VA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Washington&quot;</span><span class="p">:</span> <span class="s2">&quot;WA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;West Virginia&quot;</span><span class="p">:</span> <span class="s2">&quot;WV&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Wisconsin&quot;</span><span class="p">:</span> <span class="s2">&quot;WI&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Wyoming&quot;</span><span class="p">:</span> <span class="s2">&quot;WY&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;HQ State Code&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;HQ State&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">state_code</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">volume_per_area</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;HQ State Code&quot;</span><span class="p">,</span> <span class="s2">&quot;HQ State&quot;</span><span class="p">,</span> <span class="s2">&quot;Company Name&quot;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;HQ State Code&quot;</span><span class="p">,</span> <span class="s2">&quot;HQ State&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Company Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Volume&quot;</span><span class="p">})</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">choropleth</span><span class="p">(</span>
+    <span class="n">volume_per_area</span><span class="p">,</span>
+    <span class="n">locations</span><span class="o">=</span><span class="s2">&quot;HQ State Code&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;Volume&quot;</span><span class="p">,</span>
+    <span class="n">color_continuous_scale</span><span class="o">=</span><span class="s2">&quot;spectral_r&quot;</span><span class="p">,</span>
+    <span class="n">hover_name</span><span class="o">=</span><span class="s2">&quot;HQ State&quot;</span><span class="p">,</span>
+    <span class="n">locationmode</span><span class="o">=</span><span class="s2">&quot;USA-states&quot;</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;HQ State&quot;</span><span class="p">:</span> <span class="s2">&quot;Volume&quot;</span><span class="p">},</span>
+    <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;usa&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">add_scattergeo</span><span class="p">(</span>
+    <span class="n">locations</span><span class="o">=</span><span class="n">volume_per_area</span><span class="p">[</span><span class="s2">&quot;HQ State Code&quot;</span><span class="p">],</span>
+    <span class="n">locationmode</span><span class="o">=</span><span class="s2">&quot;USA-states&quot;</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="n">volume_per_area</span><span class="p">[</span><span class="s2">&quot;HQ State Code&quot;</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Volume of Companies per State&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;xanchor&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;yanchor&quot;</span><span class="p">:</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/2.png'>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<p>Initially, we can see that the most companies are based in California, with a huge gap from the second largest state in terms of Volume - Texas. Only 1 company is based in most of all of the other states.</p>
+
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Founding Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">():</span>
+    <span class="n">companies</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">year_founded</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Stock Name&#39;</span><span class="p">],</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Founding Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">year_founded</span> <span class="o">==</span> <span class="n">year</span><span class="p">]</span>
+    <span class="n">companies_text</span> <span class="o">=</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">companies</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">year</span><span class="p">],</span>
+            <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">companies_text</span><span class="p">,</span>
+            <span class="n">textposition</span><span class="o">=</span><span class="s2">&quot;top center&quot;</span><span class="p">,</span>
+            <span class="n">textfont_size</span><span class="o">=</span><span class="mi">10</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span>
+    <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">tickmode</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+        <span class="n">tick0</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Founding Year&#39;</span><span class="p">]),</span>
+        <span class="n">dtick</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Year Founded&quot;</span><span class="p">,</span>
+        <span class="n">showgrid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">zeroline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+
+    <span class="p">),</span>
+    <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">showticklabels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">l</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">r</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">t</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">b</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">),</span>
+    <span class="n">hovermode</span><span class="o">=</span><span class="s2">&quot;closest&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Companies Founded by Year&quot;</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="mf">0.5</span>
+    <span class="p">),</span>
+    <span class="n">images</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span>
+            <span class="n">source</span><span class="o">=</span><span class="s2">&quot;new_york.jpg&quot;</span><span class="p">,</span>
+            <span class="n">xref</span><span class="o">=</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span>
+            <span class="n">yref</span><span class="o">=</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">sizex</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">sizey</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">sizing</span><span class="o">=</span><span class="s2">&quot;stretch&quot;</span><span class="p">,</span>
+            <span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+            <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;below&quot;</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Create the figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+
+<span class="c1"># Show the figure</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/3.png'>
+</div>
+</div>
+</div>
+</div>
+
+
+<p>The technological boom happened in 1980, with most of the major corporations being founded between 1980-2010, which corresponds with the dot-com bubble.</p>
+
+<h2> Sector Analysis </h2>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Annual Revenue 2022-2023 (USD in Billions)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Annual Income Tax in 2022-2023 (USD in Billions)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Employee Size&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Market Cap (USD in Trillions)&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Sector&quot;</span><span class="p">,</span> <span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Sector&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Sector&quot;</span><span class="p">,</span> <span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Sector&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span>
+        <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot; Total&quot;</span><span class="p">,</span> <span class="s2">&quot; Mean&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">new_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> per Sector&quot;</span><span class="p">})</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">barmode</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/4.png'>
+</div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/5.png'>
+</div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/6.png'>
+</div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/7.png'>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+    <span class="n">percent</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Sector&quot;</span><span class="p">,</span> <span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Sector&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">percent</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> %&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">percent</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">/</span> <span class="n">percent</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">percent</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">percent</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> %&quot;</span><span class="p">])</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">textinfo</span><span class="o">=</span><span class="s2">&quot;label+percent&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Sector Breakdown of </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/8.png'>
+</div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/9.png'>
+</div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/10.png'>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/11.png'>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+<p>We can see that most market capitalisation, and the biggest companies in general, are focused arround Software application and infrastracture, with the outlier of Consumer Electronics, which while having 20% of the total market cap, they only correspond to 3.94% of the total number of employees.</p>
+
+
+<h2> State Analysis </h2>
+
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;HQ State&quot;</span><span class="p">,</span> <span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;HQ State&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;HQ State&quot;</span><span class="p">,</span> <span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;HQ State&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span>
+        <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot; Total&quot;</span><span class="p">,</span> <span class="s2">&quot; Mean&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">new_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> per State&quot;</span><span class="p">})</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">barmode</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/12.png'>
+</div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/13.png'>
+</div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/14.png'>
+</div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/15.png'>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+    <span class="n">percent</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;HQ State&quot;</span><span class="p">,</span> <span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;HQ State&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">percent</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> %&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">percent</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">/</span> <span class="n">percent</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">percent</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">percent</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> %&quot;</span><span class="p">])</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">textinfo</span><span class="o">=</span><span class="s2">&quot;label+percent&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;HQ State Breakdown of </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/16.png'>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/17.png'>
+</div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/18.png'>
+</div>
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/19.png'>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<p>The total size of any metric is expected to be dominated by California, while the rest of the states have the "upper hand" on the average cases due to having only 1 company to their name, hence, this is not an applicable way to derive insights. It is included in here, to showcase how a graph can be misinterpreted.</p>
+
+<h2> Correlation </h2>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ff</span><span class="o">.</span><span class="n">create_annotated_heatmap</span><span class="p">(</span>
+    <span class="n">z</span><span class="o">=</span><span class="n">corr</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">corr</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">corr</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+    <span class="n">colorscale</span><span class="o">=</span><span class="n">px</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">diverging</span><span class="o">.</span><span class="n">RdBu</span><span class="p">,</span>
+    <span class="n">hoverinfo</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="n">showscale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">ygap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">xgap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea ">
+<img src='/static/categories_pics/projects/top_50_us_tech_companies/20.png'>
+</div>
+</div>
+</div>
+</div>
+
+
+<p>We can see that the market cap closely correlates with the annual revenue and the annual income tax. It is surprising however, that the employee size is not related to the size of the company in terms of tax and market cap, which could be anticipated by the example we gave earlier about Consumer Electronics.</p>
+
+<h2> Potential Questions </h2>
+<p>
+<ul>
+<li>Highest Annual Income Tax Company Per Sector</li>
+<li>Lowest Employee Size Company Per HQ State</li>
+<li>Earliest Founded Company Per Sector</li>
+</ul>
+</p>
+
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">to_answer</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Sector&quot;</span><span class="p">,</span> <span class="s2">&quot;Annual Income Tax in 2022-2023 (USD in Billions)&quot;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Sector&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Company Name&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">to_answer</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()],</span> <span class="n">to_answer</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[20]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Company Name</th>
+      <th>Sector</th>
+      <th>Annual Income Tax in 2022-2023 (USD in Billions)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Apple Inc.</td>
+      <td>Consumer Electronics</td>
+      <td>18.314</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Microsoft Corporation</td>
+      <td>Software Infrastructure</td>
+      <td>15.139</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cisco Systems Inc.</td>
+      <td>Communication Equipments</td>
+      <td>2.665</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Qualcomm Inc.</td>
+      <td>Semiconductors</td>
+      <td>2.012</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Booking Holdings</td>
+      <td>Software Application</td>
+      <td>0.865</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Fiserv Inc.</td>
+      <td>IT Services</td>
+      <td>0.551</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Roper Technologies</td>
+      <td>Electronic Components</td>
+      <td>0.296</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>HP Inc.</td>
+      <td>Computer Hardware</td>
+      <td>1.238</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">to_answer</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;HQ State&quot;</span><span class="p">,</span> <span class="s2">&quot;Employee Size&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;HQ State&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Company Name&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">to_answer</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()],</span> <span class="n">to_answer</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[21]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Company Name</th>
+      <th>HQ State</th>
+      <th>Employee Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Microsoft Corporation</td>
+      <td>Washington</td>
+      <td>221000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Texas Instruments Inc.</td>
+      <td>Texas</td>
+      <td>33000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Booking Holdings</td>
+      <td>Connecticut</td>
+      <td>20700</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Analog Devices Inc.</td>
+      <td>Massachusetts</td>
+      <td>24450</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Automatic Data Processing</td>
+      <td>New Jersey</td>
+      <td>60000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Fiserv Inc.</td>
+      <td>Wisconsin</td>
+      <td>44000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Micron Technology</td>
+      <td>Idaho</td>
+      <td>49000</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Arista Networks Inc.</td>
+      <td>California</td>
+      <td>2993</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Snowflake Inc.</td>
+      <td>Montana</td>
+      <td>4991</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Roper Technologies</td>
+      <td>Florida</td>
+      <td>19300</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Microchip Technology Inc.</td>
+      <td>Arizona</td>
+      <td>21000</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>GlobalFoundries</td>
+      <td>New York</td>
+      <td>14600</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>IQVIA Holdings</td>
+      <td>North Carolina</td>
+      <td>85000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">to_answer</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Sector&quot;</span><span class="p">,</span> <span class="s2">&quot;Founding Year&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Sector&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Company Name&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">to_answer</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()],</span> <span class="n">to_answer</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[22]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Company Name</th>
+      <th>Sector</th>
+      <th>Founding Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Apple Inc.</td>
+      <td>Consumer Electronics</td>
+      <td>1976</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Microsoft Corporation</td>
+      <td>Software Infrastructure</td>
+      <td>1975</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cisco Systems Inc.</td>
+      <td>Communication Equipments</td>
+      <td>1984</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Texas Instruments Inc.</td>
+      <td>Semiconductors</td>
+      <td>1930</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>IBM Corporation</td>
+      <td>IT Services</td>
+      <td>1911</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Automatic Data Processing</td>
+      <td>Software Application</td>
+      <td>1949</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Roper Technologies</td>
+      <td>Electronic Components</td>
+      <td>1890</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>HP Inc.</td>
+      <td>Computer Hardware</td>
+      <td>1939</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 

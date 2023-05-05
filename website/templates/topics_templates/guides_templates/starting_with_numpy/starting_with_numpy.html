@@ -33,7 +33,7 @@
 
 	<p> There are several methods to initialise arrays in NumPy, and the examples below show how to do it using Python native sequences, from scratch, or by utilising other arrays to determine their attributes. We will also demonstrate how to inspect those properties. </p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/1. Array Generation output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/1. Array Generation output.html" %}
 
 
 	<h3> Nuances </h3>
@@ -51,7 +51,7 @@
 
 	<p> Views are created when elements can be addressed with offsets and strides in the original array. Hence, basic indexing always creates views. Advanced indexing on the other hand, always creates copies. We can check whether our array is a copy or a view using the base attribute.</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/2. Copies and Views output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/2. Copies and Views output.html" %}
 
 	<p> Therefore, when we want to work on a new array, we have to be <b>explicit</b> about it in order to avoid unintended effects. </p>
 
@@ -112,14 +112,14 @@
 		<li> Indexing more often than not reduces the rank of an array. It selects a subset where one dimension is a singleton and thus it removes it. </li>
 	</ul>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/3. Slicing and Indexing output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/3. Slicing and Indexing output.html" %}
 
 
 	<h2>Rearranging arrays</h2>
 
 	<p>Arrays can be transformed and reshaped, meaning that they keep the same elements, but the order of the elements is changed. These operations are especially useful in allowing broadcasting operations to be carried out effectively. A particular useful transformation of an array is the transpose, which exchanges rows and columns. As well as transposition, arrays can also be flipped and rotated in a single operation.</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/4. Rearranging Arrays output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/4. Rearranging Arrays output.html" %}
 
 	<h2> Joining and Stacking </h2>
 
@@ -132,26 +132,26 @@
 		</ul>
 
 	<p> As a shorthand, there are three defined stacking operations for specific axes when working with 2D matrices: <b><i>np.hstack</i></b> which stacks horizontally, <b><i>np.vstack</i></b> which stacks vertically and <b><i>np.dstack</i></b> which stacks depthwise.</p>
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/5. Joining and Stacking output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/5. Joining and Stacking output.html" %}
 
 
 	<h2>Selection and Masking</h2>
 
 	<p> Comparisons between arrays result in Boolean arrays. We can use a Boolean array to select elements of an array using <b><i>np.where(bool,a,b)</i></b> which selects <b><i>a</i></b> where <b><i>bool</i></b> is True and <b><i>b</i></b> where <b><i>bool</i></b> is False.<b><i>Bool, a and b</i></b> must be of the same shape or be broadcastable to the right shape.</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/6. Selection and Masking output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/6. Selection and Masking output.html" %}
 
 	<p><b>Fancy Indexing</b></p>
 
 	<p> Fancy Indexing is an extension of basic indexing which allows us to index arrays with arrays. It is a very powerful operator as it allows the irregural selection of parts of an array and perform operations on them.</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/7. Fancy Indexing output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/7. Fancy Indexing output.html" %}
 
 	<p><b>Boolean Indexing</b></p>
 
 	<p> As well as using indices, we can directly index arrays with Boolean arrays, as long as they adhere to the broadcasting rules. This, again, allows us to pull out irregural parts of an array.</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/8. Boolean Indexing output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/8. Boolean Indexing output.html" %}
 
 
 	<h2>Reshape</h2>
@@ -166,14 +166,14 @@
 
 	<p> A reshaping operation can be thought of as pouring elements into a new mold. The order of the elements is retained, but it will now fill a different shape.</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/9. Reshape output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/9. Reshape output.html" %}
 
 
 	<h2>Mathematical Operations</h2>
 
 	<p> The major advantage of array representations is to be able to do arithmetic on arrays directly. Basic arithmetic is computed elementwise - applied to each element of an array -. All of these work without any special syntax, we can simply write expressions using array variables.</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/10. Mathematical Operations output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/10. Mathematical Operations output.html" %}
 
 
 	<p> Arithmetic operations are a special case of map, as they apply a function to each element of a sequence. There are certain rules that dictate what operations can be applied together</p>
@@ -201,7 +201,7 @@
 	</ul>
 
 	<p> Simply put, broadcasting is automatic stacking. When broadcasting, the array is repeated (or tiled) as needed to expand to the correct size, then the operation is applied. For example, adding a (3,) and a (2,3) array, means that the first array gets repeated twice and then it is added to the (2,3) array.</p>
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/11. Broadcasting output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/11. Broadcasting output.html" %}
 
 	<h2> Reduction </h2>
 
@@ -209,31 +209,31 @@
 
 	<p>These are aggregate functions, functions that process the array and summarise the array in some way, using a single value. </p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/12. Reduction 1 output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/12. Reduction 1 output.html" %}
 
 
 	<p> Some functions are built on top of reductions:</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/13. Reduction 2 output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/13. Reduction 2 output.html" %}
 
 
 	<p> By default, aggregate functions operate over the whole array, regardless of how many dimensions it has. This translates to reducing over the last axis, then reducing over the second to last axis and so on and so forth, until a single scalar value remains. NumPy, though, offers the flexibility to reduce on specific axes if we wish to do so as well. </p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/14. Reduction 3 output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/14. Reduction 3 output.html" %}
 
 
 	<h2> Accumulation </h2>
 
 	<p>Accumulation is very similar to reduction. The main difference to account for is that during accumulation steps, we keep the intermediate values. This can be used with a number of different operators that operate on a single axis at a time. This should be specified for arrays with more than one dimension, otherwise the result will be that of a flattened array.</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/15. Accumulation output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/15. Accumulation output.html" %}
 
 
 	<h2> Finding </h2>
 
 	<p>Last, but not least, NumPy provides functions which find indices that satisfy criteria. This is of great importance, as it enables cross-referencing accross axes or arrays.</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/16. Finding output.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/16. Finding output.html" %}
 
 	<h2> Recap </h2>
 
@@ -243,7 +243,7 @@
 
 	<p> Below you will find all the relevant imports for this tutorial. The print_matrix function and the show_boxed_tensor_latex are not essential in any way.</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/17. Mandelbrot 1.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 1.html" %}
 
 	<h3> Warmup </h3>
 
@@ -257,16 +257,16 @@
 		For our convenience, we will write a Python function for it
 	</p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/17. Mandelbrot 2.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 2.html" %}
 
 	<p> Note that the square function we used is an example of a NumPy universal function; and since we used a universal function in our design, we can compute multiple inputs at the same time. At a first glance, some values grow, some values shrink, some don’t experience much change. To see the behaviour of the function on a larger scale, we can apply the function to a subset of the complex plane and plot the result. To create our subset (or mesh), we can make use of the meshgrid function. </p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/17. Mandelbrot 3.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 3.html" %}
 
 	<p>This gives us a rough idea of what one iteration of the function does. Certain areas (notably in the areas closest to (0,0<i>i</i>)) remain rather small while other areas grow quite considerably. Note that we lose information about the output by taking the absolute value, but it is the only way for us to be able to make a plot.
 
 	Let’s see what happens when we apply 2 iterations to the mesh:
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/17. Mandelbrot 4.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 4.html" %}
 
 	<p>Once again, we see that values around the origin remain small, and values with a larger absolute value (or modulus) “explode”.</p>
 	<p>From first impression, its behaviour appears to be normal, and may even seem mundane. Fractals tend to have more to them than what meets the eye; the exotic behavior shows itself when we begin applying more iterations.</p>
@@ -276,7 +276,7 @@
 
 	<p> The following function describes the procedure on the entire mesh: </p>
 
-	{% include "topics_templates/guides_templates/starting_with_numpy/outputs/17. Mandelbrot 5.html" %}
+	{% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 5.html" %}
 
 	<p> And there you have it, the beautiful Mandelbrot fractals. Needless to say, there is a large amount of exploring that can be done by fiddling with the inputted function, value of c, number of iterations, radius and even the density of the mesh and choice of colours. What makes fractals more exciting is how much there is to explore once you become familiar with the basics. </p>
 	<p> Till next time, happy exploring! </p>
