@@ -1,289 +1,183 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block title %}{{article.title}}{% endblock %}
-
 {% block content %}
-
-<div class = 'content'>
-	<h1>{{article.title}}</h1>
-
-	<h2>Introduction</h2>
-	<p>NumPy is a Python library that is well-known among analysts and data scientists owing to the numerous advantages it provides. NumPy is used by nearly every scientist who works in Python because it not only provides many ways to handle data, but it also sits at the heart of a rich ecosystem of data science and machine learning libraries such as Pandas, Scikit-learn, and Matplotlib. So, let's take a quick look at what NumPy has to offer: </p>
-	<ul>
-		<li> NumPy is a wrapper around a library implemented in C, hence it is both time and memory efficient. It is nearly impossible, if at all, to perform the operations NumPy has available using native Python sequences, all the while taking less memory space as well.</li>
-		<li> NumPy's high level syntax and immense toolkit of mathematical functions make it possible for programmers of any background, experience or level to perform a large number of algebraic, mathematical and transformative operations.</li>
-		<li> NumPy's versatile arrays are equipped with vectorisation, indexing and broadcasting. Tools that make them the de facto standards of array computing today. </li>
-		<li> On top of everything, it supports a wide range of hardware and computing platforms (NumPy is GPU compatible) and is open source. </li>
-	</ul>
-
-	<p> In this post, we will go over NumPy's basic building blocks - ndarrays - and how to produce and modify data with them. We'll go through topics like slicing, fancy and boolean indexing, and broadcasting, among others. Lastly, we will plot our own Mandelbrot set, just to have a little bit of fun using NumPy. </p>
-	
-
-	<h2>NDARRAYS</h2>
-
-	<p>Numerical arrays are essential as they enable the straightforward representation of array operations, which leads to code that is compact, yet elegant and efficient. Images, sounds and videos can all be worked with most easily as arrays of numbers and potential operations that we want to perform on them (cropping a picture, brightening an image or mixing sounds) can be accomplished swiftly.</p>
-
-	<p> Arrays can have different dimensions:</p>
-	<ul>
-		<li> Vector: 1d array, a simple row</li>
-		<li> Matrix: 2d array, comprised of rows and columns </li>
-		<li> ND-array or tensor: <b>n d</b>imensional array, which can be thought of as a stack of arrays or matrices, e.g. a 3D array is simply put, two 2D arrays stacked together.</li>
-	</ul>
-
-	<p> Many operations that we would wish to do can be applied selectively on specific axes, making arrays extremely versatile.</p>
-
-	<p> There are several methods to initialise arrays in NumPy, and the examples below show how to do it using Python native sequences, from scratch, or by utilising other arrays to determine their attributes. We will also demonstrate how to inspect those properties. </p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/1. Array Generation output.html" %}
-
-
-	<h3> Nuances </h3>
-
-	<p> Ndarrays represent sequences, but they differ from lists significantly: </p>
-	<ul>
-		<li> They have a fixed, predetermined size (or 'shape').</li>
-		<li> They have a fixed, predefined type  and all elements of the array must adhere to that. </li>
-		<li> They can only hold numeric types (integers, floats etc). </li>
-		<li> They are inherently multidimensional. </li>
-		<li> They are required to be rectangular - a 2D array must have the same number of columns for each row. </li>
-	</ul>
-
-	<p> Furthermore, we must exercise caution while dealing with arrays and understand the distinction between copies and views. If you don't recognise this tiny detail, it can cause bugs that will take you many hours to sort out. The primary distinction between a copy and a view of an array is that the copy owns the data, and any changes made to the copy have no effect on the original array, and any modifications made to the original array have no effect on the copy. The view, on the other hand, does not own the data, and any changes to the view will have an effect on the original array, and vice versa. </p>
-
-	<p> Views are created when elements can be addressed with offsets and strides in the original array. Hence, basic indexing always creates views. Advanced indexing on the other hand, always creates copies. We can check whether our array is a copy or a view using the base attribute.</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/2. Copies and Views output.html" %}
-
-	<p> Therefore, when we want to work on a new array, we have to be <b>explicit</b> about it in order to avoid unintended effects. </p>
-
-	<h2>Transformations and Operations</h2>
-
-	<p><b>Array Transformations</b></p>
-	<ul>
-		<li> Arithmetic arrays can be used in arithmetic expressions (e.g. multiplying every element by 2)</li>
-		<li> Indexing and slicing specific parts of arrays can be selected in sophisticated ways (e.g. selecting the bottom half of a matrix) </li>
-		<li> Generation: zero arrays, identity arrays, meshgrids, random arrays (e.g. generating a vector of a 100 evenly spaced numbers between 0 and 1) </li>
-		<li> Rearranging arrays: arrays can be reshaped, unraveled, stuck together, repeated, rotated and flipped (e.g. flip a matrix upside down)</li>
-		<li> Order operations: arrays can be sorted, shuffled and reindexed (e.g. sort a vector of numbers)</li>
-		<li> Aggregate functions: apply operations that work on groups of numbers (e.g. finding the maximum value in an array)</li>
-	</ul>
-
-	<p><b>Mathematical Operations</b></p>
-	<ul>
-		<li> Vector operations: Operations which apply geometric effects to vectors: dot product, cross product, norm (e.g. finding the Euclidean norm of a vector)</li>
-		<li> Matrix operations: Linear algebra operations like multiplication, transpose, inverse, matrix exponentials, decompositions (e.g. multiplying together two 3D transformation matrices)</li>
-		<li> Signal processing operations: Operations such as convolution, Fourier transform, numerical gradients, cumulative summation (e.g. blurring an image using convolution)</li>
-	</ul>
-
-	<h2>Slicing and Indexing</h2>
-
-	<p>One of the most essential aspects of data manipulation in NumPy is slicing and indexing which allow the retrieval of subsets that satisfy certain conditions. Arrays can be indexed like lists or sequences using square brackets, with the difference that array indices are multidimensional. </p>
-
-	<p> In reality, indices are tuples of values. This means that indices are comma separated values inside the brackets. Indices always start at <b>0</b> and are inclusive from the start and exlusive at the end. </p>
-
-	<p> Indices take three parameters and they follow the <b><i> start:stop:step </i></b> principle. These values indicate where to <b><i>start</i></b>, where to <b><i>stop</i></b> and <b><i>step</i></b> is the jump between each element. Any of these parts' value can be ommited.</p>
-	<ul>
-		<li> If there is no colon, this specifies a specific index
-			<ul>
-				<li> x[0]: Retrieve the first element (or element at position zero) of array x</li>
-			</ul>
-		</li>
-		<li> If there is one colon, this is a range
-			<ul>
-				<li> x[1:4]: Retrieve the elements between position one (inclusive) and position four (exclusive) from array x</li>
-			</ul>
-		</li>
-		<li> If there are two colons, this is a range with a step
-			<ul> 
-				<li>x[0:5:2]: Retrieve the elements between position zero and five, jumping two elements at a time. So, retrieve the elements 0,2,4 from x.</li>
-				<li>x[0::3]: Retrieve all elements of x, jumping three elements at a time</li>
-			</ul>
-		</li>
-		<li> If start is missing, it defaults to 0</li>
-		<li> If end is missing, it defaults to the last element</li>
-		<li> If step is missing, it defaults to 1. The last colon can be omitted if the step is missing </li>
-	</ul>
-
-	<p>Negative indices also exist and indicate to start counting from the end, hence x[-1] is the last element, x[-2] is the second last, etc.</p>
-	<p> If we specify an array as an index, we get back a slice of that array, with fewer dimensions. If x is 2D, then x[0,:] is the first row of that array, which is one dimensional, and x[:,0] is the first column. </p>
-
-	<p><b>Slicing versus Indexing </b></p>
-	<ul>
-		<li> Slicing does not change the rank of an array, rather it selects a subset with the same number of dimensions.</li>
-		<li> Indexing more often than not reduces the rank of an array. It selects a subset where one dimension is a singleton and thus it removes it. </li>
-	</ul>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/3. Slicing and Indexing output.html" %}
-
-
-	<h2>Rearranging arrays</h2>
-
-	<p>Arrays can be transformed and reshaped, meaning that they keep the same elements, but the order of the elements is changed. These operations are especially useful in allowing broadcasting operations to be carried out effectively. A particular useful transformation of an array is the transpose, which exchanges rows and columns. As well as transposition, arrays can also be flipped and rotated in a single operation.</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/4. Rearranging Arrays output.html" %}
-
-	<h2> Joining and Stacking </h2>
-
-	<p> We can also join arrays together, however, we do have to specify the axis/dimension in which the joining operates on. We also have to adhere to the rule that arrays should have a rectangular shape; we can't end up with a ragged array </p>
-
-	<p> Because arrays can be joined together along different axes, there are two distinct kinds of joining:</p>
-		<ul>
-			<li> We can use <b><i>concatenate</i></b> to join along an existing dimension</li>
-			<li> We can use <b><i>stack</i></b> to stack up arrays along a new dimensions</li>
-		</ul>
-
-	<p> As a shorthand, there are three defined stacking operations for specific axes when working with 2D matrices: <b><i>np.hstack</i></b> which stacks horizontally, <b><i>np.vstack</i></b> which stacks vertically and <b><i>np.dstack</i></b> which stacks depthwise.</p>
-	{% include "topics_templates/guides_templates/starting_with_numpy/5. Joining and Stacking output.html" %}
-
-
-	<h2>Selection and Masking</h2>
-
-	<p> Comparisons between arrays result in Boolean arrays. We can use a Boolean array to select elements of an array using <b><i>np.where(bool,a,b)</i></b> which selects <b><i>a</i></b> where <b><i>bool</i></b> is True and <b><i>b</i></b> where <b><i>bool</i></b> is False.<b><i>Bool, a and b</i></b> must be of the same shape or be broadcastable to the right shape.</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/6. Selection and Masking output.html" %}
-
-	<p><b>Fancy Indexing</b></p>
-
-	<p> Fancy Indexing is an extension of basic indexing which allows us to index arrays with arrays. It is a very powerful operator as it allows the irregural selection of parts of an array and perform operations on them.</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/7. Fancy Indexing output.html" %}
-
-	<p><b>Boolean Indexing</b></p>
-
-	<p> As well as using indices, we can directly index arrays with Boolean arrays, as long as they adhere to the broadcasting rules. This, again, allows us to pull out irregural parts of an array.</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/8. Boolean Indexing output.html" %}
-
-
-	<h2>Reshape</h2>
-
-	<p>Apart from applying rigid transformations, we can also reshape arrays to completely different shapes. The requirement is that the elements cannot change during a reshaping operation. Regardless of how many dimensions an array has, it still is inherently a sequence of values. The shape just changes how it is indexed.</p>
-
-	<ul>
-		<li> The total number of elements remains unchanged.</li>
-		<li> The order of the elements  will remain unchanged, only the position at which the array wraps into the next dimension changes </li>
-		<li> The last dimension changes the fastest, the second last, second fastest, etc.</li>
-	</ul>
-
-	<p> A reshaping operation can be thought of as pouring elements into a new mold. The order of the elements is retained, but it will now fill a different shape.</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/9. Reshape output.html" %}
-
-
-	<h2>Mathematical Operations</h2>
-
-	<p> The major advantage of array representations is to be able to do arithmetic on arrays directly. Basic arithmetic is computed elementwise - applied to each element of an array -. All of these work without any special syntax, we can simply write expressions using array variables.</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/10. Mathematical Operations output.html" %}
-
-
-	<p> Arithmetic operations are a special case of map, as they apply a function to each element of a sequence. There are certain rules that dictate what operations can be applied together</p>
-
-	<ul>
-		<li> For single argument operations, the operation is applied to each element of the array. </li>
-		<li> If there are two or more arguments, then the arrays must have compatible shapes, as it should be possible to pair each element of one array with a corresponding element of the other.</li>
-	</ul>
-
-	<p><b>Same Shape</b></p>
-	<p> In the simplest case, the arrays have the same shape, thus the operation is applied to each pair of the elements from the arrays in sequence. </p>
-
-	<p><b>Not the same shape</b></p>
-
-	<p> If the arrays are not of the same shape, while it might seem like they cannot be added together (or any other function), NumPy provides broadcasting rules to allow arrays to be automatically expanded to allow operations between certain shapes of arrays. </p>
-
-	<p> The rule is simple; if the arrays don't match in size, but one array can be stacked repeatedly to be the same size as the other, then this is done automatically and the operation occurs. Adding a scalar for example to an array, implicitly stacks the scalar until an array that matches the size of the other array is created and then the two arrays are added together. Scalar arithmetic is valid for any array, because the scalar can be broadcasted to match any shape and size. Broadcasting can also be done explicitly, though it is way less intuitive, less efficient and a lot more tedious.</p>
-
-	<h2> Broadcasting </h2>
-
-	<p>Broadcasting is the way in which arithmetic operations are done on arrays when the operands are of different shapes. Elementwise and scalar arithmetic are part of a general pattern that allows us to write operations between arrays of different sizes very compactly, under some specific restrictions of course. </p>
-	<ul>
-		<li> If the operants have the same number of dimensions then they must have the same shape and operations are done elementwise.</li>
-		<li> If one operand is an array with fewer dimensions than the other, then if the last dimension of the first array match the shape of the second array, then operations are well defined.</li>
-	</ul>
-
-	<p> Simply put, broadcasting is automatic stacking. When broadcasting, the array is repeated (or tiled) as needed to expand to the correct size, then the operation is applied. For example, adding a (3,) and a (2,3) array, means that the first array gets repeated twice and then it is added to the (2,3) array.</p>
-	{% include "topics_templates/guides_templates/starting_with_numpy/11. Broadcasting output.html" %}
-
-	<h2> Reduction </h2>
-
-	<p> Reduction is the process of applying an operator or function with two arguments repeatedly to some sequence. It can be thought of as sticking an operator between elements. For example, <b><i> np.sum([1,2,3])</i></b> is translated to 1<b>+</b>2<b>+</b>3. </p>
-
-	<p>These are aggregate functions, functions that process the array and summarise the array in some way, using a single value. </p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/12. Reduction 1 output.html" %}
-
-
-	<p> Some functions are built on top of reductions:</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/13. Reduction 2 output.html" %}
-
-
-	<p> By default, aggregate functions operate over the whole array, regardless of how many dimensions it has. This translates to reducing over the last axis, then reducing over the second to last axis and so on and so forth, until a single scalar value remains. NumPy, though, offers the flexibility to reduce on specific axes if we wish to do so as well. </p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/14. Reduction 3 output.html" %}
-
-
-	<h2> Accumulation </h2>
-
-	<p>Accumulation is very similar to reduction. The main difference to account for is that during accumulation steps, we keep the intermediate values. This can be used with a number of different operators that operate on a single axis at a time. This should be specified for arrays with more than one dimension, otherwise the result will be that of a flattened array.</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/15. Accumulation output.html" %}
-
-
-	<h2> Finding </h2>
-
-	<p>Last, but not least, NumPy provides functions which find indices that satisfy criteria. This is of great importance, as it enables cross-referencing accross axes or arrays.</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/16. Finding output.html" %}
-
-	<h2> Recap </h2>
-
-	<p> By now, you must have realised the sheer power of NumPy. During this long post, we have explained what are the main building blocks of NumPy (ndarrays) and how to create them, along with some of their nuances. We have went into depth about slicing and indexing and showed various examples of how versatile ndarrays can be. We have also covered how to rearrange arrays, join or stack them together and how to apply masks. Furthermore, we have explained how reshaping works, how mathematical operations are applied to ndarrays and what broadcasting is. Lastly, we went over reducing, accumulating and finding functions in order to complete our toolkit of powerful NumPy operations. Now, it's time to showcase a fun, simple example of what we can achieve by using NumPy
-
-	<h2> Fractals & Mandelbrot </h2>
-
-	<p> Below you will find all the relevant imports for this tutorial. The print_matrix function and the show_boxed_tensor_latex are not essential in any way.</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 1.html" %}
-
-	<h3> Warmup </h3>
-
-	<p>To gain some intuition for what fractals are, we will begin with an example.
-		Consider the following equation:
-		<br>
-		f(z) = z<sup>2</sup> - 1
-		<br>
-		where z is a complex number (i.e of the form a+b<i>i</i> )
-		<br>
-		For our convenience, we will write a Python function for it
-	</p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 2.html" %}
-
-	<p> Note that the square function we used is an example of a NumPy universal function; and since we used a universal function in our design, we can compute multiple inputs at the same time. At a first glance, some values grow, some values shrink, some don’t experience much change. To see the behaviour of the function on a larger scale, we can apply the function to a subset of the complex plane and plot the result. To create our subset (or mesh), we can make use of the meshgrid function. </p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 3.html" %}
-
-	<p>This gives us a rough idea of what one iteration of the function does. Certain areas (notably in the areas closest to (0,0<i>i</i>)) remain rather small while other areas grow quite considerably. Note that we lose information about the output by taking the absolute value, but it is the only way for us to be able to make a plot.
-
-	Let’s see what happens when we apply 2 iterations to the mesh:
-	{% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 4.html" %}
-
-	<p>Once again, we see that values around the origin remain small, and values with a larger absolute value (or modulus) “explode”.</p>
-	<p>From first impression, its behaviour appears to be normal, and may even seem mundane. Fractals tend to have more to them than what meets the eye; the exotic behavior shows itself when we begin applying more iterations.</p>
-	<p>Given the shape of our first two plots, we would expect that values near the origin would remain there as we apply iterations to them. However, fractals possess chaotic behaviour. The further the values are from the origin, the faster they generally explode. Although the behaviour is uncertain for smaller values, we can assume that if a value surpasses a certain distance from the origin, then it is doomed to diverge. This threshold will be our radius.</p>
-
-	<p>This allows us to quantify the behaviour of the function for a particular value without having to perform as many computations. Once the radius is surpassed, we are allowed to stop iterating, which gives us a way of answering the question we posed. If we tally how many computations were applied before divergence, we gain insight into the behaviour of the function that would be hard to keep track of otherwise. </p>
-
-	<p> The following function describes the procedure on the entire mesh: </p>
-
-	{% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 5.html" %}
-
-	<p> And there you have it, the beautiful Mandelbrot fractals. Needless to say, there is a large amount of exploring that can be done by fiddling with the inputted function, value of c, number of iterations, radius and even the density of the mesh and choice of colours. What makes fractals more exciting is how much there is to explore once you become familiar with the basics. </p>
-	<p> Till next time, happy exploring! </p>
-
+<div class='content'>
+    <h1>{{article.title}}</h1>
+    <h2>Introduction</h2>
+    <p>NumPy is a Python library that is well-known among analysts and data scientists owing to the numerous advantages it provides. NumPy is used by nearly every scientist who works in Python because it not only provides many ways to handle data, but it also sits at the heart of a rich ecosystem of data science and machine learning libraries such as Pandas, Scikit-learn, and Matplotlib. So, let's take a quick look at what NumPy has to offer: </p>
+    <ul>
+        <li> NumPy is a wrapper around a library implemented in C, hence it is both time and memory efficient. It is nearly impossible, if at all, to perform the operations NumPy has available using native Python sequences, all the while taking less memory space as well.</li>
+        <li> NumPy's high level syntax and immense toolkit of mathematical functions make it possible for programmers of any background, experience or level to perform a large number of algebraic, mathematical and transformative operations.</li>
+        <li> NumPy's versatile arrays are equipped with vectorisation, indexing and broadcasting. Tools that make them the de facto standards of array computing today. </li>
+        <li> On top of everything, it supports a wide range of hardware and computing platforms (NumPy is GPU compatible) and is open source. </li>
+    </ul>
+    <p> In this post, we will go over NumPy's basic building blocks - ndarrays - and how to produce and modify data with them. We'll go through topics like slicing, fancy and boolean indexing, and broadcasting, among others. Lastly, we will plot our own Mandelbrot set, just to have a little bit of fun using NumPy. </p>
+    <h2>NDARRAYS</h2>
+    <p>Numerical arrays are essential as they enable the straightforward representation of array operations, which leads to code that is compact, yet elegant and efficient. Images, sounds and videos can all be worked with most easily as arrays of numbers and potential operations that we want to perform on them (cropping a picture, brightening an image or mixing sounds) can be accomplished swiftly.</p>
+    <p> Arrays can have different dimensions:</p>
+    <ul>
+        <li> Vector: 1d array, a simple row</li>
+        <li> Matrix: 2d array, comprised of rows and columns </li>
+        <li> ND-array or tensor: <b>n d</b>imensional array, which can be thought of as a stack of arrays or matrices, e.g. a 3D array is simply put, two 2D arrays stacked together.</li>
+    </ul>
+    <p> Many operations that we would wish to do can be applied selectively on specific axes, making arrays extremely versatile.</p>
+    <p> There are several methods to initialise arrays in NumPy, and the examples below show how to do it using Python native sequences, from scratch, or by utilising other arrays to determine their attributes. We will also demonstrate how to inspect those properties. </p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/1. Array Generation output.html" %}
+    <h3> Nuances </h3>
+    <p> Ndarrays represent sequences, but they differ from lists significantly: </p>
+    <ul>
+        <li> They have a fixed, predetermined size (or 'shape').</li>
+        <li> They have a fixed, predefined type and all elements of the array must adhere to that. </li>
+        <li> They can only hold numeric types (integers, floats etc). </li>
+        <li> They are inherently multidimensional. </li>
+        <li> They are required to be rectangular - a 2D array must have the same number of columns for each row. </li>
+    </ul>
+    <p> Furthermore, we must exercise caution while dealing with arrays and understand the distinction between copies and views. If you don't recognise this tiny detail, it can cause bugs that will take you many hours to sort out. The primary distinction between a copy and a view of an array is that the copy owns the data, and any changes made to the copy have no effect on the original array, and any modifications made to the original array have no effect on the copy. The view, on the other hand, does not own the data, and any changes to the view will have an effect on the original array, and vice versa. </p>
+    <p> Views are created when elements can be addressed with offsets and strides in the original array. Hence, basic indexing always creates views. Advanced indexing on the other hand, always creates copies. We can check whether our array is a copy or a view using the base attribute.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/2. Copies and Views output.html" %}
+    <p> Therefore, when we want to work on a new array, we have to be <b>explicit</b> about it in order to avoid unintended effects. </p>
+    <h2>Transformations and Operations</h2>
+    <p><b>Array Transformations</b></p>
+    <ul>
+        <li> Arithmetic arrays can be used in arithmetic expressions (e.g. multiplying every element by 2)</li>
+        <li> Indexing and slicing specific parts of arrays can be selected in sophisticated ways (e.g. selecting the bottom half of a matrix) </li>
+        <li> Generation: zero arrays, identity arrays, meshgrids, random arrays (e.g. generating a vector of a 100 evenly spaced numbers between 0 and 1) </li>
+        <li> Rearranging arrays: arrays can be reshaped, unraveled, stuck together, repeated, rotated and flipped (e.g. flip a matrix upside down)</li>
+        <li> Order operations: arrays can be sorted, shuffled and reindexed (e.g. sort a vector of numbers)</li>
+        <li> Aggregate functions: apply operations that work on groups of numbers (e.g. finding the maximum value in an array)</li>
+    </ul>
+    <p><b>Mathematical Operations</b></p>
+    <ul>
+        <li> Vector operations: Operations which apply geometric effects to vectors: dot product, cross product, norm (e.g. finding the Euclidean norm of a vector)</li>
+        <li> Matrix operations: Linear algebra operations like multiplication, transpose, inverse, matrix exponentials, decompositions (e.g. multiplying together two 3D transformation matrices)</li>
+        <li> Signal processing operations: Operations such as convolution, Fourier transform, numerical gradients, cumulative summation (e.g. blurring an image using convolution)</li>
+    </ul>
+    <h2>Slicing and Indexing</h2>
+    <p>One of the most essential aspects of data manipulation in NumPy is slicing and indexing which allow the retrieval of subsets that satisfy certain conditions. Arrays can be indexed like lists or sequences using square brackets, with the difference that array indices are multidimensional. </p>
+    <p> In reality, indices are tuples of values. This means that indices are comma separated values inside the brackets. Indices always start at <b>0</b> and are inclusive from the start and exlusive at the end. </p>
+    <p> Indices take three parameters and they follow the <b><i> start:stop:step </i></b> principle. These values indicate where to <b><i>start</i></b>, where to <b><i>stop</i></b> and <b><i>step</i></b> is the jump between each element. Any of these parts' value can be ommited.</p>
+    <ul>
+        <li> If there is no colon, this specifies a specific index
+            <ul>
+                <li> x[0]: Retrieve the first element (or element at position zero) of array x</li>
+            </ul>
+        </li>
+        <li> If there is one colon, this is a range
+            <ul>
+                <li> x[1:4]: Retrieve the elements between position one (inclusive) and position four (exclusive) from array x</li>
+            </ul>
+        </li>
+        <li> If there are two colons, this is a range with a step
+            <ul>
+                <li>x[0:5:2]: Retrieve the elements between position zero and five, jumping two elements at a time. So, retrieve the elements 0,2,4 from x.</li>
+                <li>x[0::3]: Retrieve all elements of x, jumping three elements at a time</li>
+            </ul>
+        </li>
+        <li> If start is missing, it defaults to 0</li>
+        <li> If end is missing, it defaults to the last element</li>
+        <li> If step is missing, it defaults to 1. The last colon can be omitted if the step is missing </li>
+    </ul>
+    <p>Negative indices also exist and indicate to start counting from the end, hence x[-1] is the last element, x[-2] is the second last, etc.</p>
+    <p> If we specify an array as an index, we get back a slice of that array, with fewer dimensions. If x is 2D, then x[0,:] is the first row of that array, which is one dimensional, and x[:,0] is the first column. </p>
+    <p><b>Slicing versus Indexing </b></p>
+    <ul>
+        <li> Slicing does not change the rank of an array, rather it selects a subset with the same number of dimensions.</li>
+        <li> Indexing more often than not reduces the rank of an array. It selects a subset where one dimension is a singleton and thus it removes it. </li>
+    </ul>
+    {% include "topics_templates/guides_templates/starting_with_numpy/3. Slicing and Indexing output.html" %}
+    <h2>Rearranging arrays</h2>
+    <p>Arrays can be transformed and reshaped, meaning that they keep the same elements, but the order of the elements is changed. These operations are especially useful in allowing broadcasting operations to be carried out effectively. A particular useful transformation of an array is the transpose, which exchanges rows and columns. As well as transposition, arrays can also be flipped and rotated in a single operation.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/4. Rearranging Arrays output.html" %}
+    <h2> Joining and Stacking </h2>
+    <p> We can also join arrays together, however, we do have to specify the axis/dimension in which the joining operates on. We also have to adhere to the rule that arrays should have a rectangular shape; we can't end up with a ragged array </p>
+    <p> Because arrays can be joined together along different axes, there are two distinct kinds of joining:</p>
+    <ul>
+        <li> We can use <b><i>concatenate</i></b> to join along an existing dimension</li>
+        <li> We can use <b><i>stack</i></b> to stack up arrays along a new dimensions</li>
+    </ul>
+    <p> As a shorthand, there are three defined stacking operations for specific axes when working with 2D matrices: <b><i>np.hstack</i></b> which stacks horizontally, <b><i>np.vstack</i></b> which stacks vertically and <b><i>np.dstack</i></b> which stacks depthwise.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/5. Joining and Stacking output.html" %}
+    <h2>Selection and Masking</h2>
+    <p> Comparisons between arrays result in Boolean arrays. We can use a Boolean array to select elements of an array using <b><i>np.where(bool,a,b)</i></b> which selects <b><i>a</i></b> where <b><i>bool</i></b> is True and <b><i>b</i></b> where <b><i>bool</i></b> is False.<b><i>Bool, a and b</i></b> must be of the same shape or be broadcastable to the right shape.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/6. Selection and Masking output.html" %}
+    <p><b>Fancy Indexing</b></p>
+    <p> Fancy Indexing is an extension of basic indexing which allows us to index arrays with arrays. It is a very powerful operator as it allows the irregural selection of parts of an array and perform operations on them.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/7. Fancy Indexing output.html" %}
+    <p><b>Boolean Indexing</b></p>
+    <p> As well as using indices, we can directly index arrays with Boolean arrays, as long as they adhere to the broadcasting rules. This, again, allows us to pull out irregural parts of an array.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/8. Boolean Indexing output.html" %}
+    <h2>Reshape</h2>
+    <p>Apart from applying rigid transformations, we can also reshape arrays to completely different shapes. The requirement is that the elements cannot change during a reshaping operation. Regardless of how many dimensions an array has, it still is inherently a sequence of values. The shape just changes how it is indexed.</p>
+    <ul>
+        <li> The total number of elements remains unchanged.</li>
+        <li> The order of the elements will remain unchanged, only the position at which the array wraps into the next dimension changes </li>
+        <li> The last dimension changes the fastest, the second last, second fastest, etc.</li>
+    </ul>
+    <p> A reshaping operation can be thought of as pouring elements into a new mold. The order of the elements is retained, but it will now fill a different shape.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/9. Reshape output.html" %}
+    <h2>Mathematical Operations</h2>
+    <p> The major advantage of array representations is to be able to do arithmetic on arrays directly. Basic arithmetic is computed elementwise - applied to each element of an array -. All of these work without any special syntax, we can simply write expressions using array variables.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/10. Mathematical Operations output.html" %}
+    <p> Arithmetic operations are a special case of map, as they apply a function to each element of a sequence. There are certain rules that dictate what operations can be applied together</p>
+    <ul>
+        <li> For single argument operations, the operation is applied to each element of the array. </li>
+        <li> If there are two or more arguments, then the arrays must have compatible shapes, as it should be possible to pair each element of one array with a corresponding element of the other.</li>
+    </ul>
+    <p><b>Same Shape</b></p>
+    <p> In the simplest case, the arrays have the same shape, thus the operation is applied to each pair of the elements from the arrays in sequence. </p>
+    <p><b>Not the same shape</b></p>
+    <p> If the arrays are not of the same shape, while it might seem like they cannot be added together (or any other function), NumPy provides broadcasting rules to allow arrays to be automatically expanded to allow operations between certain shapes of arrays. </p>
+    <p> The rule is simple; if the arrays don't match in size, but one array can be stacked repeatedly to be the same size as the other, then this is done automatically and the operation occurs. Adding a scalar for example to an array, implicitly stacks the scalar until an array that matches the size of the other array is created and then the two arrays are added together. Scalar arithmetic is valid for any array, because the scalar can be broadcasted to match any shape and size. Broadcasting can also be done explicitly, though it is way less intuitive, less efficient and a lot more tedious.</p>
+    <h2> Broadcasting </h2>
+    <p>Broadcasting is the way in which arithmetic operations are done on arrays when the operands are of different shapes. Elementwise and scalar arithmetic are part of a general pattern that allows us to write operations between arrays of different sizes very compactly, under some specific restrictions of course. </p>
+    <ul>
+        <li> If the operants have the same number of dimensions then they must have the same shape and operations are done elementwise.</li>
+        <li> If one operand is an array with fewer dimensions than the other, then if the last dimension of the first array match the shape of the second array, then operations are well defined.</li>
+    </ul>
+    <p> Simply put, broadcasting is automatic stacking. When broadcasting, the array is repeated (or tiled) as needed to expand to the correct size, then the operation is applied. For example, adding a (3,) and a (2,3) array, means that the first array gets repeated twice and then it is added to the (2,3) array.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/11. Broadcasting output.html" %}
+    <h2> Reduction </h2>
+    <p> Reduction is the process of applying an operator or function with two arguments repeatedly to some sequence. It can be thought of as sticking an operator between elements. For example, <b><i> np.sum([1,2,3])</i></b> is translated to 1<b>+</b>2<b>+</b>3. </p>
+    <p>These are aggregate functions, functions that process the array and summarise the array in some way, using a single value. </p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/12. Reduction 1 output.html" %}
+    <p> Some functions are built on top of reductions:</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/13. Reduction 2 output.html" %}
+    <p> By default, aggregate functions operate over the whole array, regardless of how many dimensions it has. This translates to reducing over the last axis, then reducing over the second to last axis and so on and so forth, until a single scalar value remains. NumPy, though, offers the flexibility to reduce on specific axes if we wish to do so as well. </p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/14. Reduction 3 output.html" %}
+    <h2> Accumulation </h2>
+    <p>Accumulation is very similar to reduction. The main difference to account for is that during accumulation steps, we keep the intermediate values. This can be used with a number of different operators that operate on a single axis at a time. This should be specified for arrays with more than one dimension, otherwise the result will be that of a flattened array.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/15. Accumulation output.html" %}
+    <h2> Finding </h2>
+    <p>Last, but not least, NumPy provides functions which find indices that satisfy criteria. This is of great importance, as it enables cross-referencing accross axes or arrays.</p>
+    {% include "topics_templates/guides_templates/starting_with_numpy/16. Finding output.html" %}
+    <h2> Recap </h2>
+    <p> By now, you must have realised the sheer power of NumPy. During this long post, we have explained what are the main building blocks of NumPy (ndarrays) and how to create them, along with some of their nuances. We have went into depth about slicing and indexing and showed various examples of how versatile ndarrays can be. We have also covered how to rearrange arrays, join or stack them together and how to apply masks. Furthermore, we have explained how reshaping works, how mathematical operations are applied to ndarrays and what broadcasting is. Lastly, we went over reducing, accumulating and finding functions in order to complete our toolkit of powerful NumPy operations. Now, it's time to showcase a fun, simple example of what we can achieve by using NumPy
+        <h2> Fractals & Mandelbrot </h2>
+        <p> Below you will find all the relevant imports for this tutorial. The print_matrix function and the show_boxed_tensor_latex are not essential in any way.</p>
+        {% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 1.html" %}
+        <h3> Warmup </h3>
+        <p>To gain some intuition for what fractals are, we will begin with an example.
+            Consider the following equation:
+            <br>
+            f(z) = z<sup>2</sup> - 1
+            <br>
+            where z is a complex number (i.e of the form a+b<i>i</i> )
+            <br>
+            For our convenience, we will write a Python function for it
+        </p>
+        {% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 2.html" %}
+        <p> Note that the square function we used is an example of a NumPy universal function; and since we used a universal function in our design, we can compute multiple inputs at the same time. At a first glance, some values grow, some values shrink, some don’t experience much change. To see the behaviour of the function on a larger scale, we can apply the function to a subset of the complex plane and plot the result. To create our subset (or mesh), we can make use of the meshgrid function. </p>
+        {% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 3.html" %}
+        <p>This gives us a rough idea of what one iteration of the function does. Certain areas (notably in the areas closest to (0,0<i>i</i>)) remain rather small while other areas grow quite considerably. Note that we lose information about the output by taking the absolute value, but it is the only way for us to be able to make a plot.
+            Let’s see what happens when we apply 2 iterations to the mesh:
+            {% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 4.html" %}
+            <p>Once again, we see that values around the origin remain small, and values with a larger absolute value (or modulus) “explode”.</p>
+            <p>From first impression, its behaviour appears to be normal, and may even seem mundane. Fractals tend to have more to them than what meets the eye; the exotic behavior shows itself when we begin applying more iterations.</p>
+            <p>Given the shape of our first two plots, we would expect that values near the origin would remain there as we apply iterations to them. However, fractals possess chaotic behaviour. The further the values are from the origin, the faster they generally explode. Although the behaviour is uncertain for smaller values, we can assume that if a value surpasses a certain distance from the origin, then it is doomed to diverge. This threshold will be our radius.</p>
+            <p>This allows us to quantify the behaviour of the function for a particular value without having to perform as many computations. Once the radius is surpassed, we are allowed to stop iterating, which gives us a way of answering the question we posed. If we tally how many computations were applied before divergence, we gain insight into the behaviour of the function that would be hard to keep track of otherwise. </p>
+            <p> The following function describes the procedure on the entire mesh: </p>
+            {% include "topics_templates/guides_templates/starting_with_numpy/17. Mandelbrot 5.html" %}
+            <p> And there you have it, the beautiful Mandelbrot fractals. Needless to say, there is a large amount of exploring that can be done by fiddling with the inputted function, value of c, number of iterations, radius and even the density of the mesh and choice of colours. What makes fractals more exciting is how much there is to explore once you become familiar with the basics. </p>
+            <p> Till next time, happy exploring! </p>
 </div>
-
-
-
-
 {% endblock %}

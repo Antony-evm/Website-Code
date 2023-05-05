@@ -1,11 +1,11 @@
 <h2> Exploratory Data Analysis </h2>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> nb_black
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[1]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="o">%</span><span class="k">load_ext</span> nb_black
 <span class="kn">import</span> <span class="nn">opendatasets</span> <span class="k">as</span> <span class="nn">od</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -28,275 +28,251 @@
 <span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
 
 <span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="s2">&quot;plotly&quot;</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># od.download(&#39;https://www.kaggle.com/datasets/shivanink8/used-cars-dataset&#39;)</span>
-</pre></div>
-
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[2]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="c1"># od.download(&#39;https://www.kaggle.com/datasets/shivanink8/used-cars-dataset&#39;)</span>
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;used-cars-dataset/used_cars.csv&quot;</span><span class="p">)</span>
-</pre></div>
-
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[3]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;used-cars-dataset/used_cars.csv&quot;</span><span class="p">)</span>
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[4]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_html rendered_html output_subarea ">
+                    <div>
+                        <style scoped>
+                        .dataframe tbody tr th:only-of-type {
+                            vertical-align: middle;
+                        }
 
-<div class="output_wrapper">
-<div class="output">
+                        .dataframe tbody tr th {
+                            vertical-align: top;
+                        }
 
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>brand</th>
-      <th>model</th>
-      <th>year</th>
-      <th>miles</th>
-      <th>city_mileage</th>
-      <th>highway_mileage</th>
-      <th>horsepower</th>
-      <th>torque</th>
-      <th>engine_capacity_litre</th>
-      <th>...</th>
-      <th>type</th>
-      <th>doors</th>
-      <th>wheel_drive</th>
-      <th>engine_type</th>
-      <th>speed_levels</th>
-      <th>front_headroom</th>
-      <th>front_legroom</th>
-      <th>rear_headroom</th>
-      <th>rear_legroom</th>
-      <th>service_records</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>3</td>
-      <td>Chevrolet</td>
-      <td>Volt LT</td>
-      <td>2019</td>
-      <td>27173</td>
-      <td>43</td>
-      <td>42</td>
-      <td>149</td>
-      <td>294</td>
-      <td>1.5</td>
-      <td>...</td>
-      <td>sedan</td>
-      <td>4</td>
-      <td>2</td>
-      <td>hybrid_gas_electric</td>
-      <td>6.0</td>
-      <td>37.8</td>
-      <td>42.1</td>
-      <td>35.8</td>
-      <td>34.7</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>6</td>
-      <td>Hyundai</td>
-      <td>Elantra SE</td>
-      <td>2017</td>
-      <td>76941</td>
-      <td>29</td>
-      <td>38</td>
-      <td>146</td>
-      <td>132</td>
-      <td>2.0</td>
-      <td>...</td>
-      <td>sedan</td>
-      <td>4</td>
-      <td>2</td>
-      <td>gas</td>
-      <td>6.0</td>
-      <td>39.0</td>
-      <td>42.2</td>
-      <td>37.0</td>
-      <td>35.7</td>
-      <td>16</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>7</td>
-      <td>Ford</td>
-      <td>Focus</td>
-      <td>2014</td>
-      <td>97027</td>
-      <td>27</td>
-      <td>37</td>
-      <td>159</td>
-      <td>146</td>
-      <td>2.0</td>
-      <td>...</td>
-      <td>sedan</td>
-      <td>4</td>
-      <td>2</td>
-      <td>gas</td>
-      <td>6.0</td>
-      <td>38.3</td>
-      <td>43.7</td>
-      <td>38.0</td>
-      <td>33.2</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>8</td>
-      <td>Honda</td>
-      <td>Civic</td>
-      <td>2016</td>
-      <td>95396</td>
-      <td>31</td>
-      <td>42</td>
-      <td>158</td>
-      <td>138</td>
-      <td>1.5</td>
-      <td>...</td>
-      <td>sedan</td>
-      <td>4</td>
-      <td>2</td>
-      <td>gas</td>
-      <td>6.0</td>
-      <td>37.5</td>
-      <td>42.3</td>
-      <td>36.8</td>
-      <td>37.4</td>
-      <td>26</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>9</td>
-      <td>Hyundai</td>
-      <td>Elantra SE</td>
-      <td>2019</td>
-      <td>28405</td>
-      <td>29</td>
-      <td>38</td>
-      <td>147</td>
-      <td>132</td>
-      <td>2.0</td>
-      <td>...</td>
-      <td>sedan</td>
-      <td>4</td>
-      <td>2</td>
-      <td>gas</td>
-      <td>6.0</td>
-      <td>39.0</td>
-      <td>42.2</td>
-      <td>37.0</td>
-      <td>35.7</td>
-      <td>5</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 27 columns</p>
-</div>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[4]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(52, 27)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
+                        .dataframe thead th {
+                            text-align: right;
+                        }
+                        </style>
+                        <table border="1" class="dataframe">
+                            <thead>
+                                <tr style="text-align: right;">
+                                    <th></th>
+                                    <th>id</th>
+                                    <th>brand</th>
+                                    <th>model</th>
+                                    <th>year</th>
+                                    <th>miles</th>
+                                    <th>city_mileage</th>
+                                    <th>highway_mileage</th>
+                                    <th>horsepower</th>
+                                    <th>torque</th>
+                                    <th>engine_capacity_litre</th>
+                                    <th>...</th>
+                                    <th>type</th>
+                                    <th>doors</th>
+                                    <th>wheel_drive</th>
+                                    <th>engine_type</th>
+                                    <th>speed_levels</th>
+                                    <th>front_headroom</th>
+                                    <th>front_legroom</th>
+                                    <th>rear_headroom</th>
+                                    <th>rear_legroom</th>
+                                    <th>service_records</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>0</th>
+                                    <td>3</td>
+                                    <td>Chevrolet</td>
+                                    <td>Volt LT</td>
+                                    <td>2019</td>
+                                    <td>27173</td>
+                                    <td>43</td>
+                                    <td>42</td>
+                                    <td>149</td>
+                                    <td>294</td>
+                                    <td>1.5</td>
+                                    <td>...</td>
+                                    <td>sedan</td>
+                                    <td>4</td>
+                                    <td>2</td>
+                                    <td>hybrid_gas_electric</td>
+                                    <td>6.0</td>
+                                    <td>37.8</td>
+                                    <td>42.1</td>
+                                    <td>35.8</td>
+                                    <td>34.7</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <th>1</th>
+                                    <td>6</td>
+                                    <td>Hyundai</td>
+                                    <td>Elantra SE</td>
+                                    <td>2017</td>
+                                    <td>76941</td>
+                                    <td>29</td>
+                                    <td>38</td>
+                                    <td>146</td>
+                                    <td>132</td>
+                                    <td>2.0</td>
+                                    <td>...</td>
+                                    <td>sedan</td>
+                                    <td>4</td>
+                                    <td>2</td>
+                                    <td>gas</td>
+                                    <td>6.0</td>
+                                    <td>39.0</td>
+                                    <td>42.2</td>
+                                    <td>37.0</td>
+                                    <td>35.7</td>
+                                    <td>16</td>
+                                </tr>
+                                <tr>
+                                    <th>2</th>
+                                    <td>7</td>
+                                    <td>Ford</td>
+                                    <td>Focus</td>
+                                    <td>2014</td>
+                                    <td>97027</td>
+                                    <td>27</td>
+                                    <td>37</td>
+                                    <td>159</td>
+                                    <td>146</td>
+                                    <td>2.0</td>
+                                    <td>...</td>
+                                    <td>sedan</td>
+                                    <td>4</td>
+                                    <td>2</td>
+                                    <td>gas</td>
+                                    <td>6.0</td>
+                                    <td>38.3</td>
+                                    <td>43.7</td>
+                                    <td>38.0</td>
+                                    <td>33.2</td>
+                                    <td>13</td>
+                                </tr>
+                                <tr>
+                                    <th>3</th>
+                                    <td>8</td>
+                                    <td>Honda</td>
+                                    <td>Civic</td>
+                                    <td>2016</td>
+                                    <td>95396</td>
+                                    <td>31</td>
+                                    <td>42</td>
+                                    <td>158</td>
+                                    <td>138</td>
+                                    <td>1.5</td>
+                                    <td>...</td>
+                                    <td>sedan</td>
+                                    <td>4</td>
+                                    <td>2</td>
+                                    <td>gas</td>
+                                    <td>6.0</td>
+                                    <td>37.5</td>
+                                    <td>42.3</td>
+                                    <td>36.8</td>
+                                    <td>37.4</td>
+                                    <td>26</td>
+                                </tr>
+                                <tr>
+                                    <th>4</th>
+                                    <td>9</td>
+                                    <td>Hyundai</td>
+                                    <td>Elantra SE</td>
+                                    <td>2019</td>
+                                    <td>28405</td>
+                                    <td>29</td>
+                                    <td>38</td>
+                                    <td>147</td>
+                                    <td>132</td>
+                                    <td>2.0</td>
+                                    <td>...</td>
+                                    <td>sedan</td>
+                                    <td>4</td>
+                                    <td>2</td>
+                                    <td>gas</td>
+                                    <td>6.0</td>
+                                    <td>39.0</td>
+                                    <td>42.2</td>
+                                    <td>37.0</td>
+                                    <td>35.7</td>
+                                    <td>5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>5 rows × 27 columns</p>
+                    </div>
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt output_prompt">Out[4]:</div>
+                <div class="output_text output_subarea output_execute_result">
+                    <pre>(52, 27)</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[5]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[5]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>id                        0
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt output_prompt">Out[5]:</div>
+                <div class="output_text output_subarea output_execute_result">
+                    <pre>id                        0
 brand                     0
 model                     0
 year                      0
@@ -324,59 +300,42 @@ rear_headroom             0
 rear_legroom              0
 service_records           0
 dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
-</pre></div>
-
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>Honda         23
+<div class="cell border-box-sizing code_cell rendered">
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[6]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>Honda         23
 Volkswagen    11
 Hyundai        7
 Ford           5
 Chevrolet      3
 Subaru         3
 Name: brand, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>Civic         14
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>Civic         14
 Jetta          7
 Accord         7
 Elantra SE     4
@@ -392,19 +351,12 @@ Clarity        1
 Legacy         1
 Insight        1
 Name: model, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>2019    22
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>2019    22
 2020    12
 2018     9
 2017     4
@@ -413,19 +365,12 @@ Name: model, dtype: int64</pre>
 2015     1
 2022     1
 Name: year, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>12395    2
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>12395    2
 41799    2
 13726    1
 23507    1
@@ -476,19 +421,12 @@ Name: year, dtype: int64</pre>
 33322    1
 18898    1
 Name: miles, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>30    18
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>30    18
 31     6
 23     4
 25     4
@@ -504,19 +442,12 @@ Name: miles, dtype: int64</pre>
 44     1
 55     1
 Name: city_mileage, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>38    16
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>38    16
 40    12
 42     5
 32     3
@@ -531,19 +462,12 @@ Name: city_mileage, dtype: int64</pre>
 41     1
 49     1
 Name: highway_mileage, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>158    11
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>158    11
 147     7
 192     7
 174     6
@@ -564,19 +488,12 @@ Name: highway_mileage, dtype: int64</pre>
 212     1
 250     1
 Name: horsepower, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>138    10
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>138    10
 184     9
 192     7
 132     4
@@ -594,19 +511,12 @@ Name: horsepower, dtype: int64</pre>
 258     1
 254     1
 Name: torque, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>2.0    25
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>2.0    25
 1.5    15
 1.4     6
 1.8     2
@@ -614,19 +524,12 @@ Name: torque, dtype: int64</pre>
 3.5     1
 2.5     1
 Name: engine_capacity_litre, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>12.4    14
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>12.4    14
 13.2     9
 18.5     8
 14.8     7
@@ -640,64 +543,36 @@ Name: engine_capacity_litre, dtype: int64</pre>
 10.6     1
 19.0     1
 Name: fuel_capacity, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>4    51
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>4    51
 6     1
 Name: num_cylinder, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>5    52
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>5    52
 Name: num_seat, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>1    38
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>1    38
 2    10
 3     4
 Name: num_owners, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>26788    2
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>26788    2
 19795    2
 19998    2
 22988    2
@@ -745,19 +620,12 @@ Name: num_owners, dtype: int64</pre>
 22491    1
 19450    1
 Name: price, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=660654522&amp;vehicleStyleCodes=SEDAN&amp;city=Bellevue&amp;state=WA&amp;zip=98007&amp;searchRadius=50&amp;marketExtension=include&amp;isNewSearch=false&amp;showAccelerateBanner=false&amp;sortBy=relevance&amp;numRecords=25&amp;firstRecord=25&amp;listingTypes=USED&amp;referrer=%2Fcars-for-sale%2Fsedan%2Fbellevue-wa-98007%3FsearchRadius%3D50%26marketExtension%3Dinclude%26isNewSearch%3Dfalse%26showAccelerateBanner%3Dfalse%26sortBy%3Drelevance%26numRecords%3D25%26firstRecord%3D25&amp;clickType=listing      2
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=660654522&amp;vehicleStyleCodes=SEDAN&amp;city=Bellevue&amp;state=WA&amp;zip=98007&amp;searchRadius=50&amp;marketExtension=include&amp;isNewSearch=false&amp;showAccelerateBanner=false&amp;sortBy=relevance&amp;numRecords=25&amp;firstRecord=25&amp;listingTypes=USED&amp;referrer=%2Fcars-for-sale%2Fsedan%2Fbellevue-wa-98007%3FsearchRadius%3D50%26marketExtension%3Dinclude%26isNewSearch%3Dfalse%26showAccelerateBanner%3Dfalse%26sortBy%3Drelevance%26numRecords%3D25%26firstRecord%3D25&amp;clickType=listing      2
 https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=662449331&amp;vehicleStyleCodes=SEDAN&amp;city=Bellevue&amp;state=WA&amp;zip=98007&amp;searchRadius=50&amp;marketExtension=include&amp;isNewSearch=false&amp;showAccelerateBanner=false&amp;sortBy=relevance&amp;numRecords=25&amp;firstRecord=50&amp;listingTypes=USED&amp;referrer=%2Fcars-for-sale%2Fsedan%2Fbellevue-wa-98007%3FsearchRadius%3D50%26marketExtension%3Dinclude%26isNewSearch%3Dfalse%26showAccelerateBanner%3Dfalse%26sortBy%3Drelevance%26numRecords%3D25%26firstRecord%3D50&amp;clickType=listing      1
 https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=654752823&amp;vehicleStyleCodes=SEDAN&amp;city=Bellevue&amp;state=WA&amp;zip=98007&amp;searchRadius=50&amp;marketExtension=include&amp;isNewSearch=false&amp;showAccelerateBanner=false&amp;sortBy=relevance&amp;numRecords=25&amp;firstRecord=50&amp;listingTypes=USED&amp;referrer=%2Fcars-for-sale%2Fsedan%2Fbellevue-wa-98007%3FsearchRadius%3D50%26marketExtension%3Dinclude%26isNewSearch%3Dfalse%26showAccelerateBanner%3Dfalse%26sortBy%3Drelevance%26numRecords%3D25%26firstRecord%3D50&amp;clickType=listing      1
 https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=670198790&amp;vehicleStyleCodes=SEDAN&amp;city=Bellevue&amp;state=WA&amp;zip=98007&amp;requestId=COUPE&amp;searchRadius=50&amp;marketExtension=include&amp;isNewSearch=false&amp;showAccelerateBanner=false&amp;sortBy=relevance&amp;numRecords=25&amp;listingTypes=USED&amp;referrer=%2Fcars-for-sale%2Fsedan%2Fbellevue-wa-98007%3FrequestId%3DCOUPE%26searchRadius%3D50%26marketExtension%3Dinclude%26isNewSearch%3Dfalse%26showAccelerateBanner%3Dfalse%26sortBy%3Drelevance%26numRecords%3D25&amp;clickType=listing    1
@@ -809,108 +677,59 @@ https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=65773685
 https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=660810982&amp;vehicleStyleCodes=SEDAN&amp;city=Bellevue&amp;state=WA&amp;zip=98007&amp;searchRadius=50&amp;marketExtension=include&amp;isNewSearch=false&amp;showAccelerateBanner=false&amp;sortBy=relevance&amp;numRecords=25&amp;firstRecord=50&amp;listingTypes=USED&amp;referrer=%2Fcars-for-sale%2Fsedan%2Fbellevue-wa-98007%3FsearchRadius%3D50%26marketExtension%3Dinclude%26isNewSearch%3Dfalse%26showAccelerateBanner%3Dfalse%26sortBy%3Drelevance%26numRecords%3D25%26firstRecord%3D50&amp;clickType=listing      1
 https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=663504339&amp;vehicleStyleCodes=SEDAN&amp;city=Bellevue&amp;state=WA&amp;zip=98007&amp;searchRadius=50&amp;marketExtension=include&amp;isNewSearch=false&amp;showAccelerateBanner=false&amp;sortBy=relevance&amp;numRecords=25&amp;firstRecord=50&amp;listingTypes=USED&amp;referrer=%2Fcars-for-sale%2Fsedan%2Fbellevue-wa-98007%3FsearchRadius%3D50%26marketExtension%3Dinclude%26isNewSearch%3Dfalse%26showAccelerateBanner%3Dfalse%26sortBy%3Drelevance%26numRecords%3D25%26firstRecord%3D50&amp;clickType=listing      1
 Name: link, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>4.0    1
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>4.0    1
 Name: condition, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>sedan    52
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>sedan    52
 Name: type, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>4    52
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>4    52
 Name: doors, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>2    48
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>2    48
 4     4
 Name: wheel_drive, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>gas                    49
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>gas                    49
 hybrid_gas_electric     3
 Name: engine_type, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>6.0    43
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>6.0    43
 8.0     6
 7.0     1
 9.0     1
 Name: speed_levels, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>37.5    13
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>37.5    13
 38.5     6
 39.3     6
 38.3     5
@@ -926,19 +745,12 @@ Name: speed_levels, dtype: int64</pre>
 39.4     1
 38.2     1
 Name: front_headroom, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>42.3    21
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>42.3    21
 41.1     6
 42.2     5
 42.4     4
@@ -953,19 +765,12 @@ Name: front_headroom, dtype: int64</pre>
 41.2     1
 43.7     1
 Name: front_legroom, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>37.2    14
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>37.2    14
 37.8     8
 36.8     8
 37.1     7
@@ -977,19 +782,12 @@ Name: front_legroom, dtype: int64</pre>
 36.2     1
 36.9     1
 Name: rear_headroom, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>37.4    20
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>37.4    20
 40.4     7
 38.1     4
 35.7     4
@@ -1002,19 +800,12 @@ Name: rear_headroom, dtype: int64</pre>
 39.5     1
 34.7     1
 Name: rear_legroom, dtype: int64</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_text output_subarea ">
-<pre>4     12
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_text output_subarea ">
+                    <pre>4     12
 5      7
 6      5
 7      4
@@ -1030,361 +821,337 @@ Name: rear_legroom, dtype: int64</pre>
 16     1
 26     1
 Name: service_records, dtype: int64</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
 <p> We drop link & id because they do not provide useful information.
-
-We drop condition because it is null.
-
-We drop model because it is dependent on brand & also for a categorical variable it has too much variety for such a small dataset.
-
-We drop num_seat, type, num_cylinder, doors, and engine type because they have too little variation to be proven helpful. </p>
+    We drop condition because it is null.
+    We drop model because it is dependent on brand & also for a categorical variable it has too much variety for such a small dataset.
+    We drop num_seat, type, num_cylinder, doors, and engine type because they have too little variation to be proven helpful. </p>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="s2">&quot;condition&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[7]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="s2">&quot;condition&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;num_seat&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;num_cylinder&quot;</span><span class="p">,</span> <span class="s2">&quot;doors&quot;</span><span class="p">,</span> <span class="s2">&quot;engine_type&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</pre></div>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[8]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt output_prompt">Out[8]:</div>
+                <div class="output_html rendered_html output_subarea output_execute_result">
+                    <div>
+                        <style scoped>
+                        .dataframe tbody tr th:only-of-type {
+                            vertical-align: middle;
+                        }
 
+                        .dataframe tbody tr th {
+                            vertical-align: top;
+                        }
+
+                        .dataframe thead th {
+                            text-align: right;
+                        }
+                        </style>
+                        <table border="1" class="dataframe">
+                            <thead>
+                                <tr style="text-align: right;">
+                                    <th></th>
+                                    <th>year</th>
+                                    <th>miles</th>
+                                    <th>city_mileage</th>
+                                    <th>highway_mileage</th>
+                                    <th>horsepower</th>
+                                    <th>torque</th>
+                                    <th>engine_capacity_litre</th>
+                                    <th>fuel_capacity</th>
+                                    <th>num_owners</th>
+                                    <th>price</th>
+                                    <th>wheel_drive</th>
+                                    <th>speed_levels</th>
+                                    <th>front_headroom</th>
+                                    <th>front_legroom</th>
+                                    <th>rear_headroom</th>
+                                    <th>rear_legroom</th>
+                                    <th>service_records</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>count</th>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>51.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                    <td>52.000000</td>
+                                </tr>
+                                <tr>
+                                    <th>mean</th>
+                                    <td>2018.673077</td>
+                                    <td>33901.250000</td>
+                                    <td>29.038462</td>
+                                    <td>37.423077</td>
+                                    <td>176.865385</td>
+                                    <td>177.923077</td>
+                                    <td>1.832692</td>
+                                    <td>14.232692</td>
+                                    <td>1.346154</td>
+                                    <td>21763.423077</td>
+                                    <td>2.153846</td>
+                                    <td>6.313725</td>
+                                    <td>38.680769</td>
+                                    <td>42.467308</td>
+                                    <td>37.238462</td>
+                                    <td>37.632692</td>
+                                    <td>7.326923</td>
+                                </tr>
+                                <tr>
+                                    <th>std</th>
+                                    <td>1.396370</td>
+                                    <td>22700.646139</td>
+                                    <td>5.947356</td>
+                                    <td>4.136619</td>
+                                    <td>33.793507</td>
+                                    <td>47.256433</td>
+                                    <td>0.379743</td>
+                                    <td>2.603973</td>
+                                    <td>0.622601</td>
+                                    <td>3532.455322</td>
+                                    <td>0.538138</td>
+                                    <td>0.761320</td>
+                                    <td>0.919087</td>
+                                    <td>1.045198</td>
+                                    <td>0.444202</td>
+                                    <td>1.604249</td>
+                                    <td>4.714272</td>
+                                </tr>
+                                <tr>
+                                    <th>min</th>
+                                    <td>2014.000000</td>
+                                    <td>5000.000000</td>
+                                    <td>17.000000</td>
+                                    <td>24.000000</td>
+                                    <td>143.000000</td>
+                                    <td>99.000000</td>
+                                    <td>1.400000</td>
+                                    <td>7.000000</td>
+                                    <td>1.000000</td>
+                                    <td>13590.000000</td>
+                                    <td>2.000000</td>
+                                    <td>6.000000</td>
+                                    <td>37.500000</td>
+                                    <td>41.100000</td>
+                                    <td>35.800000</td>
+                                    <td>33.200000</td>
+                                    <td>1.000000</td>
+                                </tr>
+                                <tr>
+                                    <th>25%</th>
+                                    <td>2018.000000</td>
+                                    <td>16454.750000</td>
+                                    <td>26.500000</td>
+                                    <td>35.750000</td>
+                                    <td>152.000000</td>
+                                    <td>138.000000</td>
+                                    <td>1.500000</td>
+                                    <td>12.400000</td>
+                                    <td>1.000000</td>
+                                    <td>19519.000000</td>
+                                    <td>2.000000</td>
+                                    <td>6.000000</td>
+                                    <td>37.725000</td>
+                                    <td>42.200000</td>
+                                    <td>37.075000</td>
+                                    <td>37.175000</td>
+                                    <td>4.000000</td>
+                                </tr>
+                                <tr>
+                                    <th>50%</th>
+                                    <td>2019.000000</td>
+                                    <td>27448.500000</td>
+                                    <td>30.000000</td>
+                                    <td>38.000000</td>
+                                    <td>159.500000</td>
+                                    <td>181.000000</td>
+                                    <td>2.000000</td>
+                                    <td>13.600000</td>
+                                    <td>1.000000</td>
+                                    <td>21998.500000</td>
+                                    <td>2.000000</td>
+                                    <td>6.000000</td>
+                                    <td>38.500000</td>
+                                    <td>42.300000</td>
+                                    <td>37.200000</td>
+                                    <td>37.400000</td>
+                                    <td>6.000000</td>
+                                </tr>
+                                <tr>
+                                    <th>75%</th>
+                                    <td>2019.250000</td>
+                                    <td>42442.000000</td>
+                                    <td>30.000000</td>
+                                    <td>40.000000</td>
+                                    <td>192.000000</td>
+                                    <td>192.000000</td>
+                                    <td>2.000000</td>
+                                    <td>15.050000</td>
+                                    <td>2.000000</td>
+                                    <td>22996.000000</td>
+                                    <td>2.000000</td>
+                                    <td>6.000000</td>
+                                    <td>39.300000</td>
+                                    <td>42.400000</td>
+                                    <td>37.500000</td>
+                                    <td>38.300000</td>
+                                    <td>10.000000</td>
+                                </tr>
+                                <tr>
+                                    <th>max</th>
+                                    <td>2022.000000</td>
+                                    <td>97027.000000</td>
+                                    <td>55.000000</td>
+                                    <td>49.000000</td>
+                                    <td>288.000000</td>
+                                    <td>294.000000</td>
+                                    <td>3.500000</td>
+                                    <td>19.000000</td>
+                                    <td>3.000000</td>
+                                    <td>33777.000000</td>
+                                    <td>4.000000</td>
+                                    <td>9.000000</td>
+                                    <td>40.400000</td>
+                                    <td>45.500000</td>
+                                    <td>38.000000</td>
+                                    <td>40.400000</td>
+                                    <td>26.000000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[8]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>year</th>
-      <th>miles</th>
-      <th>city_mileage</th>
-      <th>highway_mileage</th>
-      <th>horsepower</th>
-      <th>torque</th>
-      <th>engine_capacity_litre</th>
-      <th>fuel_capacity</th>
-      <th>num_owners</th>
-      <th>price</th>
-      <th>wheel_drive</th>
-      <th>speed_levels</th>
-      <th>front_headroom</th>
-      <th>front_legroom</th>
-      <th>rear_headroom</th>
-      <th>rear_legroom</th>
-      <th>service_records</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>51.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-      <td>52.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>2018.673077</td>
-      <td>33901.250000</td>
-      <td>29.038462</td>
-      <td>37.423077</td>
-      <td>176.865385</td>
-      <td>177.923077</td>
-      <td>1.832692</td>
-      <td>14.232692</td>
-      <td>1.346154</td>
-      <td>21763.423077</td>
-      <td>2.153846</td>
-      <td>6.313725</td>
-      <td>38.680769</td>
-      <td>42.467308</td>
-      <td>37.238462</td>
-      <td>37.632692</td>
-      <td>7.326923</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>1.396370</td>
-      <td>22700.646139</td>
-      <td>5.947356</td>
-      <td>4.136619</td>
-      <td>33.793507</td>
-      <td>47.256433</td>
-      <td>0.379743</td>
-      <td>2.603973</td>
-      <td>0.622601</td>
-      <td>3532.455322</td>
-      <td>0.538138</td>
-      <td>0.761320</td>
-      <td>0.919087</td>
-      <td>1.045198</td>
-      <td>0.444202</td>
-      <td>1.604249</td>
-      <td>4.714272</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>2014.000000</td>
-      <td>5000.000000</td>
-      <td>17.000000</td>
-      <td>24.000000</td>
-      <td>143.000000</td>
-      <td>99.000000</td>
-      <td>1.400000</td>
-      <td>7.000000</td>
-      <td>1.000000</td>
-      <td>13590.000000</td>
-      <td>2.000000</td>
-      <td>6.000000</td>
-      <td>37.500000</td>
-      <td>41.100000</td>
-      <td>35.800000</td>
-      <td>33.200000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>2018.000000</td>
-      <td>16454.750000</td>
-      <td>26.500000</td>
-      <td>35.750000</td>
-      <td>152.000000</td>
-      <td>138.000000</td>
-      <td>1.500000</td>
-      <td>12.400000</td>
-      <td>1.000000</td>
-      <td>19519.000000</td>
-      <td>2.000000</td>
-      <td>6.000000</td>
-      <td>37.725000</td>
-      <td>42.200000</td>
-      <td>37.075000</td>
-      <td>37.175000</td>
-      <td>4.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>2019.000000</td>
-      <td>27448.500000</td>
-      <td>30.000000</td>
-      <td>38.000000</td>
-      <td>159.500000</td>
-      <td>181.000000</td>
-      <td>2.000000</td>
-      <td>13.600000</td>
-      <td>1.000000</td>
-      <td>21998.500000</td>
-      <td>2.000000</td>
-      <td>6.000000</td>
-      <td>38.500000</td>
-      <td>42.300000</td>
-      <td>37.200000</td>
-      <td>37.400000</td>
-      <td>6.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>2019.250000</td>
-      <td>42442.000000</td>
-      <td>30.000000</td>
-      <td>40.000000</td>
-      <td>192.000000</td>
-      <td>192.000000</td>
-      <td>2.000000</td>
-      <td>15.050000</td>
-      <td>2.000000</td>
-      <td>22996.000000</td>
-      <td>2.000000</td>
-      <td>6.000000</td>
-      <td>39.300000</td>
-      <td>42.400000</td>
-      <td>37.500000</td>
-      <td>38.300000</td>
-      <td>10.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>2022.000000</td>
-      <td>97027.000000</td>
-      <td>55.000000</td>
-      <td>49.000000</td>
-      <td>288.000000</td>
-      <td>294.000000</td>
-      <td>3.500000</td>
-      <td>19.000000</td>
-      <td>3.000000</td>
-      <td>33777.000000</td>
-      <td>4.000000</td>
-      <td>9.000000</td>
-      <td>40.400000</td>
-      <td>45.500000</td>
-      <td>38.000000</td>
-      <td>40.400000</td>
-      <td>26.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">])</span>
-</pre></div>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[9]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">])</span>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt output_prompt">Out[9]:</div>
+                <div class="output_html rendered_html output_subarea output_execute_result">
+                    <div>
+                        <style scoped>
+                        .dataframe tbody tr th:only-of-type {
+                            vertical-align: middle;
+                        }
 
+                        .dataframe tbody tr th {
+                            vertical-align: top;
+                        }
+
+                        .dataframe thead th {
+                            text-align: right;
+                        }
+                        </style>
+                        <table border="1" class="dataframe">
+                            <thead>
+                                <tr style="text-align: right;">
+                                    <th></th>
+                                    <th>brand</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>count</th>
+                                    <td>52</td>
+                                </tr>
+                                <tr>
+                                    <th>unique</th>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <th>top</th>
+                                    <td>Honda</td>
+                                </tr>
+                                <tr>
+                                    <th>freq</th>
+                                    <td>23</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[9]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>brand</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>52</td>
-    </tr>
-    <tr>
-      <th>unique</th>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>top</th>
-      <td>Honda</td>
-    </tr>
-    <tr>
-      <th>freq</th>
-      <td>23</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s2">&quot;O&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[10]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s2">&quot;O&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
 
 <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">LabelEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">)</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[11]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="n">row_num</span> <span class="o">=</span> <span class="n">i</span> <span class="o">//</span> <span class="mi">3</span>
@@ -1395,43 +1162,38 @@ We drop num_seat, type, num_cylinder, doors, and engine type because they have t
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/0.png'>
-</div>
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/0.1.png'>
-</div>
-</div>
-</div>
-</div>
-
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_png output_subarea ">
+                    <img src='/static/categories_pics/projects/used_cars/0.png'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_png output_subarea ">
+                    <img src='/static/categories_pics/projects/used_cars/0.1.png'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cell border-box-sizing code_cell rendered">
+        <div class="input">
+            <div class="prompt input_prompt">In&nbsp;[12]:</div>
+            <div class="inner_cell">
+                <div class="input_area">
+                    <div class=" highlight hl-ipython3">
+                        <pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="n">row_num</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">//</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
@@ -1445,112 +1207,102 @@ We drop num_seat, type, num_cylinder, doors, and engine type because they have t
 
 <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="s2">&quot;plotly_white&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/1.png'>
-</div>
-</div>
-</div>
-</div>
-
-<p> Year & Miles seem to have the most correlation with our target, with year driving the price up, miles driving the price down. We can also probably assume that the highest the year, the less the miles will be. Furthermore, num owners and horsepower seem to be indicators of price, with more owners driving the price down (which is reasonable) and higher horsepower driving the price up. However, I expect some variables to make more sense of the price variable when used with brand.</p>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_3d</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;miles&quot;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">)</span>
+</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="output_wrapper">
+            <div class="output">
+                <div class="output_area">
+                    <div class="prompt"></div>
+                    <div class="output_png output_subarea ">
+                        <img src='/static/categories_pics/projects/used_cars/1.png'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p> Year & Miles seem to have the most correlation with our target, with year driving the price up, miles driving the price down. We can also probably assume that the highest the year, the less the miles will be. Furthermore, num owners and horsepower seem to be indicators of price, with more owners driving the price down (which is reasonable) and higher horsepower driving the price up. However, I expect some variables to make more sense of the price variable when used with brand.</p>
+        <div class="cell border-box-sizing code_cell rendered">
+            <div class="input">
+                <div class="prompt input_prompt">In&nbsp;[13]:</div>
+                <div class="inner_cell">
+                    <div class="input_area">
+                        <div class=" highlight hl-ipython3">
+                            <pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_3d</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;miles&quot;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/2.png'>
-</div>
-</div>
-</div>
-</div>
-
-<p> The above graph shows the relationship we described between miles, year and price. While miles decrease & year increases, the newer the car, hence the higher the price. </p>
-
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_3d</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;brand&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;horsepower&quot;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">)</span>
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="output_wrapper">
+                <div class="output">
+                    <div class="output_area">
+                        <div class="prompt"></div>
+                        <div class="output_png output_subarea ">
+                            <img src='/static/categories_pics/projects/used_cars/2.png'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p> The above graph shows the relationship we described between miles, year and price. While miles decrease & year increases, the newer the car, hence the higher the price. </p>
+            <div class="cell border-box-sizing code_cell rendered">
+                <div class="input">
+                    <div class="prompt input_prompt">In&nbsp;[14]:</div>
+                    <div class="inner_cell">
+                        <div class="input_area">
+                            <div class=" highlight hl-ipython3">
+                                <pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_3d</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;brand&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;horsepower&quot;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/3.png'>
-</div>
-</div>
-</div>
-</div>
-
-<p>The above graph shows the relationship we described between miles, year and price. While miles decrease & year increases, the newer the car, hence the higher the price.</p>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_3d</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;front_legroom&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;rear_legroom&quot;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">)</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="output_wrapper">
+                    <div class="output">
+                        <div class="output_area">
+                            <div class="prompt"></div>
+                            <div class="output_png output_subarea ">
+                                <img src='/static/categories_pics/projects/used_cars/3.png'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>The above graph shows the relationship we described between miles, year and price. While miles decrease & year increases, the newer the car, hence the higher the price.</p>
+                <div class="cell border-box-sizing code_cell rendered">
+                    <div class="input">
+                        <div class="prompt input_prompt">In&nbsp;[15]:</div>
+                        <div class="inner_cell">
+                            <div class="input_area">
+                                <div class=" highlight hl-ipython3">
+                                    <pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_3d</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;front_legroom&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;rear_legroom&quot;</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/4.png'>
-</div>
-</div>
-</div>
-</div>
-
-<p> The above graph shows that for different brands, the higher the horsepower the higher the price, just as expected.</p>
-
-<h2> Transformations </h2>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;used-cars-dataset/used_cars.csv&quot;</span><span class="p">)</span>
+</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output_wrapper">
+                        <div class="output">
+                            <div class="output_area">
+                                <div class="prompt"></div>
+                                <div class="output_png output_subarea ">
+                                    <img src='/static/categories_pics/projects/used_cars/4.png'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> The above graph shows that for different brands, the higher the horsepower the higher the price, just as expected.</p>
+                    <h2> Transformations </h2>
+                    <div class="cell border-box-sizing code_cell rendered">
+                        <div class="input">
+                            <div class="prompt input_prompt">In&nbsp;[16]:</div>
+                            <div class="inner_cell">
+                                <div class="input_area">
+                                    <div class=" highlight hl-ipython3">
+                                        <pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;used-cars-dataset/used_cars.csv&quot;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
     <span class="p">[</span>
         <span class="s2">&quot;num_seat&quot;</span><span class="p">,</span>
@@ -1566,25 +1318,17 @@ We drop num_seat, type, num_cylinder, doors, and engine type because they have t
     <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[16]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>brand                     object
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="output_wrapper">
+                            <div class="output">
+                                <div class="output_area">
+                                    <div class="prompt output_prompt">Out[16]:</div>
+                                    <div class="output_text output_subarea output_execute_result">
+                                        <pre>brand                     object
 year                       int64
 miles                      int64
 city_mileage               int64
@@ -1603,33 +1347,29 @@ rear_headroom            float64
 rear_legroom             float64
 service_records            int64
 dtype: object</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
-<p> Brand is categorical so we need to one hot encode it.
-And we now speed has one null value, so we will fill it with the median of the dataset.
-Thus, we need to create a pipeline that:</p>
-<ul> <li>Deals with the null values at speed level</li>
-  <li>One hot encodes the brand column</li>
-  <li>Standardises our data</li>
-
-</ul>
-<p>
-Also, pipelines, while they feed y to the intermediate steps, they do not perform the transform. Thus, we will do our scaling of y outside of the pipelines
-</p>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p> Brand is categorical so we need to one hot encode it.
+                        And we now speed has one null value, so we will fill it with the median of the dataset.
+                        Thus, we need to create a pipeline that:</p>
+                    <ul>
+                        <li>Deals with the null values at speed level</li>
+                        <li>One hot encodes the brand column</li>
+                        <li>Standardises our data</li>
+                    </ul>
+                    <p>
+                        Also, pipelines, while they feed y to the intermediate steps, they do not perform the transform. Thus, we will do our scaling of y outside of the pipelines
+                    </p>
+                    <div class="cell border-box-sizing code_cell rendered">
+                        <div class="input">
+                            <div class="prompt input_prompt">In&nbsp;[17]:</div>
+                            <div class="inner_cell">
+                                <div class="input_area">
+                                    <div class=" highlight hl-ipython3">
+                                        <pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
     <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span>
 <span class="p">)</span>
 
@@ -1637,19 +1377,19 @@ Also, pipelines, while they feed y to the intermediate steps, they do not perfor
 <span class="n">y_scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">y_train_scaled</span> <span class="o">=</span> <span class="n">y_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">y_test_scaled</span> <span class="o">=</span> <span class="n">y_scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">ToDummiesTransformer</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cell border-box-sizing code_cell rendered">
+                        <div class="input">
+                            <div class="prompt input_prompt">In&nbsp;[18]:</div>
+                            <div class="inner_cell">
+                                <div class="input_area">
+                                    <div class=" highlight hl-ipython3">
+                                        <pre><span></span><span class="k">class</span> <span class="nc">ToDummiesTransformer</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">transformparams</span><span class="p">):</span>
         <span class="n">trans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">==</span><span class="s1">&#39;O&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">trans</span>
@@ -1665,19 +1405,19 @@ Also, pipelines, while they feed y to the intermediate steps, they do not perfor
 
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">fitparams</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pipe_lr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cell border-box-sizing code_cell rendered">
+                        <div class="input">
+                            <div class="prompt input_prompt">In&nbsp;[19]:</div>
+                            <div class="inner_cell">
+                                <div class="input_area">
+                                    <div class=" highlight hl-ipython3">
+                                        <pre><span></span><span class="n">pipe_lr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
     <span class="p">[</span>
         <span class="p">(</span><span class="s2">&quot;dummies&quot;</span><span class="p">,</span> <span class="n">ToDummiesTransformer</span><span class="p">()),</span>
         <span class="p">(</span><span class="s2">&quot;filler&quot;</span><span class="p">,</span> <span class="n">FillTransformer</span><span class="p">()),</span>
@@ -1712,23 +1452,21 @@ Also, pipelines, while they feed y to the intermediate steps, they do not perfor
         <span class="p">(</span><span class="s2">&quot;predictor&quot;</span><span class="p">,</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">)),</span>
     <span class="p">]</span>
 <span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-<h2> Modelling </h2>
-<p> We will also do 4 models and then combine them, and compare their performances against each other. </p>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pipe_lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2> Modelling </h2>
+                    <p> We will also do 4 models and then combine them, and compare their performances against each other. </p>
+                    <div class="cell border-box-sizing code_cell rendered">
+                        <div class="input">
+                            <div class="prompt input_prompt">In&nbsp;[20]:</div>
+                            <div class="inner_cell">
+                                <div class="input_area">
+                                    <div class=" highlight hl-ipython3">
+                                        <pre><span></span><span class="n">pipe_lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
 <span class="n">pipe_ridge</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
 <span class="n">pipe_gb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
 <span class="n">pipe_xgboost</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
@@ -1737,65 +1475,61 @@ Also, pipelines, while they feed y to the intermediate steps, they do not perfor
 <span class="n">preds_ridge</span> <span class="o">=</span> <span class="n">pipe_ridge</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">preds_gb</span> <span class="o">=</span> <span class="n">pipe_gb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">preds_xgboost</span> <span class="o">=</span> <span class="n">pipe_xgboost</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds_lr</span> <span class="o">=</span> <span class="n">y_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">preds_lr</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))[:,</span> <span class="mi">0</span><span class="p">]</span>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cell border-box-sizing code_cell rendered">
+                            <div class="input">
+                                <div class="prompt input_prompt">In&nbsp;[21]:</div>
+                                <div class="inner_cell">
+                                    <div class="input_area">
+                                        <div class=" highlight hl-ipython3">
+                                            <pre><span></span><span class="n">preds_lr</span> <span class="o">=</span> <span class="n">y_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">preds_lr</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))[:,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="n">preds_ridge</span> <span class="o">=</span> <span class="n">y_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">preds_ridge</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))[:,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="n">preds_gb</span> <span class="o">=</span> <span class="n">y_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">preds_gb</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))[:,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="n">preds_xgboost</span> <span class="o">=</span> <span class="n">y_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">preds_xgboost</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))[:,</span> <span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-<h2> Results </h2>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2> Results </h2>
+                        <div class="cell border-box-sizing code_cell rendered">
+                            <div class="input">
+                                <div class="prompt input_prompt">In&nbsp;[22]:</div>
+                                <div class="inner_cell">
+                                    <div class="input_area">
+                                        <div class=" highlight hl-ipython3">
+                                            <pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="nb">zip</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds_lr</span><span class="p">,</span> <span class="n">preds_ridge</span><span class="p">,</span> <span class="n">preds_gb</span><span class="p">,</span> <span class="n">preds_xgboost</span><span class="p">),</span>
     <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Actual&quot;</span><span class="p">,</span> <span class="s2">&quot;LR&quot;</span><span class="p">,</span> <span class="s2">&quot;Ridge&quot;</span><span class="p">,</span> <span class="s2">&quot;GB&quot;</span><span class="p">,</span> <span class="s2">&quot;XGBoost&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 <span class="n">results</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/5.png'>
-</div>
-</div>
-</div>
-</div>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mae</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="output_wrapper">
+                                <div class="output">
+                                    <div class="output_area">
+                                        <div class="prompt"></div>
+                                        <div class="output_png output_subarea ">
+                                            <img src='/static/categories_pics/projects/used_cars/5.png'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cell border-box-sizing code_cell rendered">
+                                <div class="input">
+                                    <div class="prompt input_prompt">In&nbsp;[23]:</div>
+                                    <div class="inner_cell">
+                                        <div class="input_area">
+                                            <div class=" highlight hl-ipython3">
+                                                <pre><span></span><span class="n">mae</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="p">{</span>
         <span class="s2">&quot;LR&quot;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds_lr</span><span class="p">),</span>
         <span class="s2">&quot;Ridge&quot;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds_ridge</span><span class="p">),</span>
@@ -1805,29 +1539,28 @@ Also, pipelines, while they feed y to the intermediate steps, they do not perfor
     <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
 <span class="p">)</span><span class="o">.</span><span class="n">T</span>
 <span class="n">mae</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/6.png'>
-</div>
-</div>
-</div>
-</div>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+</pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="output_wrapper">
+                                    <div class="output">
+                                        <div class="output_area">
+                                            <div class="prompt"></div>
+                                            <div class="output_png output_subarea ">
+                                                <img src='/static/categories_pics/projects/used_cars/6.png'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cell border-box-sizing code_cell rendered">
+                                    <div class="input">
+                                        <div class="prompt input_prompt">In&nbsp;[24]:</div>
+                                        <div class="inner_cell">
+                                            <div class="input_area">
+                                                <div class=" highlight hl-ipython3">
+                                                    <pre><span></span><span class="n">r2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="p">{</span>
         <span class="s2">&quot;LR&quot;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds_lr</span><span class="p">),</span>
         <span class="s2">&quot;Ridge&quot;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds_ridge</span><span class="p">),</span>
@@ -1837,90 +1570,84 @@ Also, pipelines, while they feed y to the intermediate steps, they do not perfor
     <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
 <span class="p">)</span><span class="o">.</span><span class="n">T</span>
 <span class="n">r2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/7.png'>
-</div>
-</div>
-</div>
-</div>
-
-<p> From our four initial algorithms, the fact that Ridge Regression performs the best, makes sense.
-Xgboost and Gradient Boosting really need more data to shine through, while Regression, compared to ridge regression, doesn't filter out the noise. </p>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+</pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="output_wrapper">
+                                        <div class="output">
+                                            <div class="output_area">
+                                                <div class="prompt"></div>
+                                                <div class="output_png output_subarea ">
+                                                    <img src='/static/categories_pics/projects/used_cars/7.png'>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p> From our four initial algorithms, the fact that Ridge Regression performs the best, makes sense.
+                                        Xgboost and Gradient Boosting really need more data to shine through, while Regression, compared to ridge regression, doesn't filter out the noise. </p>
+                                    <div class="cell border-box-sizing code_cell rendered">
+                                        <div class="input">
+                                            <div class="prompt input_prompt">In&nbsp;[25]:</div>
+                                            <div class="inner_cell">
+                                                <div class="input_area">
+                                                    <div class=" highlight hl-ipython3">
+                                                        <pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="p">{</span>
         <span class="n">i</span><span class="p">:</span> <span class="n">j</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pipe_ridge</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">pipe_ridge</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
     <span class="p">},</span>
     <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
 <span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/8.png'>
-</div>
-</div>
-</div>
-</div>
-
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="output_wrapper">
+                                            <div class="output">
+                                                <div class="output_area">
+                                                    <div class="prompt"></div>
+                                                    <div class="output_png output_subarea ">
+                                                        <img src='/static/categories_pics/projects/used_cars/8.png'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cell border-box-sizing code_cell rendered">
+                                            <div class="input">
+                                                <div class="prompt input_prompt">In&nbsp;[26]:</div>
+                                                <div class="inner_cell">
+                                                    <div class="input_area">
+                                                        <div class=" highlight hl-ipython3">
+                                                            <pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pipe_lr</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">pipe_lr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">)},</span>
     <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
 <span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/9.png'>
-</div>
-</div>
-</div>
-</div>
-
-<h2> Ensemble </h2>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ensemble_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+</pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="output_wrapper">
+                                                <div class="output">
+                                                    <div class="output_area">
+                                                        <div class="prompt"></div>
+                                                        <div class="output_png output_subarea ">
+                                                            <img src='/static/categories_pics/projects/used_cars/9.png'>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h2> Ensemble </h2>
+                                            <div class="cell border-box-sizing code_cell rendered">
+                                                <div class="input">
+                                                    <div class="prompt input_prompt">In&nbsp;[27]:</div>
+                                                    <div class="inner_cell">
+                                                        <div class="input_area">
+                                                            <div class=" highlight hl-ipython3">
+                                                                <pre><span></span><span class="n">ensemble_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
     <span class="p">[</span>
         <span class="n">pipe_lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span>
         <span class="n">pipe_ridge</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span>
@@ -1939,158 +1666,133 @@ Xgboost and Gradient Boosting really need more data to shine through, while Regr
 
 <span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">()</span>
 <span class="n">ridge</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ensemble_train</span><span class="p">,</span> <span class="n">y_train_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[27]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Ridge()</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ridge</span><span class="o">.</span><span class="n">coef_</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[28]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([0.05602968, 0.03455031, 0.4552057 , 0.45468302])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">y_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span>
+</pre>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="output_wrapper">
+                                                    <div class="output">
+                                                        <div class="output_area">
+                                                            <div class="prompt output_prompt">Out[27]:</div>
+                                                            <div class="output_text output_subarea output_execute_result">
+                                                                <pre>Ridge()</pre>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cell border-box-sizing code_cell rendered">
+                                                <div class="input">
+                                                    <div class="prompt input_prompt">In&nbsp;[28]:</div>
+                                                    <div class="inner_cell">
+                                                        <div class="input_area">
+                                                            <div class=" highlight hl-ipython3">
+                                                                <pre><span></span><span class="n">ridge</span><span class="o">.</span><span class="n">coef_</span>
+</pre>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="output_wrapper">
+                                                    <div class="output">
+                                                        <div class="output_area">
+                                                            <div class="prompt output_prompt">Out[28]:</div>
+                                                            <div class="output_text output_subarea output_execute_result">
+                                                                <pre>array([0.05602968, 0.03455031, 0.4552057 , 0.45468302])</pre>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cell border-box-sizing code_cell rendered">
+                                                <div class="input">
+                                                    <div class="prompt input_prompt">In&nbsp;[29]:</div>
+                                                    <div class="inner_cell">
+                                                        <div class="input_area">
+                                                            <div class=" highlight hl-ipython3">
+                                                                <pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">y_scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span>
     <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ridge</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">ensemble_test</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;Ensemble&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">preds</span>
+</pre>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cell border-box-sizing code_cell rendered">
+                                                <div class="input">
+                                                    <div class="prompt input_prompt">In&nbsp;[30]:</div>
+                                                    <div class="inner_cell">
+                                                        <div class="input_area">
+                                                            <div class=" highlight hl-ipython3">
+                                                                <pre><span></span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;Ensemble&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">preds</span>
 <span class="n">results</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/10.png'>
-</div>
-</div>
-</div>
-</div>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mae</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+</pre>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="output_wrapper">
+                                                    <div class="output">
+                                                        <div class="output_area">
+                                                            <div class="prompt"></div>
+                                                            <div class="output_png output_subarea ">
+                                                                <img src='/static/categories_pics/projects/used_cars/10.png'>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="cell border-box-sizing code_cell rendered">
+                                                    <div class="input">
+                                                        <div class="prompt input_prompt">In&nbsp;[31]:</div>
+                                                        <div class="inner_cell">
+                                                            <div class="input_area">
+                                                                <div class=" highlight hl-ipython3">
+                                                                    <pre><span></span><span class="n">mae</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
     <span class="p">[</span>
         <span class="n">mae</span><span class="p">,</span>
         <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Ensemble&quot;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">)})</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
     <span class="p">]</span>
 <span class="p">)</span>
 <span class="n">mae</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/11.png'>
-</div>
-</div>
-</div>
-</div>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+</pre>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="output_wrapper">
+                                                        <div class="output">
+                                                            <div class="output_area">
+                                                                <div class="prompt"></div>
+                                                                <div class="output_png output_subarea ">
+                                                                    <img src='/static/categories_pics/projects/used_cars/11.png'>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell border-box-sizing code_cell rendered">
+                                                        <div class="input">
+                                                            <div class="prompt input_prompt">In&nbsp;[32]:</div>
+                                                            <div class="inner_cell">
+                                                                <div class="input_area">
+                                                                    <div class=" highlight hl-ipython3">
+                                                                        <pre><span></span><span class="n">r2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
     <span class="p">[</span><span class="n">r2</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Ensemble&quot;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">)})</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="n">r2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/projects/used_cars/12.png'>
-</div>
-</div>
-</div>
-</div>
-
- 
+</pre>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="output_wrapper">
+                                                            <div class="output">
+                                                                <div class="output_area">
+                                                                    <div class="prompt"></div>
+                                                                    <div class="output_png output_subarea ">
+                                                                        <img src='/static/categories_pics/projects/used_cars/12.png'>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>

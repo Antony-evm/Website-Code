@@ -1,147 +1,133 @@
-
 <h3>Factorials</h3>
 <p>Computing the factorial of a number can be seen as a recursive problem. Basically, the factorial is the product of all of the numbers from 1 up to <em>n</em>.</p>
-
-
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
-</pre></div>
-
-     </div>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[1]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[2]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">n</span>
     <span class="k">elif</span> <span class="n">n</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">n</span><span class="o">*</span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-</div>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">factorial</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-    <div class="prompt"></div>
-<div class="output_png output_subarea ">
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>120
 </pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[3]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">factorial</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="output_wrapper">
+    <div class="output">
+        <div class="output_area">
+            <div class="prompt"></div>
+            <div class="output_png output_subarea ">
+                <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+                    <pre>120
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
-
-
 <h3>The Handshake Problem</h3>
 <p>The handshake puzzle is a classic mathematical problem that involves finding the total number of handshakes between finite numbers of people. Basically, if you have a room full of people, how many handshakes are needed for each person to have shaken everybody else's hand exactly once?</p>
-
 <ul>
-<li>Note: You can't shake hands with yourself &amp; if me and you shake hands then the pair of you &amp; me should not be counted again </li>
+    <li>Note: You can't shake hands with yourself &amp; if me and you shake hands then the pair of you &amp; me should not be counted again </li>
 </ul>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">handshake</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[4]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">handshake</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
  
     <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">0</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">handshake</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-</pre></div>
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
-
 <p>The mathematical formula for this problem is attributed to Gauss, whose insight was that a pair of sums can be calculated from the outside.
-The formula is the following:</p>
-<p><img src = '/static/categories_pics/guides/recursion_part_1/gauss.png' width='20%'/></p>
-
+    The formula is the following:</p>
+<p><img src='/static/categories_pics/guides/recursion_part_1/gauss.png' width='20%' /></p>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">handshake</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[5]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">assert</span> <span class="n">handshake</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
 <span class="k">assert</span> <span class="n">handshake</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">15</span><span class="o">*</span><span class="mi">14</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
 <span class="k">assert</span> <span class="n">handshake</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">200</span><span class="o">*</span><span class="mi">199</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
-</pre></div>
-
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <h3>Binary Search</h3>
 <p>Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing in half the portion of the list that could contain the item, until you've narrowed down the possible locations to just one. The binary search algorithm works on the idea of neglecting half of the list on every iteration. It keeps on splitting the list until it finds the value it is looking for in a given list. A binary search algorithm is a quick upgrade to a simple linear search algorithm.</p>
 <ul>
-<li>Note: Binary search works in pre-sorted lists</li>
+    <li>Note: Binary search works in pre-sorted lists</li>
 </ul>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">generate_problem</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[6]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">generate_problem</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">,</span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">),</span><span class="n">n</span><span class="p">))</span>
 
 <span class="n">l</span> <span class="o">=</span> <span class="n">generate_problem</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">l</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-    <div class="prompt"></div>
-<div class="output_png output_subarea ">
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[-64639,
+    <div class="output">
+        <div class="output_area">
+            <div class="prompt"></div>
+            <div class="output_png output_subarea ">
+                <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+                    <pre>[-64639,
  -63262,
  -61132,
  -56974,
@@ -151,19 +137,18 @@ The formula is the following:</p>
  -48669,
  -46035,
  -45820]</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">binary_search</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">high</span><span class="p">,</span><span class="n">target</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[7]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">binary_search</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">high</span><span class="p">,</span><span class="n">target</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">low</span><span class="o">&lt;=</span><span class="n">high</span><span class="p">:</span>
         <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">high</span><span class="o">+</span><span class="n">low</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
         <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span><span class="o">&gt;</span><span class="n">target</span><span class="p">:</span>
@@ -176,48 +161,47 @@ The formula is the following:</p>
         <span class="k">return</span> <span class="o">-</span> <span class="mi">1</span>
 
 <span class="n">binary_search</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">56974</span><span class="p">),</span> <span class="n">binary_search</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">),</span><span class="o">-</span><span class="mi">66000</span><span class="p">)</span>
-</pre></div>
-
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-    <div class="prompt"></div>
-<div class="output_png output_subarea ">
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>(3, -1)</pre>
+    <div class="output">
+        <div class="output_area">
+            <div class="prompt"></div>
+            <div class="output_png output_subarea ">
+                <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+                    <pre>(3, -1)</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-
-<h3>Merge Sort</h3><p>The divide-and-conquer algorithm breaks down a big problem into smaller, more manageable pieces that look similar to the initial problem. It then solves these subproblems recursively and puts their solutions together to solve the original problem. Merge sort continuously cuts down a list into multiple sublists until each has only one item, then merges those sublists into a sorted list.</p>
-
+<h3>Merge Sort</h3>
+<p>The divide-and-conquer algorithm breaks down a big problem into smaller, more manageable pieces that look similar to the initial problem. It then solves these subproblems recursively and puts their solutions together to solve the original problem. Merge sort continuously cuts down a list into multiple sublists until each has only one item, then merges those sublists into a sorted list.</p>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">generate_problem</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[8]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">generate_problem</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">,</span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">),</span><span class="n">n</span><span class="p">)</span>
-</pre></div>
-
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[9]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
     <span class="n">n1</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">n2</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">m</span>
     <span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n1</span><span class="p">)</span>
@@ -257,46 +241,45 @@ The formula is the following:</p>
         <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
         <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
         <span class="n">merge</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
-</pre></div>
-
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="n">generate_problem</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-</pre></div>
-
-     </div>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[10]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="n">generate_problem</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span>
-</pre></div>
-
-     </div>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[11]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">l</span>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-    <div class="prompt"></div>
-<div class="output_png output_subarea ">
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[-40983,
+    <div class="output">
+        <div class="output_area">
+            <div class="prompt"></div>
+            <div class="output_png output_subarea ">
+                <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+                    <pre>[-40983,
  -36011,
  -35181,
  -32815,
@@ -1296,57 +1279,54 @@ The formula is the following:</p>
  47059,
  52538,
  61628]</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">merge_sort</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[12]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">merge_sort</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">l</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-</pre></div>
-
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <h3>Hanoi Towers</h3>
 <p>The Tower of Hanoi is a classic mathematical puzzle that involves moving a stack of disks from one rod to another. The puzzle consists of three rods and a number of disks of different sizes, which can slide onto any rod. The puzzle starts with the disks in a neat stack in ascending order of size on one rod, the smallest at the top, thus making a conical shape.The objective of the puzzle is to move the entire stack to another rod, obeying the following simple rules:</p>
-<ul><li>Only one disk can be moved at a time.</li>
+<ul>
+    <li>Only one disk can be moved at a time.</li>
     <li>Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod.
-No disk may be placed on top of a smaller disk.</li>
+        No disk may be placed on top of a smaller disk.</li>
 </ul>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">hanoi_problem</span><span class="p">(</span><span class="n">disks</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[13]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">hanoi_problem</span><span class="p">(</span><span class="n">disks</span><span class="p">):</span>
     <span class="n">hanoi_tower</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">disks</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">hanoi_tower</span><span class="p">,[],[]]</span>
-</pre></div>
-
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">hanoi_tower</span><span class="p">(</span><span class="n">n</span> <span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">auxiliary</span><span class="p">,</span><span class="n">l</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[14]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">hanoi_tower</span><span class="p">(</span><span class="n">n</span> <span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">auxiliary</span><span class="p">,</span><span class="n">l</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span>
     
@@ -1356,36 +1336,35 @@ No disk may be placed on top of a smaller disk.</li>
     <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
     <span class="n">hanoi_tower</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">auxiliary</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
     
-</pre></div>
-
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[15]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">l</span><span class="o">=</span><span class="n">hanoi_problem</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
 <span class="n">hanoi_tower</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
-</pre></div>
-
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-    <div class="prompt"></div>
-<div class="output_png output_subarea ">
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[[4, 3, 2, 1], [], []]
+    <div class="output">
+        <div class="output_area">
+            <div class="prompt"></div>
+            <div class="output_png output_subarea ">
+                <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+                    <pre>[[4, 3, 2, 1], [], []]
 [[4, 3, 2], [1], []]
 [[4, 3], [1], [2]]
 [[4, 3], [], [2, 1]]
@@ -1402,37 +1381,34 @@ No disk may be placed on top of a smaller disk.</li>
 [[], [1], [4, 3, 2]]
 [[], [], [4, 3, 2, 1]]
 </pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-
-</div>
-
-</div>
-</div>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[16]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">l</span><span class="o">=</span><span class="n">hanoi_problem</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
 <span class="n">hanoi_tower</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
-</pre></div>
-
-     </div>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
 <div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-    <div class="prompt"></div>
-<div class="output_png output_subarea ">
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[[10, 9, 8, 7, 6, 5, 4, 3, 2, 1], [], []]
+    <div class="output">
+        <div class="output_area">
+            <div class="prompt"></div>
+            <div class="output_png output_subarea ">
+                <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+                    <pre>[[10, 9, 8, 7, 6, 5, 4, 3, 2, 1], [], []]
 [[10, 9, 8, 7, 6, 5, 4, 3, 2], [1], []]
 [[10, 9, 8, 7, 6, 5, 4, 3], [1], [2]]
 [[10, 9, 8, 7, 6, 5, 4, 3], [], [2, 1]]
@@ -2457,11 +2433,8 @@ No disk may be placed on top of a smaller disk.</li>
 [[], [1], [10, 9, 8, 7, 6, 5, 4, 3, 2]]
 [[], [], [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]]
 </pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

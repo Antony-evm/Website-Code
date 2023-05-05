@@ -1,59 +1,56 @@
 <h2> In Order Traversal </h2>
-
-    <p> Problem Statement: <br>
+<p> Problem Statement: <br>
     Given the root of a binary tree, return the inorder traversal of its nodes' values. </p>
-
-    <p> What do we know:
-        <ul>
-            <li> In order traversal starts from the left side, visits the parent and then the right child. </li>
-            <li> In other words,we need to first visit, the most left child, then get back at its parent and then the right child of the parent. </li>
-            <li> Base case: If the root is empty, we need to return. </li>
-            <li> Recursive case: We visit the left child, then we take the parent's value and then we visit the right child. </li>
-            <li> Basically, the stack will increase as long as there are left children in which case, the stack will start popping off frames. The right children will rebuilt the stack, after which the function returns. </li>
-            <li> Visualising the code below it will be something like this: Frame 1 is called with the value 0. Frame 1 creates Frame 2 with the value 5. Frame 2 creates Frame 3 with the value 3. Frame 3 creates Frame 4 which terminates. Frame 3 appends its value and creates Frame 4, which terminates again (because the node does not have any children). Frame 3 terminates, Frame 2 appends its value and creates Frame 3 with the value 4. And so on until all of the tree's nodes are visited. </li>
-        </ul>
-    </p>    
-
-
+<p> What do we know:
+    <ul>
+        <li> In order traversal starts from the left side, visits the parent and then the right child. </li>
+        <li> In other words,we need to first visit, the most left child, then get back at its parent and then the right child of the parent. </li>
+        <li> Base case: If the root is empty, we need to return. </li>
+        <li> Recursive case: We visit the left child, then we take the parent's value and then we visit the right child. </li>
+        <li> Basically, the stack will increase as long as there are left children in which case, the stack will start popping off frames. The right children will rebuilt the stack, after which the function returns. </li>
+        <li> Visualising the code below it will be something like this: Frame 1 is called with the value 0. Frame 1 creates Frame 2 with the value 5. Frame 2 creates Frame 3 with the value 3. Frame 3 creates Frame 4 which terminates. Frame 3 appends its value and creates Frame 4, which terminates again (because the node does not have any children). Frame 3 terminates, Frame 2 appends its value and creates Frame 3 with the value 4. And so on until all of the tree's nodes are visited. </li>
+    </ul>
+</p>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[1]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">random</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[2]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
 
 <span class="n">head</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">left</span><span class="o">=</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="n">left</span><span class="o">=</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="n">right</span><span class="o">=</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span><span class="n">right</span><span class="o">=</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="n">left</span><span class="o">=</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span><span class="n">right</span><span class="o">=</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">8</span><span class="p">)))</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[3]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">def</span> <span class="nf">traversal</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">root</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span>
@@ -64,105 +61,78 @@
 <span class="n">traversal</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
 
 <span class="n">result</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt output_prompt">Out[3]:</div>
+                <div class="output_text output_subarea output_execute_result">
+                    <pre>[3, 5, 4, 0, 12, 15, 8]</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[3]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[3, 5, 4, 0, 12, 15, 8]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
 <h2> Subsets Of An Array </h2>
-
-    <p> Problem Statement: <br>
+<p> Problem Statement: <br>
     Given an array, print all possible unique subsets </p>
-
-    <p> What do we know:
-        <ul>
-            <li> We need a way to not generate duplicate subsets. </li>
-            <li> We need a way to account for all possible combinations in a list. </li>
-            <li> Base case: The list is empty. </li>
-            <li> Recursive case: As long as there are elements in the list, we can keep adding elements to the set. </li>
-            <li> Visualising the code below, we can think of the problem like this: Frame 1 is called with the element 54 at index 0. Frame 2 is called with the element 49 at index 1, and the path is now [54]. Frame 3 is called with the element 2 and the path is [54,49]. Frame 4 is created with [54,49,2] and cannot create another frame because of the for loop. Frame 3 does not have any more elements to traverse, hence it terminates. In Frame 2, however, the for loop is now at index = 2 (our i variable), hence it creates again the Frame 3 with the path set at [54,2]. And so on. </li>
-            <li> The if condition prohibits us from creating duplicate sets, as if an element is equal to its previous one (in a sorted array), we will have already created all of the possible sets. </li>
-
-
-        </ul>
-    </p>
-
+<p> What do we know:
+    <ul>
+        <li> We need a way to not generate duplicate subsets. </li>
+        <li> We need a way to account for all possible combinations in a list. </li>
+        <li> Base case: The list is empty. </li>
+        <li> Recursive case: As long as there are elements in the list, we can keep adding elements to the set. </li>
+        <li> Visualising the code below, we can think of the problem like this: Frame 1 is called with the element 54 at index 0. Frame 2 is called with the element 49 at index 1, and the path is now [54]. Frame 3 is called with the element 2 and the path is [54,49]. Frame 4 is created with [54,49,2] and cannot create another frame because of the for loop. Frame 3 does not have any more elements to traverse, hence it terminates. In Frame 2, however, the for loop is now at index = 2 (our i variable), hence it creates again the Frame 3 with the path set at [54,2]. And so on. </li>
+        <li> The if condition prohibits us from creating duplicate sets, as if an element is equal to its previous one (in a sorted array), we will have already created all of the possible sets. </li>
+    </ul>
+</p>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">generate_problem</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[4]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">generate_problem</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">54</span><span class="p">,</span><span class="mi">49</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">generate_problem</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">y</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>[54, 49, 2]
+</pre>
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt output_prompt">Out[4]:</div>
+                <div class="output_text output_subarea output_execute_result">
+                    <pre>[82, 72, 95, 45, 9, 76, 47, 40, 78, 29]</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[54, 49, 2]
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[4]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[82, 72, 95, 45, 9, 76, 47, 40, 78, 29]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">subset</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="n">idx</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[5]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">subset</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="n">idx</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
     <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)):</span>
@@ -178,23 +148,17 @@
 
 <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">subset</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="mi">0</span><span class="p">,[])</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[]
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>[]
 [54]
 [54, 49]
 [54, 49, 2]
@@ -1228,89 +1192,65 @@
 [78, 29]
 [29]
 </pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-
-</div>
-</div>
-
-</div>
-
 <h2> Combination Sum </h2>
-
-    <p> Problem Statement: <br> 
-        Given an array of positive integers arr[] and an integer x, The task is to find all unique combinations in arr[] where the sum is equal to x. The same repeated number may be chosen from arr[] an unlimited number of times. Elements in a combination (a1, a2, …, ak) must be printed in non-descending order. (ie, a1 <= a2 <= … <= ak). </p>
-
-    <p> What do we know:
+<p> Problem Statement: <br>
+    Given an array of positive integers arr[] and an integer x, The task is to find all unique combinations in arr[] where the sum is equal to x. The same repeated number may be chosen from arr[] an unlimited number of times. Elements in a combination (a1, a2, …, ak) must be printed in non-descending order. (ie, a1 <= a2 <=… <=ak). </p> <p> What do we know:
         <ul>
             <li> A number can be used unlimited number of times. </li>
             <li> We need to build a sum with the given numbers that will amount to our target. </li>
             <li> Base case: We pass the target, so we terminate.</li>
             <li> Recursive case: We are below our target, so we keep adding numbers, either the same one or the next one in the list. </li>
             <li> Visualising the code below, we can think of it like this: Frame 1 is created with the number 85, which is higher than the target so it terminates. This is repeated until we reach number 2. Frame 1 is created with the number 2, Frame 2 is using the same index as we haven't passed the target, with the value of 4. This is repeated until we reach Frame 32, where we terminate. The rest of the frames terminate because we add to them the next number in the list e.g. Frame 31 is called with 31*2 + 86 > 64 -> Terminates, Frame 30 is called with 30*2 + 86 > 64 -> Terminates, and so on. </li>
-
         </ul>
-    </p>
+</p>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">generate_problem</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[6]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">generate_problem</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)],</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="p">([</span><span class="mi">85</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">76</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">86</span><span class="p">],</span><span class="mi">64</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">generate_problem</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">y</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>([85, 90, 76, 2, 86], 64)
+</pre>
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt output_prompt">Out[6]:</div>
+                <div class="output_text output_subarea output_execute_result">
+                    <pre>([22, 9, 7, 74, 68, 9, 44, 42, 3, 62], 84)</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>([85, 90, 76, 2, 86], 64)
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[6]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>([22, 9, 7, 74, 68, 9, 44, 42, 3, 62], 84)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">combination_sum</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[7]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">combination_sum</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
     <span class="n">ans</span><span class="p">,</span><span class="n">temp</span> <span class="o">=</span> <span class="p">[],[]</span>
     <span class="n">arr</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">arr</span><span class="p">)))</span>
     <span class="n">findNumbers</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -1328,59 +1268,45 @@
             
 <span class="nb">print</span><span class="p">(</span><span class="n">combination_sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">combination_sum</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>[[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
 [[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 9], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 9, 9], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 9], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 22], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 9, 9, 9], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 9, 9], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 7, 7, 7], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 42], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 9, 22], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 9, 9, 9, 9], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 9, 9, 9], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 7, 7, 7, 9], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 22, 22], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 44], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 42], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 9, 9, 22], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 9, 9, 9, 9, 9], [3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 7, 7, 22], [3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 9, 9, 9, 9], [3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 7, 7, 7, 9, 9], [3, 3, 3, 3, 3, 3, 3, 3, 7, 9, 22, 22], [3, 3, 3, 3, 3, 3, 3, 3, 7, 9, 44], [3, 3, 3, 3, 3, 3, 3, 3, 9, 9, 42], [3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 7, 7, 7, 7, 7, 7], [3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 42], [3, 3, 3, 3, 3, 3, 3, 7, 7, 9, 9, 9, 22], [3, 3, 3, 3, 3, 3, 3, 9, 9, 9, 9, 9, 9, 9], [3, 3, 3, 3, 3, 3, 7, 7, 7, 7, 7, 9, 22], [3, 3, 3, 3, 3, 3, 7, 7, 7, 9, 9, 9, 9, 9], [3, 3, 3, 3, 3, 3, 22, 22, 22], [3, 3, 3, 3, 3, 3, 22, 44], [3, 3, 3, 3, 3, 7, 7, 7, 7, 7, 7, 9, 9, 9], [3, 3, 3, 3, 3, 7, 9, 9, 22, 22], [3, 3, 3, 3, 3, 7, 9, 9, 44], [3, 3, 3, 3, 3, 7, 62], [3, 3, 3, 3, 3, 9, 9, 9, 42], [3, 3, 3, 3, 7, 7, 7, 7, 7, 7, 7, 7, 7, 9], [3, 3, 3, 3, 7, 7, 7, 7, 22, 22], [3, 3, 3, 3, 7, 7, 7, 7, 44], [3, 3, 3, 3, 7, 7, 7, 9, 42], [3, 3, 3, 3, 7, 7, 9, 9, 9, 9, 22], [3, 3, 3, 3, 9, 9, 9, 9, 9, 9, 9, 9], [3, 3, 3, 7, 7, 7, 7, 7, 9, 9, 22], [3, 3, 3, 7, 7, 7, 9, 9, 9, 9, 9, 9], [3, 3, 3, 7, 68], [3, 3, 3, 9, 22, 22, 22], [3, 3, 3, 9, 22, 44], [3, 3, 7, 7, 7, 7, 7, 7, 7, 7, 22], [3, 3, 7, 7, 7, 7, 7, 7, 9, 9, 9, 9], [3, 3, 7, 7, 22, 42], [3, 3, 7, 9, 9, 9, 22, 22], [3, 3, 7, 9, 9, 9, 44], [3, 3, 7, 9, 62], [3, 3, 9, 9, 9, 9, 42], [3, 7, 7, 7, 7, 7, 7, 7, 7, 7, 9, 9], [3, 7, 7, 7, 7, 9, 22, 22], [3, 7, 7, 7, 7, 9, 44], [3, 7, 7, 7, 9, 9, 42], [3, 7, 7, 9, 9, 9, 9, 9, 22], [3, 7, 74], [3, 9, 9, 9, 9, 9, 9, 9, 9, 9], [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7], [7, 7, 7, 7, 7, 7, 42], [7, 7, 7, 7, 7, 9, 9, 9, 22], [7, 7, 7, 9, 9, 9, 9, 9, 9, 9], [7, 9, 68], [9, 9, 22, 22, 22], [9, 9, 22, 44], [22, 62], [42, 42]]
 </pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-
-</div>
-</div>
-
-</div>
-
 <h2>TopSort in DAGs </h2>
-
-    <h3> Theory </h3>
-
-    <p> In computer science, a topological sort or topological ordering of a directed graph is a linear ordering of its vertices such that for every directed edge uv from vertex u to vertex v, u comes before v in the ordering. For instance, the vertices of the graph may represent tasks to be performed, and the edges may represent constraints that one task must be performed before another; basically, a topological ordering is just a valid sequence for the tasks. </p>
-
-    <p> In mathematics, particularly graph theory, and computer science, a directed acyclic graph (DAG) is a directed graph with no directed cycles. That is, it consists of vertices and edges (also called arcs), with each edge directed from one vertex to another, such that following those directions will never form a closed loop. A directed graph is a DAG if and only if it can be topologically ordered, by arranging the vertices as a linear ordering that is consistent with all edge directions. DAGs (and graphs) can be represented in python with dictionaries, where the key represents the node u and the connections can be represented by the key's value as a list. </p>
-
-    <p> Problem Statement: <br>
+<h3> Theory </h3>
+<p> In computer science, a topological sort or topological ordering of a directed graph is a linear ordering of its vertices such that for every directed edge uv from vertex u to vertex v, u comes before v in the ordering. For instance, the vertices of the graph may represent tasks to be performed, and the edges may represent constraints that one task must be performed before another; basically, a topological ordering is just a valid sequence for the tasks. </p>
+<p> In mathematics, particularly graph theory, and computer science, a directed acyclic graph (DAG) is a directed graph with no directed cycles. That is, it consists of vertices and edges (also called arcs), with each edge directed from one vertex to another, such that following those directions will never form a closed loop. A directed graph is a DAG if and only if it can be topologically ordered, by arranging the vertices as a linear ordering that is consistent with all edge directions. DAGs (and graphs) can be represented in python with dictionaries, where the key represents the node u and the connections can be represented by the key's value as a list. </p>
+<p> Problem Statement: <br>
     Write the top sort algorithm </p>
-
-    <p> What do we know:
-        <ul>
-            <li> In topological sorting, we need to put a node before its adjacent nodes. </li>
-            <li> We need to create a stack to store the nodes. Thus, we initialise a visited array of size N to keep the record of visited nodes.</li> 
-            <li> We don’t use the the node immediately, but instead, we first recursively call topological sorting for all its adjacent nodes, then push it to a stack. </li>
-            <li> The code below can be be interpreted as followed: We run a loop from 0 till N. If the node is not marked True in the visited array, we call the recursive function for topological sort. In the function, we mark the current node as True in the visited array and run a loop on all the nodes which has a directed edge to the current node. If the node is not marked True in the visited array, we recursively call the topological sort function on the node. Finally, we push the current node in the stack. </li>
-        </ul>
-    </p>
-
+<p> What do we know:
+    <ul>
+        <li> In topological sorting, we need to put a node before its adjacent nodes. </li>
+        <li> We need to create a stack to store the nodes. Thus, we initialise a visited array of size N to keep the record of visited nodes.</li>
+        <li> We don’t use the the node immediately, but instead, we first recursively call topological sorting for all its adjacent nodes, then push it to a stack. </li>
+        <li> The code below can be be interpreted as followed: We run a loop from 0 till N. If the node is not marked True in the visited array, we call the recursive function for topological sort. In the function, we mark the current node as True in the visited array and run a loop on all the nodes which has a directed edge to the current node. If the node is not marked True in the visited array, we recursively call the topological sort function on the node. Finally, we push the current node in the stack. </li>
+    </ul>
+</p>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="mi">2</span><span class="p">:</span> <span class="p">[],</span> <span class="mi">3</span><span class="p">:</span> <span class="p">[],</span> <span class="mi">4</span><span class="p">:</span> <span class="p">[],</span> <span class="mi">5</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="mi">6</span><span class="p">:</span> <span class="p">[],</span> <span class="mi">7</span><span class="p">:</span> <span class="p">[]}</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[8]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="mi">2</span><span class="p">:</span> <span class="p">[],</span> <span class="mi">3</span><span class="p">:</span> <span class="p">[],</span> <span class="mi">4</span><span class="p">:</span> <span class="p">[],</span> <span class="mi">5</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="mi">6</span><span class="p">:</span> <span class="p">[],</span> <span class="mi">7</span><span class="p">:</span> <span class="p">[]}</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 <span class="n">visited</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1395,42 +1321,26 @@
     <span class="k">if</span> <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
         <span class="n">topsort</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">visited</span><span class="p">,</span><span class="n">stack</span><span class="p">)</span>
 <span class="n">stack</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>{0: [1, 3, 4], 1: [5], 2: [], 3: [], 4: [], 5: [7], 6: [], 7: []}
+</pre>
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt output_prompt">Out[8]:</div>
+                <div class="output_text output_subarea output_execute_result">
+                    <pre>[6, 2, 0, 4, 3, 1, 5, 7]</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{0: [1, 3, 4], 1: [5], 2: [], 3: [], 4: [], 5: [7], 6: [], 7: []}
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[8]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[6, 2, 0, 4, 3, 1, 5, 7]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
- 

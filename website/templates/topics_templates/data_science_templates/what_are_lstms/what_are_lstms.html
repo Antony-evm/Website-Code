@@ -1,56 +1,26 @@
 {% extends "base.html" %} {% block title %}{{article.title}}{% endblock %}
-
 {% block content %}
-
-	
-
-<div class = 'content'>
-	<h1>{{article.title}}</h1>
-
-<h2> Gentle Introduction </h2>
-
-<p> I'll speak truthfully. My favourite area of data science is undoubtedly LSTMs. They have been the main topic of my most recent dissertation, and I have utilised them multiple times for assignments. I have also devoted countless hours to reading about them and attempting to grasp them as thoroughly as possible. The idea is quite straightforward, but as you delve further, you find nuances and details that are a little more difficult to understand. Additionally, LSTMs and neural networks are both governed by a large number of equations, making them a highly complicated topic. But I'm not here to walk you through the difficult arithmetic problems and how everything fits together from that perspective. Being practical, I don't enjoy theory. However, in order to be practical, you must at least comprehend how the fundamental components interact, allowing you to separate the reasons behind your successes and failures. You shouldn't put your blind faith in neural networks as mystical black boxes that will miraculously output a number, a class, or an answer. I'll also offer a short guide to get you started with your first Long Short Term Memory Neural Network. </p>
-
-<h2> NNs, RNNs and LSTMs </h2>
-
-<p> Simple Neural Networks, often known as Feed-Forward Neural Networks (FFNNs), have one very obvious drawback: they do not support time dependencies. Clearly, this is a problem for modelling sequential data. I'll give you an example to help you understand this. You don't think of the events in a movie as standalone when you watch it. Personally, and I believe many of you do this as well, I frequently try to anticipate what will happen next in my mind (and the eventual "I KNEW IT" moment feels great when it occurs). Naturally, I make comparisons to what has happened in the past in order to accomplish that. Frankly, NNs can't do that. In contrast, RNNs (Recurrent Neural Networks) feature an internal state that can represent context information and store knowledge of prior inputs for a predetermined period of time. Additionally, the input, computational steps, and output sizes for NNs are all fixed. This equates to absorbing all the information presented each time for the movie example. RNNs, however, give us the ability to work with sequences in each of the aforementioned stages. An RNN is a network that can transform input sequences into output sequences while taking contextual information into account. Its inputs are not fixed. As a result, it is clear that the sequence regime of operation is far more flexible and more than capable of outperforming vanilla NNs. </p>
-
-<h2> RNNs: Overview </h2>
-
-<p> RNNs are, at their core, NNs with a feedback loop. They are essentially made up of multiple copies of the same neural network, with each copy feeding the activations of the next one. As a result, predictions at previous time steps influence predictions at the current time step. This chain-like architecture is what allows them to handle sequence data. </p>
-
-<p> These activations are now stored internally in the network, which can hold long-term temporal contextual information. RNNs can, in theory, keep track of arbitrary long-term dependencies in input sequences. However, during training, the gradients that are backpropagated through the network start to either "vanish" or "explode". As a result, standard RNNs fail to learn when there are more than 5-10 time steps between relevant input events and target signals. This is where LSTMs come in! </p>
-
-<h2> LSTMs </h2>
-
-<p> The vanishing gradient problem was specifically addressed by LSTMs. They have been found to be capable of withholding information for more than a 1000 discrete time steps, so keeping information for long periods of time is their default behaviour. This is accomplished by allowing the gradients to flow unchanged through the use of special units known as cells. </p>
-
-<p> Except for the repeating module, LSTMs have the same chain-like structure as RNNs apart from the cell state. Instead of a single neural network, they are made up of four that interact with one another. The cell state, which is a straight line running down the chain with minor linear interactions, is crucial. As a result, the previously mentioned unchanged flow is achieved. </p>
-
-<p> As previously stated, LSTMs are made up of four neural networks known as gates. It is very simple to add or remove information from the cell state using the gates. </p>
-
-<p> The forget gate is the first gate that the cell state encounters on its journey. Given the new input data and the previous hidden state, this step determines which bits of information are useful. The network-gate generates a vector with each element having a value between 0 and 1, indicating its relevance. This vector is pointwise multiplied with the previous cell state, ensuring that irrelevant data has less of an impact on the subsequent steps. </p>
-
-<p> The new memory network and the input gate are the next steps. These are two distinct neural networks that use the same input, the previous hidden state, and new input data - <i> which is the same input of the forget gate </i>. The new memory network includes a tanh activation function that generates a new memory update vector. This vector essentially tells the cell state how much to update each of its components. It is worth noting here that the tanh activation function is crucial. Because the tanh produces values in the [-1,1] range, it is possible to reduce the impact of a component in the cell state. However, no consideration has been given to which information should be kept. The input gate fills this role by acting as the forget gate, producing a vector between [0,1] that is multiplied by the new memory update vector. The regulated new memory update vector is now  added to the cell state, updating the long term memory of the network and completing the second step of the journey. </p>
-
-<p> The final step is the output gate, which functions as a filter. This gate's inputs are the recently updated state, the previous hidden state, and the new input data. Before applying this filter, the updated state is passed through a tanh layer, and the previous and current input data are passed through a sigmoid layer. The filter then ensures that only the information required is saved to the new hidden state. That's all there is to it; we're done. The image below will also help you visualise the entire process we just described. </p>
-
-<p><img src = '/static/categories_pics/data_science/what_are_lstms/1. LSTM.png' 
-	width='40%'
-	/></p>
-
-<h2> Something extra for the road </h2>
-
-<p> As previously stated, RNNs and thus LSTMs are built with loops. That is, the preceding steps are repeated several times. If we use ten time steps to predict the next one, the entire process is repeated ten times. As a result, the model will generate 10 hidden states iteratively to predict the next step. </p>
-<p> However, the output is still in a hidden state. So, as the final step in our NN, we need one more linear layer to convert the hidden state to the output. This step happens once, at the very end, and is not actually part of the LSTM structure, but it is crucial when building NNs, which is exactly what we will do next! </p>
-
-<h2> Implementation </h2>
-
-{% include "topics_templates/data_science_templates/what_are_lstms/LSTMs.html" %}
-
-
-
+<div class='content'>
+    <h1>{{article.title}}</h1>
+    <h2> Gentle Introduction </h2>
+    <p> I'll speak truthfully. My favourite area of data science is undoubtedly LSTMs. They have been the main topic of my most recent dissertation, and I have utilised them multiple times for assignments. I have also devoted countless hours to reading about them and attempting to grasp them as thoroughly as possible. The idea is quite straightforward, but as you delve further, you find nuances and details that are a little more difficult to understand. Additionally, LSTMs and neural networks are both governed by a large number of equations, making them a highly complicated topic. But I'm not here to walk you through the difficult arithmetic problems and how everything fits together from that perspective. Being practical, I don't enjoy theory. However, in order to be practical, you must at least comprehend how the fundamental components interact, allowing you to separate the reasons behind your successes and failures. You shouldn't put your blind faith in neural networks as mystical black boxes that will miraculously output a number, a class, or an answer. I'll also offer a short guide to get you started with your first Long Short Term Memory Neural Network. </p>
+    <h2> NNs, RNNs and LSTMs </h2>
+    <p> Simple Neural Networks, often known as Feed-Forward Neural Networks (FFNNs), have one very obvious drawback: they do not support time dependencies. Clearly, this is a problem for modelling sequential data. I'll give you an example to help you understand this. You don't think of the events in a movie as standalone when you watch it. Personally, and I believe many of you do this as well, I frequently try to anticipate what will happen next in my mind (and the eventual "I KNEW IT" moment feels great when it occurs). Naturally, I make comparisons to what has happened in the past in order to accomplish that. Frankly, NNs can't do that. In contrast, RNNs (Recurrent Neural Networks) feature an internal state that can represent context information and store knowledge of prior inputs for a predetermined period of time. Additionally, the input, computational steps, and output sizes for NNs are all fixed. This equates to absorbing all the information presented each time for the movie example. RNNs, however, give us the ability to work with sequences in each of the aforementioned stages. An RNN is a network that can transform input sequences into output sequences while taking contextual information into account. Its inputs are not fixed. As a result, it is clear that the sequence regime of operation is far more flexible and more than capable of outperforming vanilla NNs. </p>
+    <h2> RNNs: Overview </h2>
+    <p> RNNs are, at their core, NNs with a feedback loop. They are essentially made up of multiple copies of the same neural network, with each copy feeding the activations of the next one. As a result, predictions at previous time steps influence predictions at the current time step. This chain-like architecture is what allows them to handle sequence data. </p>
+    <p> These activations are now stored internally in the network, which can hold long-term temporal contextual information. RNNs can, in theory, keep track of arbitrary long-term dependencies in input sequences. However, during training, the gradients that are backpropagated through the network start to either "vanish" or "explode". As a result, standard RNNs fail to learn when there are more than 5-10 time steps between relevant input events and target signals. This is where LSTMs come in! </p>
+    <h2> LSTMs </h2>
+    <p> The vanishing gradient problem was specifically addressed by LSTMs. They have been found to be capable of withholding information for more than a 1000 discrete time steps, so keeping information for long periods of time is their default behaviour. This is accomplished by allowing the gradients to flow unchanged through the use of special units known as cells. </p>
+    <p> Except for the repeating module, LSTMs have the same chain-like structure as RNNs apart from the cell state. Instead of a single neural network, they are made up of four that interact with one another. The cell state, which is a straight line running down the chain with minor linear interactions, is crucial. As a result, the previously mentioned unchanged flow is achieved. </p>
+    <p> As previously stated, LSTMs are made up of four neural networks known as gates. It is very simple to add or remove information from the cell state using the gates. </p>
+    <p> The forget gate is the first gate that the cell state encounters on its journey. Given the new input data and the previous hidden state, this step determines which bits of information are useful. The network-gate generates a vector with each element having a value between 0 and 1, indicating its relevance. This vector is pointwise multiplied with the previous cell state, ensuring that irrelevant data has less of an impact on the subsequent steps. </p>
+    <p> The new memory network and the input gate are the next steps. These are two distinct neural networks that use the same input, the previous hidden state, and new input data - <i> which is the same input of the forget gate </i>. The new memory network includes a tanh activation function that generates a new memory update vector. This vector essentially tells the cell state how much to update each of its components. It is worth noting here that the tanh activation function is crucial. Because the tanh produces values in the [-1,1] range, it is possible to reduce the impact of a component in the cell state. However, no consideration has been given to which information should be kept. The input gate fills this role by acting as the forget gate, producing a vector between [0,1] that is multiplied by the new memory update vector. The regulated new memory update vector is now added to the cell state, updating the long term memory of the network and completing the second step of the journey. </p>
+    <p> The final step is the output gate, which functions as a filter. This gate's inputs are the recently updated state, the previous hidden state, and the new input data. Before applying this filter, the updated state is passed through a tanh layer, and the previous and current input data are passed through a sigmoid layer. The filter then ensures that only the information required is saved to the new hidden state. That's all there is to it; we're done. The image below will also help you visualise the entire process we just described. </p>
+    <p><img src='/static/categories_pics/data_science/what_are_lstms/1. LSTM.png' width='40%' /></p>
+    <h2> Something extra for the road </h2>
+    <p> As previously stated, RNNs and thus LSTMs are built with loops. That is, the preceding steps are repeated several times. If we use ten time steps to predict the next one, the entire process is repeated ten times. As a result, the model will generate 10 hidden states iteratively to predict the next step. </p>
+    <p> However, the output is still in a hidden state. So, as the final step in our NN, we need one more linear layer to convert the hidden state to the output. This step happens once, at the very end, and is not actually part of the LSTM structure, but it is crucial when building NNs, which is exactly what we will do next! </p>
+    <h2> Implementation </h2>
+    {% include "topics_templates/data_science_templates/what_are_lstms/LSTMs.html" %}
 </div>
 {% endblock %}
-
-

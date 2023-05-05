@@ -1,14 +1,12 @@
-
 <h3> Keras </h3>
-
 <p>Our first LSTM will be implemented in Keras. Keras is a Neural Network library that wraps Tensorflow, making it extremely simple to create deep neural networks. We will attempt to approximate a sine wave and use LSTMs to predict the next step in the function based on the previous one. The first step is to import the necessary libraries, then generate a sine wave and plot it to see how the waveform looks.</p>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[1]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
 <span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
 <span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">LSTM</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
@@ -17,197 +15,154 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">);</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[2]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">);</span>
 <span class="n">amplitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sine wave&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Points&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_png output_subarea ">
+                    <img src='/static/categories_pics/data_science/what_are_lstms/2.Sine Wave.png'>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/data_science/what_are_lstms/2.Sine Wave.png'>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split into train and test sets</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[3]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="c1"># split into train and test sets</span>
 <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">amplitude</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.67</span><span class="p">)</span>
 <span class="n">test_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">amplitude</span><span class="p">)</span> <span class="o">-</span> <span class="n">train_size</span>
 <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">amplitude</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">amplitude</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>670 330
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>670 330
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_target</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">lookback</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[4]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">create_target</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">lookback</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="n">lookback</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="n">lookback</span><span class="p">:]</span>
 <span class="n">trainX</span><span class="p">,</span><span class="n">trainY</span> <span class="o">=</span> <span class="n">create_target</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">testX</span><span class="p">,</span><span class="n">testY</span> <span class="o">=</span> <span class="n">create_target</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trainX</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">trainY</span><span class="p">))</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>669 669
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>669 669
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-
 <p> We must first transform our data before sending it to the network. First and foremost, we must create a training and a test set. We can't mix the order of our points because we have a sequence, which is a common approach in Deep Learning. Also, for this task, we need to create targets that are always one step ahead of our current time step. Thus, our target at time step 0 is the sine wave value at time step 1, our target at time step 1 is the sine wave value at time step 2, and so on and so forth. As a result, our actual sets are one sample shorter than anticipated. Consequently, we would lose two samples if the lookback was set to two. However, we are not yet ready to feed our data to an LSTM network. </p>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># reshape input to be [samples, time steps, features]</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[5]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="c1"># reshape input to be [samples, time steps, features]</span>
 <span class="n">trainX</span> <span class="o">=</span> <span class="n">trainX</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">testX</span>  <span class="o">=</span> <span class="n">testX</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">trainX</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="n">trainX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">trainX</span><span class="p">,</span> <span class="p">(</span><span class="n">trainX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">trainX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 <span class="n">testX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">testX</span><span class="p">,</span> <span class="p">(</span><span class="n">testX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">testX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">trainX</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(669, 1)
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>(669, 1)
 (669, 1, 1)
 </pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-
-</div>
-</div>
-
-</div>
-
 <p> Data must be in the form [samples = 669, time steps = 1, features = 1] to be fed into an LSTM network. It's pretty clear what our samples stand for. Time steps are equivalent to the LSTM network's memory, so we would increase this value if we wanted the LSTM to have more memory. The number of features in each time step, which in our case is one, is referred to as the feature count. The reshaping could be done in a single step, but I chose two because most datasets do not have a single feature, so the first step can be skipped. If you examine the shape of the original trainX, you will notice that its value is (669,), indicating the need for the initial reshaping. Lastly, -1 in the reshape can be translated as "Throw whatever you see, in this dimension". </p>
-
 <p> The next step is to design our model. We begin with an LSTM layer of four neurons. The input shape corresponds to time steps, features. Tanh is the default activation function for Keras LSTM layers, and we then add our output layer, which is a Linear (Dense) layer with a single neuron because we output a single number. After fitting our model to our training data for 100 epochs, we are finished! </p>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lookback</span> <span class="o">=</span> <span class="mi">1</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[6]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">lookback</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lookback</span><span class="p">)))</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mean_squared_error&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainX</span><span class="p">,</span> <span class="n">trainY</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Epoch 1/100
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>Epoch 1/100
 669/669 - 1s - loss: 0.2688 - 1s/epoch - 2ms/step
 Epoch 2/100
 669/669 - 0s - loss: 0.0088 - 476ms/epoch - 712us/step
@@ -408,52 +363,36 @@ Epoch 99/100
 Epoch 100/100
 669/669 - 0s - loss: 0.0052 - 465ms/epoch - 695us/step
 </pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[6]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;keras.callbacks.History at 0x22fd5dccfd0&gt;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
-<p> After a few iterations, we should see our training loss (mean squared error in this case) decrease significantly. That means the model is gaining knowledge. The training loss should also stabilise near the end of the training. If the loss does not stop decreasing, there is more learning to be done; if it increases, the gradient descent has passed the local minimum and the network is no longer performing as it should. But don't worry about it for the time being. In subsequent posts, we will highlight solutions to such issues. For the time being, let us examine our predictions to determine how good our model is. </p> 
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-
+                </div>
+            </div>
+            <div class="output_area">
+                <div class="prompt output_prompt">Out[6]:</div>
+                <div class="output_text output_subarea output_execute_result">
+                    <pre>&lt;keras.callbacks.History at 0x22fd5dccfd0&gt;</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Model: &#34;sequential&#34;
+<p> After a few iterations, we should see our training loss (mean squared error in this case) decrease significantly. That means the model is gaining knowledge. The training loss should also stabilise near the end of the training. If the loss does not stop decreasing, there is more learning to be done; if it increases, the gradient descent has passed the local minimum and the network is no longer performing as it should. But don't worry about it for the time being. In subsequent posts, we will highlight solutions to such issues. For the time being, let us examine our predictions to determine how good our model is. </p>
+<div class="cell border-box-sizing code_cell rendered">
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[7]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>Model: &#34;sequential&#34;
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
 =================================================================
@@ -467,76 +406,68 @@ Trainable params: 101
 Non-trainable params: 0
 _________________________________________________________________
 </pre>
-</div>
-</div>
-
-</div>
-</div>
-
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">trainX</span><span class="p">)</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[8]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">train_preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">trainX</span><span class="p">)</span>
 <span class="n">test_preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">testX</span><span class="p">)</span>
 <span class="c1"># calculate root mean squared error</span>
 <span class="n">trainScore</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">trainY</span><span class="p">,</span> <span class="n">train_preds</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Train Score: </span><span class="s1">%.2f</span><span class="s1"> RMSE&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trainScore</span><span class="p">))</span>
 <span class="n">testScore</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">testY</span><span class="p">,</span> <span class="n">test_preds</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Score: </span><span class="s1">%.2f</span><span class="s1"> RMSE&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">testScore</span><span class="p">))</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Train Score: 0.07 RMSE
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>Train Score: 0.07 RMSE
 Test Score: 0.07 RMSE
 </pre>
-</div>
-</div>
-
-</div>
-</div>
-
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">amplitude</span><span class="p">)</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[9]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">amplitude</span><span class="p">)</span>
 <span class="n">preds</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">train_size</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_preds</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">preds</span><span class="p">[</span><span class="n">train_size</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">test_preds</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">amplitude</span><span class="p">,</span><span class="n">preds</span><span class="p">,</span><span class="n">preds</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">train_size</span><span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">2</span><span class="p">][:</span><span class="n">train_size</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[10]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;actual&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
@@ -545,64 +476,50 @@ Test Score: 0.07 RMSE
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_png output_subarea ">
+                    <img src='/static/categories_pics/data_science/what_are_lstms/3.keras preds.png'>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/data_science/what_are_lstms/3.keras preds.png'
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
 <p> First and foremost, I'd like to state the obvious. The plots show that the LSTM network successfully learned the sine waveform. The predicted outputs match the expected form, and the values appear to be correct. At this point, I'd like to explain why the LSTM network has 96 trainable parameters. This is derived (roughly, without delving into the LSTM equations) from the following equation. <br>
-neurons*((input_size+neurons)*neurons+biases) = 4 * ((1+4)*4+4) = 96 <br>
-Congratulations, lads! This concludes the Keras LSTM networks, and you can now begin experimenting with different values in the network and different data. </p>
-
+    neurons*((input_size+neurons)*neurons+biases) = 4 * ((1+4)*4+4) = 96 <br>
+    Congratulations, lads! This concludes the Keras LSTM networks, and you can now begin experimenting with different values in the network and different data. </p>
 <h3> Pytorch </h3>
-
 <p> Pytorch is another popular deep learning library that I believe is a bit more flexible in terms of implementation, albeit arguably a bit more complicated because we have to define a lot of the operations ourselves, as opposed to Keras, which does the majority of the work for us. Depending on the application, and as you gain experience, you will be able to build LSTM networks in your preferred library in no time!</p>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[11]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
 <span class="kn">import</span> <span class="nn">torchinfo</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">torch_LSTM</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[12]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">class</span> <span class="nc">torch_LSTM</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">torch_LSTM</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dense</span> <span class="o">=</span> <span class="mi">1</span>
@@ -622,24 +539,21 @@ Congratulations, lads! This concludes the Keras LSTM networks, and you can now b
         <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_1</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> 
         <span class="k">return</span> <span class="n">out</span>        
         
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
-
 <p> In the init function, we must create and initialise all the network parameters. As a result, we declare an LSTM layer with four neurons, an activation function, and a Linear output layer. As we feed one value at a time to the network, the input size should be one and batch first set to True. We must define the flow of information in the network and, in essence, build its architecture in the forward function.</p>
-
 <p> First and foremost, we initialise our LSTM layer with h_0,c_0, which correspond to the hidden and current states, respectively. After that, we add our LSTM layer, compress our three-dimensional tensor to two dimensions so that it can be fed to the linear layer, and use our activation function. </p>
-
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">trainX</span><span class="p">,</span><span class="n">testX</span><span class="p">,</span><span class="n">trainY</span><span class="p">,</span><span class="n">testY</span><span class="p">,</span><span class="n">net</span><span class="p">,</span><span class="n">epochs</span><span class="p">):</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[13]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">trainX</span><span class="p">,</span><span class="n">testX</span><span class="p">,</span><span class="n">trainY</span><span class="p">,</span><span class="n">testY</span><span class="p">,</span><span class="n">net</span><span class="p">,</span><span class="n">epochs</span><span class="p">):</span>
     <span class="n">net</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
     <span class="n">optimiser</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
     <span class="n">criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
@@ -659,43 +573,36 @@ Congratulations, lads! This concludes the Keras LSTM networks, and you can now b
     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
         <span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">testX</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">testY</span><span class="p">,</span><span class="n">outputs</span><span class="p">)</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
-
 <p> We must also define our training and evaluation functions in Pytorch. First, let's go over what the training function does. Pytorch networks have two modes: train and eval. When you feed values to the network, depending on whether you're training or just checking predictions, you want the network's parameters to change or not. Without these methods, the network would be unable to distinguish between those states. For example, if you've trained a model and want to test its predictions, feeding data to the network without using the net.eval() function will cause the network's parameters to change. Thus, we switch our network to training mode and define our optimiser and criterion for evaluation (our training loss function). In Pytorch, gradients are accumulated in every pass, so we do a forward pass for each epoch and restore the optimiser to its initial state. We assess our training loss, relay that information backwards, and take a step in the right direction. That's all there is to it; we've defined our training function. The code may appear intimidating, but we've just put theory into practise, and it's easy to see how this can be easily manipulated to include more intermediate steps (e.g. plot our predictions in every epoch and see how our network learns). I've added one such small step to this function by including our test loss in each epoch. By checking our test loss rather than our training loss, we can easily end the training phase earlier and avoid overfitting. Finally, in the evaluate function, we simply ensure that our network is in evaluating mode and that no new gradients are calculated. Let's train our model!</p>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_torch</span> <span class="o">=</span> <span class="n">torch_LSTM</span><span class="p">()</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[14]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">model_torch</span> <span class="o">=</span> <span class="n">torch_LSTM</span><span class="p">()</span>
 <span class="n">trainX_tensor</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">trainX</span><span class="p">))</span>
 <span class="n">testX_tensor</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">testX</span><span class="p">))</span>
 <span class="n">trainY_tensor</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">trainY</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span> 
 <span class="n">testY_tensor</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">testY</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
 <span class="n">net</span><span class="p">,</span><span class="n">loss</span><span class="p">,</span><span class="n">test_loss</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">trainX_tensor</span><span class="p">,</span><span class="n">testX_tensor</span><span class="p">,</span><span class="n">trainY_tensor</span><span class="p">,</span><span class="n">testY_tensor</span><span class="p">,</span><span class="n">model_torch</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Epoch: 0 / 100 : Loss= tensor(0.5040, grad_fn=&lt;MseLossBackward0&gt;) ---- Test Loss= 0.53195083
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_subarea output_stream output_stdout output_text">
+                    <pre>Epoch: 0 / 100 : Loss= tensor(0.5040, grad_fn=&lt;MseLossBackward0&gt;) ---- Test Loss= 0.53195083
 Epoch: 1 / 100 : Loss= tensor(0.5037, grad_fn=&lt;MseLossBackward0&gt;) ---- Test Loss= 0.53153646
 Epoch: 2 / 100 : Loss= tensor(0.5035, grad_fn=&lt;MseLossBackward0&gt;) ---- Test Loss= 0.5311251
 Epoch: 3 / 100 : Loss= tensor(0.5032, grad_fn=&lt;MseLossBackward0&gt;) ---- Test Loss= 0.5307171
@@ -796,37 +703,30 @@ Epoch: 97 / 100 : Loss= tensor(0.4847, grad_fn=&lt;MseLossBackward0&gt;) ---- Te
 Epoch: 98 / 100 : Loss= tensor(0.4845, grad_fn=&lt;MseLossBackward0&gt;) ---- Test Loss= 0.50368714
 Epoch: 99 / 100 : Loss= tensor(0.4843, grad_fn=&lt;MseLossBackward0&gt;) ---- Test Loss= 0.5034301
 </pre>
-</div>
-</div>
-
-</div>
-</div>
-
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <p> Right off the bat, we see 2 things. Our training loss decreases very slowly compared to our other network and it's a lot higher. Let's inspect our model and our predictions to start investigating where our network might be going wrong. </p>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">torchinfo</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">model_torch</span><span class="p">,(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-</pre></div>
-
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[15]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">torchinfo</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">model_torch</span><span class="p">,(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[15]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>==========================================================================================
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt output_prompt">Out[15]:</div>
+                <div class="output_text output_subarea output_execute_result">
+                    <pre>==========================================================================================
 Layer (type:depth-idx)                   Output Shape              Param #
 ==========================================================================================
 torch_LSTM                               --                        --
@@ -844,20 +744,18 @@ Forward/backward pass size (MB): 0.00
 Params size (MB): 0.00
 Estimated Total Size (MB): 0.00
 ==========================================================================================</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_preds</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">trainX_tensor</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[16]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">train_preds</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">trainX_tensor</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 <span class="n">test_preds</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">testX_tensor</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 <span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">amplitude</span><span class="p">)</span>
 <span class="n">preds</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">train_size</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_preds</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
@@ -866,19 +764,19 @@ Estimated Total Size (MB): 0.00
 <span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">train_size</span><span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">2</span><span class="p">][:</span><span class="n">train_size</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-</div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+    <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[17]:</div>
+        <div class="inner_cell">
+            <div class="input_area">
+                <div class=" highlight hl-ipython3">
+                    <pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;actual&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
@@ -887,39 +785,25 @@ Estimated Total Size (MB): 0.00
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="output_wrapper">
+        <div class="output">
+            <div class="output_area">
+                <div class="prompt"></div>
+                <div class="output_png output_subarea ">
+                    <img src='/static/categories_pics/data_science/what_are_lstms/4.pytorch preds.png'>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src='/static/categories_pics/data_science/what_are_lstms/4.pytorch preds.png'>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
 <p> Let us begin with the model. Why does it have 112 parameters rather than 96? To be completely honest, I had the same question as you. I did some research and discovered that the LSTM implementation in Pytorch includes two bias vectors rather than one as in Keras. As a result, our equation becomes <br>
-neurons*((input_size+neurons)*neurons+biases) = 4 * ((1+4)*4+4*2) = 112
-<br>
-When we disable bias for both implementations, we get 80 parameters for both networks. So far, so good. </p>
+    neurons*((input_size+neurons)*neurons+biases) = 4 * ((1+4)*4+4*2) = 112
+    <br>
+    When we disable bias for both implementations, we get 80 parameters for both networks. So far, so good. </p>
 <p> Now that we've cleared that up, let's take a look at our predictions. The waveform appears to be correct at first glance, but the actual values are significantly off. Your first thought might be "Oh no! This is terrible! Garbage! Why would I choose Pytorch over Keras? Keras is clearly better!" </p>
 <p> Well, I'm afraid that I have to tell you that this happens all the time. It most likely has nothing to do with the network's learning capabilities. To begin, we have already identified one significant difference between the two networks. Second, while Keras uses Tanh as an activation function, we used relu. Activation functions are important, and we will learn how to use them as well. Furthermore, all networks in all of their layers are randomly initialised... which has an impact on performance. You will not get the same results as me if you run the above code. You will not get the same results twice in a row. Perhaps similar, but most likely not the same. For all we know, it could just be a bad training run, but I wanted to show it (instead of a polished version) to highlight these nuances. Keep in mind that Keras and Pytorch are likely to use different initialisation techniques as well(Yes, there are techniques in "randomly" initialising the layers). Finally, it could simply be the network's hyperparameters. You can always play around with the learning rate and the number of epochs in this code. Based on the above results, I would not say that our network converged to a solution during these 100 epochs. Change the learning rate (the default is 0.001), add a few more epochs, and experiment to see what happens. I've given you the basic code; now it's your turn to experiment and learn. </p>
- 
-
