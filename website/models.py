@@ -3,13 +3,17 @@ from website import db
 
 class Categories(db.Model):
     """
-    Class for the Unique Categories in the website
-    id-> Unique Identifier
-    topic->Descriptive group of the articles it contains as general category
-    slug->website url
-    img_src->where the image is stored for this specific category
-    description->short descriptive text
-    Relates to articles
+    Class for the Unique Categories in the website.
+
+    Attributes:
+        id (int): Unique Identifier.
+        topic (str): Descriptive group of the articles it contains as general category.
+        slug (str): Website URL.
+        img_src (str): Location where the image is stored for this specific category.
+        description (str): Short descriptive text.
+
+    Relationships:
+        Relates to Articles.
     """
 
     id = db.Column(db.Integer, primary_key=True)
@@ -22,13 +26,15 @@ class Categories(db.Model):
 
 class Articles(db.Model):
     """
-    Class for the artciles in the website
-    id-> Unique Identifier
-    title-> Title of the article
-    slug-> website url
-    cat_id-> which general category does the article fall under
-    likes-> not implemented yet
-    views-> not implemented yet
+    Class for the articles in the website.
+
+    Attributes:
+        id (int): Unique Identifier.
+        title (str): Title of the article.
+        slug (str): Website URL.
+        cat_id (int): ID of the general category to which the article belongs.
+        likes (int): Number of likes for the article (not implemented yet).
+        views (int): Number of views for the article (not implemented yet).
     """
 
     id = db.Column(db.Integer, primary_key=True)

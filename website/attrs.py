@@ -3,7 +3,7 @@ DB_NAME: str = "blog_portfolio.db"
 # PORTFOLIO_EMAIL: The email address associated with the portfolio.
 PORTFOLIO_EMAIL: str = "aevmorfop.portfolio@gmail.com"
 # PORTFOLIO_PASSWORD: The password for the portfolio email account.
-PORTFOLIO_PASSWORD: str = "hxhdoctdvnofiuji"
+PORTFOLIO_PASSWORD: str = "ddcscscscsdcsd"
 
 # STATIC_STATE: A static state value used in the application for sorting.
 STATIC_STATE: int = 0
