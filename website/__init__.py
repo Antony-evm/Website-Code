@@ -6,13 +6,13 @@ from website.attrs import DB_NAME, PORTFOLIO_EMAIL, PORTFOLIO_PASSWORD
 db = SQLAlchemy()
 
 
-def create_database(app):
-    if not path.exists("website/" + DB_NAME):
-        db.create_all(app=app)
-        print("Created Database!")
+def create_app() -> Flask:
+    """
+    Create and configure the Flask application.
 
-
-def create_app():
+    Returns:
+        Flask: The configured Flask application instance.
+    """
     application = Flask(__name__, static_folder="static")
     application.config["SECRET_KEY"] = "alsdchauwhcww9e"
     application.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
@@ -27,13 +27,18 @@ def create_app():
     application.config["MAIL_DEFAULT_SENDER"] = PORTFOLIO_EMAIL
     db.init_app(application)
 
-    from .views import views
-    from .topics import topics
-    from .articles import articles
+    with application.app_context():
+        if not path.exists("website/" + DB_NAME):
+            db.create_all()
 
-    create_database(application)
-    application.register_blueprint(views, url_prefix="/")
-    application.register_blueprint(topics, url_prefix="/topics")
-    application.register_blueprint(articles, url_prefix="/topics")
+    from .views import views_blueprint
+    from .topics import topics_blueprint
+    from .articles import articles_blueprint
+
+    application.register_blueprint(views_blueprint, url_prefix="/")
+    application.register_blueprint(topics_blueprint, url_prefix="/topics")
+    application.register_blueprint(articles_blueprint, url_prefix="/topics")
+
+    return application
 
     return application
