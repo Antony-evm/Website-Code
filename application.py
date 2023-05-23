@@ -1,6 +1,8 @@
-from website import create_app
-from flask import send_from_directory, request
+from typing import Union
+from flask import request
 from flask.wrappers import Response
+from werkzeug.utils import send_from_directory
+from website import create_app
 
 
 application = create_app()
@@ -8,12 +10,17 @@ application = create_app()
 
 @application.route("/robots.txt")
 @application.route("/sitemap.xml")
-def static_from_root() -> Response:
+def static_from_root() -> Union[str, Response]:
     """
-    Outputs the sitemap and the robots files from the static folder
+    Outputs the sitemap and the robots files from the static folder.
+
+    Returns:
+        Union[str, Response]: The response containing the requested file.
     """
-    return send_from_directory(application.static_folder, request.path[1:])
+    file_path = request.path[1:]
+    environ = request.environ
+    return send_from_directory(str(application.static_folder), file_path, environ=environ)
 
 
 if __name__ == "__main__":
-    application.run(debug=True)
+    application.run(debug=False)
